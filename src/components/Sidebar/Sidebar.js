@@ -13,8 +13,8 @@ export default class Sidebar extends Component {
                             <a href className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />
                             </a>
                             <ul className="treeview-menu">
-                                <li><a href="add-category.html">Thêm mới</a></li>
-                                <li><a href="list-category.html">Danh sách chuyên mục</a></li>
+                                <li><a href="/category/add">Thêm mới</a></li>
+                                <li><a href="/categories">Danh sách chuyên mục</a></li>
                             </ul>
                         </li>
                         <li className="treeview">

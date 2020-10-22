@@ -9,6 +9,9 @@ import AddAuthor from '../components/Author/AddAuthor';
 import ListUser from '../components/User/ListUser';
 import ListStory from '../components/Story/ListStory';
 import AddStory from '../components/Story/AddStory';
+import ListCategory from '../components/Category/ListCategory';
+import AddCategory from '../components/Category/AddCategory';
+
 
 class Url extends Component {
     render() {
@@ -32,6 +35,12 @@ class Url extends Component {
                     </Route>
                     <Route path="/stories">
                         <ListStory/>
+                    </Route>
+                    <Route path="/category/add">
+                        <AddCategory/>
+                    </Route>
+                    <Route path="/categories">
+                        <ListCategory/>
                     </Route>
                     
                     

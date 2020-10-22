@@ -77,6 +77,7 @@ class AddStory extends Component {
     addClick = () =>{
         Axios.post('http://127.0.0.1:8000/api/story/add', this.state.newStory).then((responsive) => {
             this.setState({
+                
                 newStory: {
                     name: '',
                     author_id: '',
