@@ -9,9 +9,11 @@ import AddAuthor from '../components/Author/AddAuthor';
 import ListUser from '../components/User/ListUser';
 import ListStory from '../components/Story/ListStory';
 //
+
 import AddStory from '../components/Story/AddStory';
-import AddCategory from '../components/Catelory/AddCategory';
-import ListCatelories from '../components/Catelory/ListCatelories';
+import ListCategory from '../components/Category/ListCategory';
+import AddCategory from '../components/Category/AddCategory';
+
 
 class Url extends Component {
     render() {
@@ -38,13 +40,17 @@ class Url extends Component {
                     <Route path="/category/add">
                         <AddCategory />
                     </Route>
-                    <Route path="/categories">
-                        <ListCatelories />
-                    </Route>
 
                     <Route path="/stories">
                         <ListStory/>
                     </Route>
+                    <Route path="/category/add">
+                        <AddCategory/>
+                    </Route>
+                    <Route path="/categories">
+                        <ListCategory/>
+                    </Route>
+                    
                     
                     {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />
                     <Route path="/chi-tiet/:slug.:id.html">

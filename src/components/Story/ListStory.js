@@ -24,7 +24,7 @@ class ListStory extends Component {
     render() {
 
         const listStory = this.state.listStory.map((story, index) =>{
-            return <Story author_id={story.author_id} name={story.name}/>
+            return <Story stt={index+1} author_id={story.author_id} name={story.name}/>
         })
 
         return (
@@ -56,7 +56,7 @@ class ListStory extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có 10 bản ghi)</div>
+                    <div className="num-record">(Có {this.state.listStory.length} bản ghi)</div>
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
@@ -90,7 +90,7 @@ class Story extends Component {
     render() {
         return (
             <tr>
-                <td scope="row">1</td>
+                <td scope="row">{this.props.stt}</td>
                 <td><a href="list-chapter.html">{this.props.name}</a></td>
                 <td>{this.props.author_id}</td>
                 <td>15</td>
