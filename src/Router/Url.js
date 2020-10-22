@@ -6,6 +6,12 @@ import {BrowserRouter as Router,
 
 import ListAuthor from '../components/Author/ListAuthor';
 import AddAuthor from '../components/Author/AddAuthor';
+import ListUser from '../components/User/ListUser';
+import ListStory from '../components/Story/ListStory';
+import AddStory from '../components/Story/AddStory';
+import AddCategory from '../components/Catelory/AddCategory';
+import ListCatelories from '../components/Catelory/ListCatelories';
+
 class Url extends Component {
     render() {
         return (
@@ -20,9 +26,25 @@ class Url extends Component {
                     <Route path="/author/add">
                         <AddAuthor />
                     </Route>
-                    {/* <Route path="/users">
+                    <Route path="/users">
                         <ListUser />
-                    </Route> */}
+                    </Route>
+                    <Route path="/users">
+                        
+                    </Route>
+                    <Route path="/storys">
+                        <ListStory />
+                    </Route>
+                    <Route path="/story/add">
+                        <AddStory />
+                    </Route>
+                    <Route path="/category/add">
+                        <AddCategory />
+                    </Route>
+                    <Route path="/categories">
+                        <ListCatelories />
+                    </Route>
+
                     
                     {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />
                     <Route path="/chi-tiet/:slug.:id.html">
