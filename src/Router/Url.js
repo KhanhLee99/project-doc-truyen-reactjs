@@ -8,6 +8,7 @@ import ListAuthor from '../components/Author/ListAuthor';
 import AddAuthor from '../components/Author/AddAuthor';
 import ListUser from '../components/User/ListUser';
 import ListStory from '../components/Story/ListStory';
+import AddStory from '../components/Story/AddStory';
 
 class Url extends Component {
     render() {
@@ -26,9 +27,13 @@ class Url extends Component {
                     <Route path="/users">
                         <ListUser />
                     </Route>
+                    <Route path="/story/add">
+                        <AddStory />
+                    </Route>
                     <Route path="/stories">
                         <ListStory/>
                     </Route>
+                    
                     
                     {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />
                     <Route path="/chi-tiet/:slug.:id.html">

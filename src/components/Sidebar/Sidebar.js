@@ -28,7 +28,7 @@ export default class Sidebar extends Component {
                         <li className="treeview">
                             <a href className="treeview-name"><i className="fa fa-book" /> <span>Truyện</span> <i className="fa fa-angle-left pull-right" /> </a>
                             <ul className="treeview-menu">
-                                <li><a href="add-story.html">Thêm mới</a></li>
+                                <li><a href="/story/add">Thêm mới</a></li>
                                 <li><a href="/stories">Danh sách truyện</a></li>
                             </ul>
                         </li>

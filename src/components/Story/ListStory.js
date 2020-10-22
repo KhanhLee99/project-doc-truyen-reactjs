@@ -56,7 +56,7 @@ class ListStory extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có 10 bản ghi)</div>
+                    <div className="num-record">(Có {this.state.listStory.length} bản ghi)</div>
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
