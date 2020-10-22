@@ -8,6 +8,7 @@ import ListAuthor from '../components/Author/ListAuthor';
 import AddAuthor from '../components/Author/AddAuthor';
 import ListUser from '../components/User/ListUser';
 import ListStory from '../components/Story/ListStory';
+//
 import AddStory from '../components/Story/AddStory';
 import AddCategory from '../components/Catelory/AddCategory';
 import ListCatelories from '../components/Catelory/ListCatelories';
@@ -29,12 +30,8 @@ class Url extends Component {
                     <Route path="/users">
                         <ListUser />
                     </Route>
-                    <Route path="/users">
-                        
-                    </Route>
-                    <Route path="/storys">
-                        <ListStory />
-                    </Route>
+                    
+                   
                     <Route path="/story/add">
                         <AddStory />
                     </Route>
@@ -45,6 +42,9 @@ class Url extends Component {
                         <ListCatelories />
                     </Route>
 
+                    <Route path="/stories">
+                        <ListStory/>
+                    </Route>
                     
                     {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />
                     <Route path="/chi-tiet/:slug.:id.html">

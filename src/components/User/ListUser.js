@@ -1,7 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Axios from 'axios';
 
 export default class ListUser extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            listUser: []
+        }
+    }
+    
+    componentDidMount() {
+        Axios.get('http://127.0.0.1:8000/api/users').then((response) => {
+            this.setState({
+                listUser: response.data
+            })
+        })
+    }
+    
     render() {
+
+        const listUser = this.state.listUser.map((item, index) => {
+            return <User stt={index+1} user={item} key={index}/>
+        })
+
         return (
             <div className="content-wrapper">
                 <div className="main-list">
@@ -24,40 +46,11 @@ export default class ListUser extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td scope="row">1</td>
-                                    <td>Le Viet Khanh</td>
-                                    <td>levietkhanh99@gmail.com</td>
-                                    <td>Admin</td>
-                                    <td>
-                                        <a href title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
-                                        <a href title="Xóa" className="delete"><i className="fa fa-trash icon" /></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">1</td>
-                                    <td>Le Viet Khanh</td>
-                                    <td>levietkhanh99@gmail.com</td>
-                                    <td>User</td>
-                                    <td>
-                                        <a href title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
-                                        <a href title="Xóa" className="delete"><i className="fa fa-trash icon" /></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">1</td>
-                                    <td>Le Viet Khanh</td>
-                                    <td>levietkhanh99@gmail.com</td>
-                                    <td>User</td>
-                                    <td>
-                                        <a href title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
-                                        <a href title="Xóa" className="delete"><i className="fa fa-trash icon" /></a>
-                                    </td>
-                                </tr>
+                                {listUser}
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có 10 bản ghi)</div>
+                    <div className="num-record">(Có {this.state.listUser.length} bản ghi)</div>
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
@@ -85,3 +78,23 @@ export default class ListUser extends Component {
         )
     }
 }
+
+class User extends Component {
+    render() {
+        var user1 = this.props.user;
+        return (
+            <tr>
+                <td scope="row">{this.props.stt}</td>
+                <td>{user1.name}</td>
+                <td>{user1.email}</td>
+                <td>{user1.role}</td>
+                <td>
+                    <a href title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
+                    <a href title="Xóa" className="delete"><i className="fa fa-trash icon" /></a>
+                </td>
+            </tr>
+        );
+    }
+}
+
+
