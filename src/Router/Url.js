@@ -6,6 +6,9 @@ import {BrowserRouter as Router,
 
 import ListAuthor from '../components/Author/ListAuthor';
 import AddAuthor from '../components/Author/AddAuthor';
+import ListUser from '../components/User/ListUser';
+import ListStory from '../components/Story/ListStory';
+
 class Url extends Component {
     render() {
         return (
@@ -20,9 +23,12 @@ class Url extends Component {
                     <Route path="/author/add">
                         <AddAuthor />
                     </Route>
-                    {/* <Route path="/users">
+                    <Route path="/users">
                         <ListUser />
-                    </Route> */}
+                    </Route>
+                    <Route path="/stories">
+                        <ListStory/>
+                    </Route>
                     
                     {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />
                     <Route path="/chi-tiet/:slug.:id.html">

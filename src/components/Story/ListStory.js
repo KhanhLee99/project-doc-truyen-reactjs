@@ -1,37 +1,40 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 
-export default class ListUser extends Component {
 
+class ListStory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listUser: []
+            listStory: []
         }
     }
-    
+
+
+
     componentDidMount() {
-        Axios.get('http://127.0.0.1:8000/api/users').then((response) => {
+        Axios.get('http://127.0.0.1:8000/api/stories').then((response) => {
             this.setState({
-                listUser: response.data
-            })
+                listStory: response.data
+            });
+            console.log(response);
         })
     }
     
     render() {
 
-        const listUser = this.state.listUser.map((item, index) => {
-            return <User stt={index+1} user={item} key={index}/>
+        const listStory = this.state.listStory.map((story, index) =>{
+            return <Story author_id={story.author_id} name={story.name}/>
         })
 
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h2 className="fl-left">DANH SÁCH THÀNH VIÊN</h2>
+                    <h2 className="fl-left">DANH SÁCH TRUYỆN</h2>
                     <div className="hr" />
                     <div className="form-search fl-right">
-                        <a href id="add-category" className="fl-left">Thêm mới</a>
-                        <input type="submit" value="Tìm kiếm" />
+                        <a href="add-story.html" id="add-category" className="fl-left">Thêm mới</a>
+                        <input type="submit" defaultValue="Tìm kiếm" />
                         <input type="text" />
                     </div>
                     <div className="list">
@@ -39,18 +42,21 @@ export default class ListUser extends Component {
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Tên thành viên</th>
-                                    <th>Email</th>
-                                    <th>Chức vụ</th>
+                                    <th>Tên truyện</th>
+                                    <th>Tác giả</th>
+                                    <th>Số chương</th>
+                                    <th>Trạng thái</th>
+                                    <th>Người thêm</th>
+                                    <th>Ngày đăng</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {listUser}
+                                {listStory}
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có {this.state.listUser.length} bản ghi)</div>
+                    <div className="num-record">(Có 10 bản ghi)</div>
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
@@ -75,20 +81,24 @@ export default class ListUser extends Component {
                     </div>
                 </div>
             </div>
-        )
+
+        );
     }
 }
 
-class User extends Component {
+class Story extends Component {
     render() {
-        var user = this.props.user;
         return (
             <tr>
-                <td scope="row">{this.props.stt}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
+                <td scope="row">1</td>
+                <td><a href="list-chapter.html">{this.props.name}</a></td>
+                <td>{this.props.author_id}</td>
+                <td>15</td>
+                <td>Đang cập nhật</td>
+                <td>Admin</td>
+                <td>3/4/2020</td>
                 <td>
+                    <a href="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></a>
                     <a href title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
                     <a href title="Xóa" className="delete"><i className="fa fa-trash icon" /></a>
                 </td>
@@ -97,4 +107,4 @@ class User extends Component {
     }
 }
 
-
+export default ListStory;
