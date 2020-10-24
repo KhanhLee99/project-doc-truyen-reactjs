@@ -17,6 +17,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       listAuthor: [],
+      listCategory: [],
       listUser: [],
       listStory: []
     }
@@ -26,6 +27,13 @@ export default class App extends Component {
     Axios.get('http://127.0.0.1:8000/api/authors').then((response) => {
       this.setState({
         listAuthor: response.data
+      })
+    })
+  }
+  loadCategory = () => {
+    Axios.get('http://127.0.0.1:8000/api/categories').then((response) => {
+      this.setState({
+        listCategory: response.data
       })
     })
   }
@@ -45,6 +53,7 @@ export default class App extends Component {
   }
   componentDidMount() {
     this.loadAuthor();
+    this.loadCategory();
     this.loadStory();
     this.loadUser();
   }
@@ -54,9 +63,13 @@ export default class App extends Component {
       <>
         <MyContext.Provider value={{
           listAuthor: this.state.listAuthor,
+          listCategory: this.state.listCategory,
           listUser: this.state.listUser,
           listStory: this.state.listStory,
           loadAuthor: () => this.loadAuthor(),
+          loadCategory: () => this.loadCategory(),
+          loadStory: () => this.loadStory(),
+          loadUser: ()=>this.loadUser()
         }}>
           <Header />
           <Sidebar />
