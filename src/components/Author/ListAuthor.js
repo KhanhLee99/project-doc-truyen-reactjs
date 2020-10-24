@@ -10,7 +10,7 @@ class ListAuthor extends Component {
         }
     }
 
-    componentDidMount() {
+    loadAuthor = () => {
         Axios.get('http://127.0.0.1:8000/api/authors').then((response) => {
             this.setState({
                 listAuthor: response.data
@@ -18,10 +18,14 @@ class ListAuthor extends Component {
         })
     }
 
+    componentDidMount() {
+        this.loadAuthor();
+    }
+
     render() {
         const listAuthor = this.state.listAuthor.map((item, key) => {
             return (
-                <AuthorItem author={item} key={key} stt={key+1}/>
+                <AuthorItem author={item} key={key} stt={key + 1} loadAuthor={() => this.loadAuthor()} />
             )
         })
         return (
@@ -53,22 +57,22 @@ class ListAuthor extends Component {
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
-                                <a href>&lt;</a>
+                                <a href='/'>&lt;</a>
                             </li>
                             <li className="paging-active">
-                                <a href>1</a>
+                                <a href='/'>1</a>
                             </li>
                             <li>
-                                <a href>2</a>
+                                <a href='/'>2</a>
                             </li>
                             <li>
-                                <a href>3</a>
+                                <a href='/'>3</a>
                             </li>
                             <li>
-                                <a href>4</a>
+                                <a href='/'>4</a>
                             </li>
                             <li>
-                                <a href>&gt;</a>
+                                <a href='/'>&gt;</a>
                             </li>
                         </ul>
                     </div>
@@ -83,6 +87,18 @@ export default ListAuthor;
 
 
 class AuthorItem extends Component {
+    deleteClick = (e, id) => {
+        e.preventDefault();
+        if (window.confirm('Ban co chac muon xoa?')) {
+            Axios.delete('http://127.0.0.1:8000/api/author/' + id).then((response) => {
+                this.props.loadAuthor();
+            })
+        }
+    }
+    editClick = (e, id) => {
+        e.preventDefault();
+        alert(id);
+    }
     render() {
         var { author } = this.props;
         return (
@@ -90,8 +106,8 @@ class AuthorItem extends Component {
                 <td scope="row">{this.props.stt}</td>
                 <td>{author.name}</td>
                 <td>
-                    <a href title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
-                    <a href title="Xóa" className="delete"><i className="fa fa-trash icon" /></a>
+                    <a href='/' title="Sửa" className="edit" onClick={(e, id) => { this.editClick(e, author.id) }}><i className="fa fa-pencil icon" /></a>
+                    <a href='/' title="Xóa" className="delete" onClick={(e, id) => { this.deleteClick(e, author.id) }}><i className="fa fa-trash icon" /></a>
                 </td>
             </tr>
         )

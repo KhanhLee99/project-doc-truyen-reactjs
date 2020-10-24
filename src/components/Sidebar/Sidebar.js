@@ -7,10 +7,10 @@ export default class Sidebar extends Component {
                 <section className="sidebar">
                     <ul className="sidebar-menu">
                         <li className="treeview">
-                            <a href="dashboard.html" className="treeview-name"> <i className="fa fa-home" /> <span>Dashboard</span> </a>
+                            <a href="/home" className="treeview-name"> <i className="fa fa-home" /> <span>Dashboard</span> </a>
                         </li>
                         <li className="treeview">
-                            <a href className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />
+                            <a href='/' className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />
                             </a>
                             <ul className="treeview-menu">
                                 <li><a href="/category/add">Thêm mới</a></li>
@@ -18,7 +18,7 @@ export default class Sidebar extends Component {
                             </ul>
                         </li>
                         <li className="treeview">
-                            <a href className="treeview-name"><i className="fa fa-pencil-square-o" /> <span>Tác giả</span> <i className="fa fa-angle-left pull-right" />
+                            <a href='/' className="treeview-name"><i className="fa fa-pencil-square-o" /> <span>Tác giả</span> <i className="fa fa-angle-left pull-right" />
                             </a>
                             <ul className="treeview-menu">
                                 <li><a href="/author/add">Thêm mới</a></li>
@@ -26,7 +26,7 @@ export default class Sidebar extends Component {
                             </ul>
                         </li>
                         <li className="treeview">
-                            <a href className="treeview-name"><i className="fa fa-book" /> <span>Truyện</span> <i className="fa fa-angle-left pull-right" /> </a>
+                            <a href='/' className="treeview-name"><i className="fa fa-book" /> <span>Truyện</span> <i className="fa fa-angle-left pull-right" /> </a>
                             <ul className="treeview-menu">
                                 <li><a href="/story/add">Thêm mới</a></li>
                                 <li><a href="/stories">Danh sách truyện</a></li>
