@@ -1,31 +1,31 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import MyContext from '../../myContext';
 
 class ListAuthor extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            listAuthor: []
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         listAuthor: []
+    //     }
+    // }
 
-    loadAuthor = () => {
-        Axios.get('http://127.0.0.1:8000/api/authors').then((response) => {
-            this.setState({
-                listAuthor: response.data
-            })
-        })
-    }
+    // loadAuthor = () => {
+    //     Axios.get('http://127.0.0.1:8000/api/authors').then((response) => {
+    //         this.setState({
+    //             listAuthor: response.data
+    //         })
+    //     })
+    // }
 
-    componentDidMount() {
-        this.loadAuthor();
-    }
+    // componentDidMount() {
+    //     this.loadAuthor();
+    // }
 
     render() {
-        const listAuthor = this.state.listAuthor.map((item, key) => {
+        const listAuthor = this.context.listAuthor.map((item, key) => {
             return (
-                <AuthorItem author={item} key={key} stt={key + 1} loadAuthor={() => this.loadAuthor()} />
+                <AuthorItem author={item} key={key} stt={key + 1} />
             )
         })
         return (
@@ -49,11 +49,10 @@ class ListAuthor extends Component {
                             </thead>
                             <tbody>
                                 {listAuthor}
-
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có {this.state.listAuthor.length} bản ghi)</div>
+                    <div className="num-record">(Có {this.context.listAuthor.length} bản ghi)</div>
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
@@ -82,7 +81,7 @@ class ListAuthor extends Component {
         )
     }
 }
-
+ListAuthor.contextType = MyContext;
 export default ListAuthor;
 
 
@@ -91,7 +90,7 @@ class AuthorItem extends Component {
         e.preventDefault();
         if (window.confirm('Ban co chac muon xoa?')) {
             Axios.delete('http://127.0.0.1:8000/api/author/' + id).then((response) => {
-                this.props.loadAuthor();
+                this.context.loadAuthor();
             })
         }
     }
@@ -113,3 +112,4 @@ class AuthorItem extends Component {
         )
     }
 }
+AuthorItem.contextType = MyContext;
