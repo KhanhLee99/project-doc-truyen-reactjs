@@ -58,7 +58,7 @@ class AddCategory extends Component {
                         <input onChange={(e) => this.changeName(e)} type="text" name="name" id="name" />
                         <label htmlFor="description">Mô tả ngắn</label>
                         <textarea onChange={(e) => this.changeDescription(e)} name="description" id="description" defaultValue={""} />
-                        <button onClick={() => this.addClick()} type="reset" value="Thêm mới">Thêm mới</button>
+                        <button onClick={() => this.addClick()}>Thêm mới</button>
                     </form>
                 </div>
             </div>

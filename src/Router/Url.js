@@ -13,6 +13,7 @@ import ListStory from '../components/Story/ListStory';
 import AddStory from '../components/Story/AddStory';
 import ListCategory from '../components/Category/ListCategory';
 import AddCategory from '../components/Category/AddCategory';
+import EditAuthor from '../components/Author/EditAuthor';
 
 
 class Url extends Component {
@@ -50,6 +51,9 @@ class Url extends Component {
                     <Route path="/categories">
                         <ListCategory/>
                     </Route>
+
+                    <Route path="/author/edit/:id" children={<EditAuthor />} />
+                        
                     
                     
                     {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />

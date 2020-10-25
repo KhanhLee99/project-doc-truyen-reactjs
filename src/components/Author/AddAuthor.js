@@ -54,14 +54,14 @@ export default class AddAuthor extends Component {
                 <div className="main-content">
                     <h2>THÊM MỚI TÁC GIẢ</h2>
                     <div className="hr1" />
-                    <form action="#" method="POST">
+                    <form>
                         <label htmlFor="name">Tên tác giả</label>
-                        <input onChange={(e) => this.changeName(e)} type="text" name="name" id="name" defaultValue={this.state.newAuthor.name} />
+                        <input onChange={(e) => this.changeName(e)} type="text" name="name" id="name" />
 
                         <label htmlFor="description">Mô tả ngắn</label>
-                        <textarea onChange={(e) => this.changeDescription(e)} name="description" id="description" defaultValue={this.state.newAuthor.description} />
+                        <textarea onChange={(e) => this.changeDescription(e)} name="description" id="description" />
 
-                        <input onClick={() => this.addClick()} type="reset" value="Thêm mới" />
+                        <button onClick={() => this.addClick()} value="Thêm mới">Thêm mới</button>
                     </form>
                 </div>
             </div>

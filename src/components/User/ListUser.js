@@ -84,7 +84,7 @@ class User extends Component {
         var user1 = this.props.user;
         return (
             <tr>
-                <td scope="row">{this.props.stt}</td>
+                <td>{this.props.stt}</td>
                 <td>{user1.name}</td>
                 <td>{user1.email}</td>
                 <td>{user1.role}</td>

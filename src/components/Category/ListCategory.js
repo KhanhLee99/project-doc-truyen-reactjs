@@ -84,7 +84,7 @@ class Category extends Component {
         let cate = this.props.cate;
         return (
             <tr>
-                <td scope="row">{this.props.stt}</td>
+                <td>{this.props.stt}</td>
                 <td>{cate.name}</td>
                 <td>Không có</td>
                 <td>

@@ -123,7 +123,7 @@ class AddStory extends Component {
                         <textarea onChange={(e) => this.changeDescription(e)}  name="description" id="description" />
                         <label htmlFor="file">Ảnh đại diện</label>
                         <input onChange={(e) => this.changePathImg(e)} type="file" name="file" id="file" />
-                        <button onClick={() => this.addClick()} type="reset" value="Thêm mới">Thêm mới</button>
+                        <button onClick={() => this.addClick()} >Thêm mới</button>
                     </form>
                 </div>
             </div>

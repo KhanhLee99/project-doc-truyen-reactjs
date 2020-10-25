@@ -18,7 +18,8 @@ export default class App extends Component {
     this.state = {
       listAuthor: [],
       listUser: [],
-      listStory: []
+      listStory: [],
+      authorEdit: {}
     }
   }
 
@@ -49,6 +50,17 @@ export default class App extends Component {
     this.loadUser();
   }
 
+  getAuthorById = (id) => {
+    Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
+      // alert(JSON.stringify(response.data));
+      this.setState({
+        authorEdit: response.data
+      })
+      // console.log("res "+JSON.stringify(response.data));
+      // console.log("edit "+JSON.stringify(this.state.authorEdit));
+    })
+  }
+
   render() {
     return (
       <>
@@ -57,6 +69,8 @@ export default class App extends Component {
           listUser: this.state.listUser,
           listStory: this.state.listStory,
           loadAuthor: () => this.loadAuthor(),
+          authorEdit: this.state.authorEdit,
+          getAuthorById: (id) => this.getAuthorById(id)
         }}>
           <Header />
           <Sidebar />

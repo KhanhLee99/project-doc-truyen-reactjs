@@ -90,7 +90,7 @@ class Story extends Component {
     render() {
         return (
             <tr>
-                <td scope="row">{this.props.stt}</td>
+                <td>{this.props.stt}</td>
                 <td><a href="list-chapter.html">{this.props.name}</a></td>
                 <td>{this.props.author_id}</td>
                 <td>15</td>

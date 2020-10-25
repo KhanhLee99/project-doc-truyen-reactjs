@@ -1,6 +1,11 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
 import MyContext from '../../myContext';
+import {
+    BrowserRouter as Route,
+    Link,
+    useParams
+} from "react-router-dom";
 
 class ListAuthor extends Component {
     // constructor(props) {
@@ -86,6 +91,13 @@ export default ListAuthor;
 
 
 class AuthorItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            authorEdit: {}
+        }
+    }
+
     deleteClick = (e, id) => {
         e.preventDefault();
         if (window.confirm('Ban co chac muon xoa?')) {
@@ -95,17 +107,21 @@ class AuthorItem extends Component {
         }
     }
     editClick = (e, id) => {
-        e.preventDefault();
-        alert(id);
+        // e.preventDefault();
+        // Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
+        //     console.log(response.data);
+        // })
+        this.context.getAuthorById(id);
+        
     }
     render() {
         var { author } = this.props;
         return (
             <tr>
-                <td scope="row">{this.props.stt}</td>
+                <td>{this.props.stt}</td>
                 <td>{author.name}</td>
                 <td>
-                    <a href='/' title="Sửa" className="edit" onClick={(e, id) => { this.editClick(e, author.id) }}><i className="fa fa-pencil icon" /></a>
+                    <Link to={'/author/edit/' + author.id} title="Sửa" className="edit" onClick={(e, id) => this.editClick(e, author.id)}><i className="fa fa-pencil icon" /></Link>
                     <a href='/' title="Xóa" className="delete" onClick={(e, id) => { this.deleteClick(e, author.id) }}><i className="fa fa-trash icon" /></a>
                 </td>
             </tr>
