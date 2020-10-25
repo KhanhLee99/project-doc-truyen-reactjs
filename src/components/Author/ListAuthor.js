@@ -39,7 +39,7 @@ class ListAuthor extends Component {
                     <h2 className="fl-left">DANH SÁCH TÁC GIẢ</h2>
                     <div className="hr" />
                     <div className="form-search fl-right">
-                        <a href="add-author.html" id="add-category" className="fl-left">Thêm mới</a>
+                        <a href="/category/add" id="add-category" className="fl-left">Thêm mới</a>
                         <input type="submit" value="Tìm kiếm" />
                         <input type="text" />
                     </div>
