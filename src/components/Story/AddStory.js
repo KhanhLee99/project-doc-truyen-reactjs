@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import MyContext from '../../myContext';
 
 
 class AddStory extends Component {
@@ -74,7 +75,8 @@ class AddStory extends Component {
     //     })
     // }
 
-    addClick = () =>{
+    addClick = (e) =>{
+        e.preventDefault();
         Axios.post('http://127.0.0.1:8000/api/story/add', this.state.newStory).then((responsive) => {
             this.setState({
                 
@@ -87,10 +89,9 @@ class AddStory extends Component {
                 }
             });
             alert('Da them thanh cong');
+            this.context.loadStory();
         })
     }
-    
-
 
     render() {
         return (
@@ -123,7 +124,7 @@ class AddStory extends Component {
                         <textarea onChange={(e) => this.changeDescription(e)}  name="description" id="description" />
                         <label htmlFor="file">Ảnh đại diện</label>
                         <input onChange={(e) => this.changePathImg(e)} type="file" name="file" id="file" />
-                        <button onClick={() => this.addClick()} >Thêm mới</button>
+                        <button onClick={(e) => this.addClick(e)} >Thêm mới</button>
                     </form>
                 </div>
             </div>
@@ -133,3 +134,4 @@ class AddStory extends Component {
 }
 
 export default AddStory;
+AddStory.contextType = MyContext;

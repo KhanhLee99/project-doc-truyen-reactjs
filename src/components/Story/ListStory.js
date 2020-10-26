@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import MyContext from '../../myContext';
+import Search from './Search'
+import {
+    BrowserRouter as Route,
+    Link,
+} from "react-router-dom";
 
 
 class ListStory extends Component {
@@ -33,11 +38,7 @@ class ListStory extends Component {
                 <div className="main-list">
                     <h2 className="fl-left">DANH SÁCH TRUYỆN</h2>
                     <div className="hr" />
-                    <div className="form-search fl-right">
-                        <a href="/story/add" id="add-category" className="fl-left">Thêm mới</a>
-                        <input type="submit" defaultValue="Tìm kiếm" />
-                        <input type="text" />
-                    </div>
+                    <Search/>
                     <div className="list">
                         <table className="content-table">
                             <thead>
@@ -61,22 +62,22 @@ class ListStory extends Component {
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
-                                <a href>&lt;</a>
+                                <Link to>&lt;</Link>
                             </li>
                             <li className="paging-active">
-                                <a href>1</a>
+                                <Link to>1</Link>
                             </li>
                             <li>
-                                <a href>2</a>
+                                <Link to>2</Link>
                             </li>
                             <li>
-                                <a href>3</a>
+                                <Link to>3</Link>
                             </li>
                             <li>
-                                <a href>4</a>
+                                <Link to>4</Link>
                             </li>
                             <li>
-                                <a href>&gt;</a>
+                                <Link to>&gt;</Link>
                             </li>
                         </ul>
                     </div>
@@ -108,16 +109,16 @@ class StoryItem extends Component {
         return (
             <tr>
                 <td scope="row">{this.props.stt}</td>
-                <td><a href="list-chapter.html">{story.name}</a></td>
+                <td><Link to="list-chapter.html">{story.name}</Link></td>
                 <td>{story.author_id}</td>
                 <td>15</td>
                 <td>Đang cập nhật</td>
                 <td>Admin</td>
                 <td>3/4/2020</td>
                 <td>
-                    <a href="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></a>
-                    <a href='/' title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
-                    <a href='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, story.id)}><i className="fa fa-trash icon" /></a>
+                    <Link to="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></Link>
+                    <Link to='/' title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
+                    <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, story.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
             </tr>
         );

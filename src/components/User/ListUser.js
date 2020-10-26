@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import MyContext from '../../myContext';
+import Search from './Search';
+import {
+    BrowserRouter as Route,
+    Link,
+} from "react-router-dom";
 
 export default class ListUser extends Component {
 
@@ -30,11 +35,7 @@ export default class ListUser extends Component {
                 <div className="main-list">
                     <h2 className="fl-left">DANH SÁCH THÀNH VIÊN</h2>
                     <div className="hr" />
-                    <div className="form-search fl-right">
-                        <a href id="add-category" className="fl-left">Thêm mới</a>
-                        <input type="submit" value="Tìm kiếm" />
-                        <input type="text" />
-                    </div>
+                    <Search/>
                     <div className="list">
                         <table className="content-table">
                             <thead>
@@ -55,22 +56,22 @@ export default class ListUser extends Component {
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
-                                <a href>&lt;</a>
+                                <Link to>&lt;</Link>
                             </li>
                             <li className="paging-active">
-                                <a href>1</a>
+                                <Link to>1</Link>
                             </li>
                             <li>
-                                <a href>2</a>
+                                <Link to>2</Link>
                             </li>
                             <li>
-                                <a href>3</a>
+                                <Link to>3</Link>
                             </li>
                             <li>
-                                <a href>4</a>
+                                <Link to>4</Link>
                             </li>
                             <li>
-                                <a href>&gt;</a>
+                                <Link to>&gt;</Link>
                             </li>
                         </ul>
                     </div>
@@ -102,8 +103,8 @@ class UserItem extends Component {
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>
-                    <a href title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
-                    <a href='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, user.id)}><i className="fa fa-trash icon" /></a>
+                    <Link to title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
+                    <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, user.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
             </tr>
         );

@@ -1,51 +1,31 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
+import MyContext from '../../myContext';
 
 
 export default class AddAuthor extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            newAuthor: {
-                name: "",
-                description: ""
-            }
-        }
+
+        this.nameRef = React.createRef();
+        this.descriptionRef = React.createRef();
     }
 
-    changeName = (e) => {
-        this.setState({
-            newAuthor: {
-                name: e.target.value,
-                description: this.state.newAuthor.description
-            }
-        })
-    }
-    changeDescription = (e) => {
-        this.setState({
-            newAuthor: {
-                name: this.state.newAuthor.name,
-                description: e.target.value
-            }
-        })
-    }
 
     addClick = () => {
-        // if (this.state.newAuthor.name == "" || this.state.newAuthor.description == "") {
-        //     alert('Vui long nhap day du thong tin !!!');
-        // }
-        // else {
-            Axios.post('http://127.0.0.1:8000/api/author/add', this.state.newAuthor).then((responsive) => {
-                this.setState({
-                    newAuthor: {
-                        name: "",
-                        description: ""
-                    }
-                });
-                alert('Da them thanh cong')
+        if (this.nameRef.current.value === "") {
+            alert('Không để trống tên tác giả');
+        }
+        else {
+            let newAuthor = {
+                name: this.nameRef.current.value,
+                description: this.descriptionRef.current.value
+            }
+            Axios.post('http://127.0.0.1:8000/api/author/add', newAuthor).then((responsive) => {
+                alert('Da them thanh cong');
+                this.context.loadAuthor();
             })
-        // }
-
+        }
     }
 
     render() {
@@ -54,18 +34,17 @@ export default class AddAuthor extends Component {
                 <div className="main-content">
                     <h2>THÊM MỚI TÁC GIẢ</h2>
                     <div className="hr1" />
-                    {/* <form> */}
-                        <label htmlFor="name">Tên tác giả</label>
-                        <input onChange={(e) => this.changeName(e)} type="text" name="name" id="name" />
+                    <label htmlFor="name">Tên tác giả</label>
+                    <input ref={this.nameRef} type="text" name="name" id="name" />
 
-                        <label htmlFor="description">Mô tả ngắn</label>
-                        <textarea onChange={(e) => this.changeDescription(e)} name="description" id="description" />
+                    <label htmlFor="description">Mô tả ngắn</label>
+                    <textarea ref={this.descriptionRef} name="description" id="description" />
 
-                        <button onClick={() => this.addClick()} value="Thêm mới">Thêm mới</button>
-                    {/* </form> */}
+                    <button onClick={() => this.addClick()} value="Thêm mới">Thêm mới</button>
                 </div>
             </div>
 
         )
     }
 }
+AddAuthor.contextType = MyContext;

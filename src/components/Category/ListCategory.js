@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import MyContext from '../../myContext';
-
+import Search from './Search';
+import { Link } from 'react-router-dom';
 class ListCategory extends Component {
 
     // constructor(props) {
@@ -32,11 +33,7 @@ class ListCategory extends Component {
                 <div className="main-list">
                     <h2 className="fl-left">DANH SÁCH CHUYÊN MỤC</h2>
                     <div className="hr" />
-                    <div className="form-search fl-right">
-                        <a href="/category/add" id="add-category" className="fl-left">Thêm mới</a>
-                        <input type="submit" value="Tìm kiếm" />
-                        <input type="text" />
-                    </div>
+                    <Search/>
                     <div className="list">
                         <table className="content-table">
                             <thead>
@@ -55,22 +52,22 @@ class ListCategory extends Component {
                     <div className="paging">
                         <ul id="list-paging" className="fl-right">
                             <li>
-                                <a href>&lt;</a>
+                                <Link to>&lt;</Link>
                             </li>
                             <li className="paging-active">
-                                <a href>1</a>
+                                <Link to>1</Link>
                             </li>
                             <li>
-                                <a href>2</a>
+                                <Link to>2</Link>
                             </li>
                             <li>
-                                <a href>3</a>
+                                <Link to>3</Link>
                             </li>
                             <li>
-                                <a href>4</a>
+                                <Link to>4</Link>
                             </li>
                             <li>
-                                <a href>&gt;</a>
+                                <Link to>&gt;</Link>
                             </li>
                         </ul>
                     </div>
@@ -108,8 +105,8 @@ class CategoryItem extends Component {
                 <td>{this.props.stt}</td>
                 <td>{cate.name}</td>
                 <td>
-                    <a href='/' title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
-                    <a href='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, cate.id)}><i className="fa fa-trash icon" /></a>
+                    <Link to='/' title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
+                    <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, cate.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
             </tr>
         );
