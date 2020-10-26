@@ -32,8 +32,6 @@ class EditAuthor extends Component {
         })
     }
     
-    
-
     render() {
         return (
             <div className="content-wrapper">

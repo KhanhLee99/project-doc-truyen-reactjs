@@ -52,14 +52,14 @@ class AddCategory extends Component {
                 <div className="main-content">
                     <h2>THÊM MỚI CHUYÊN MỤC</h2>
                     <div className="hr1" />
-                    <form action>
+                    {/* <form action> */}
                         
                         <label htmlFor="name">Tên chuyên mục</label>
                         <input onChange={(e) => this.changeName(e)} type="text" name="name" id="name" />
                         <label htmlFor="description">Mô tả ngắn</label>
                         <textarea onChange={(e) => this.changeDescription(e)} name="description" id="description" defaultValue={""} />
                         <button onClick={() => this.addClick()}>Thêm mới</button>
-                    </form>
+                    {/* </form> */}
                 </div>
             </div>
 

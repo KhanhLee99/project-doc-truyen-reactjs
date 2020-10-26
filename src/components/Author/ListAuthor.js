@@ -4,45 +4,21 @@ import MyContext from '../../myContext';
 import {
     BrowserRouter as Route,
     Link,
-    useParams
 } from "react-router-dom";
+import Pagination from './Pagination';
+import Search from './Search';
 
 class ListAuthor extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         listAuthor: []
-    //     }
-    // }
-
-    // loadAuthor = () => {
-    //     Axios.get('http://127.0.0.1:8000/api/authors').then((response) => {
-    //         this.setState({
-    //             listAuthor: response.data
-    //         })
-    //     })
-    // }
-
-    // componentDidMount() {
-    //     this.loadAuthor();
-    // }
-
     render() {
-        const listAuthor = this.context.listAuthor.map((item, key) => {
-            return (
-                <AuthorItem author={item} key={key} stt={key + 1} />
-            )
-        })
+        const listAuthor = this.context.listAuthor.map((item, key) => (
+            <AuthorItem author={item} key={key} stt={key + 1} />
+        ))
         return (
             <div className="content-wrapper">
                 <div className="main-list">
                     <h2 className="fl-left">DANH SÁCH TÁC GIẢ</h2>
                     <div className="hr" />
-                    <div className="form-search fl-right">
-                        <a href="/category/add" id="add-category" className="fl-left">Thêm mới</a>
-                        <input type="submit" value="Tìm kiếm" />
-                        <input type="text" />
-                    </div>
+                    <Search />
                     <div className="list">
                         <table className="content-table">
                             <thead>
@@ -58,31 +34,9 @@ class ListAuthor extends Component {
                         </table>
                     </div>
                     <div className="num-record">(Có {this.context.listAuthor.length} bản ghi)</div>
-                    <div className="paging">
-                        <ul id="list-paging" className="fl-right">
-                            <li>
-                                <a href='/'>&lt;</a>
-                            </li>
-                            <li className="paging-active">
-                                <a href='/'>1</a>
-                            </li>
-                            <li>
-                                <a href='/'>2</a>
-                            </li>
-                            <li>
-                                <a href='/'>3</a>
-                            </li>
-                            <li>
-                                <a href='/'>4</a>
-                            </li>
-                            <li>
-                                <a href='/'>&gt;</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <Pagination />
                 </div>
             </div>
-
         )
     }
 }
@@ -107,12 +61,7 @@ class AuthorItem extends Component {
         }
     }
     editClick = (e, id) => {
-        // e.preventDefault();
-        // Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
-        //     console.log(response.data);
-        // })
         this.context.getAuthorById(id);
-        
     }
     render() {
         var { author } = this.props;

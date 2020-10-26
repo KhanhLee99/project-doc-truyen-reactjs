@@ -20,7 +20,7 @@ export default class App extends Component {
       listCategory: [],
       listUser: [],
       listStory: [],
-      authorEdit: {}
+      authorEdit: {},
     }
   }
 
@@ -61,13 +61,23 @@ export default class App extends Component {
 
   getAuthorById = (id) => {
     Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
-      // alert(JSON.stringify(response.data));
       this.setState({
         authorEdit: response.data
       })
-      // console.log("res "+JSON.stringify(response.data));
-      // console.log("edit "+JSON.stringify(this.state.authorEdit));
     })
+  }
+
+  searchAuthor = (name) => {
+    if (name === "") {
+      this.loadAuthor();
+    }
+    else {
+      Axios.get('http://127.0.0.1:8000/api/author/search/' + name).then((response) => {
+          this.setState({
+            listAuthor: response.data
+          })
+      })
+    }
   }
 
   render() {
@@ -83,7 +93,8 @@ export default class App extends Component {
           getAuthorById: (id) => this.getAuthorById(id),
           loadCategory: () => this.loadCategory(),
           loadStory: () => this.loadStory(),
-          loadUser: ()=>this.loadUser()
+          loadUser: () => this.loadUser(),
+          searchAuthor: (name) => this.searchAuthor(name)
         }}>
           <Header />
           <Sidebar />

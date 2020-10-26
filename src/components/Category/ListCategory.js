@@ -34,7 +34,7 @@ class ListCategory extends Component {
                     <div className="hr" />
                     <div className="form-search fl-right">
                         <a href="/category/add" id="add-category" className="fl-left">Thêm mới</a>
-                        <input type="submit" defaultValue="Tìm kiếm" />
+                        <input type="submit" value="Tìm kiếm" />
                         <input type="text" />
                     </div>
                     <div className="list">
@@ -43,7 +43,6 @@ class ListCategory extends Component {
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên chuyên mục</th>
-                                    <th>Chuyên mục cha</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
@@ -108,7 +107,6 @@ class CategoryItem extends Component {
             <tr>
                 <td>{this.props.stt}</td>
                 <td>{cate.name}</td>
-                <td>Không có</td>
                 <td>
                     <a href='/' title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
                     <a href='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, cate.id)}><i className="fa fa-trash icon" /></a>
