@@ -80,6 +80,46 @@ export default class App extends Component {
     }
   }
 
+  searchCategory = (name) => {
+    if(name === ""){
+      this.loadCategory();
+    }
+    else {
+      Axios.get(('http://127.0.0.1:8000/api/category/search/' + name)).then((response) =>{
+        this.setState({
+          listCategory: response.data
+        })
+      })
+    }
+  }
+
+  searchStory = (name) => {
+    if(name ===''){
+      this.loadStory();
+    }else{
+      Axios.get('http://127.0.0.1:8000/api/story/search/' + name).then((response) => {
+        this.setState({
+          listStory: response.data
+        })
+      })
+    }
+  }
+
+  searchUser = (name) => {
+    if(name === ''){
+      this.loadUser();
+    }
+    else{
+      Axios.get('http://127.0.0.1:8000/api/user/search/' + name).then((response) =>{
+        this.setState({
+          listUser: response.data
+        })
+      })
+    }
+  }
+
+
+
   render() {
     return (
       <>
@@ -94,11 +134,14 @@ export default class App extends Component {
           loadCategory: () => this.loadCategory(),
           loadStory: () => this.loadStory(),
           loadUser: () => this.loadUser(),
-          searchAuthor: (name) => this.searchAuthor(name)
+          searchAuthor: (name) => this.searchAuthor(name),
+          searchCategory: (name) => this.searchCategory(name),
+          searchUser: (name) => this.searchUser(name),
+          searchStory: (name) => this.searchStory(name)
         }}>
+          <Router>
           <Header />
           <Sidebar />
-          <Router>
             <Url />
           </Router>
         </MyContext.Provider>

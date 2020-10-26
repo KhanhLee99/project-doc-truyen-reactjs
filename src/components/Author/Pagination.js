@@ -1,4 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {
+    BrowserRouter as Route,
+    Link,
+} from "react-router-dom";
 
 export default class Pagination extends Component {
     render() {
@@ -6,22 +10,22 @@ export default class Pagination extends Component {
             <div className="paging">
                 <ul id="list-paging" className="fl-right">
                     <li>
-                        <a href='/'>&lt;</a>
+                        <Link to='/'>&lt;</Link>
                     </li>
                     <li className="paging-active">
-                        <a href='/'>1</a>
+                        <Link to='/'>1</Link>
                     </li>
                     <li>
-                        <a href='/'>2</a>
+                        <Link to='/'>2</Link>
                     </li>
                     <li>
-                        <a href='/'>3</a>
+                        <Link to='/'>3</Link>
                     </li>
                     <li>
-                        <a href='/'>4</a>
+                        <Link to='/'>4</Link>
                     </li>
                     <li>
-                        <a href='/'>&gt;</a>
+                        <Link to='/'>&gt;</Link>
                     </li>
                 </ul>
             </div>

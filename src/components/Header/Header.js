@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import {
+    BrowserRouter as Route,
+    Link,
+} from "react-router-dom";
 
 export default class Header extends Component {
     click = (e) => {
@@ -7,23 +11,23 @@ export default class Header extends Component {
     render() {
         return (
             <header className="main-header">
-                <a href="dashboard.html" className="logo"> <span className="logo-lg">ADMIN</span> </a>
+                <Link to="dashboard.html" className="logo"> <span className="logo-lg">ADMIN</span> </Link>
                 <nav className="navbar navbar-static-top" role="navigation">
-                    <a href="http://www.google.com" className="sidebar-toggle" data-toggle="offcanvas" role="button" />
+                    <Link to="http://www.google.com" className="sidebar-toggle" data-toggle="offcanvas" role="button" />
                     <div className="navbar-custom-menu">
                         <ul className="nav navbar-nav">
-                            <li className="dropdown user user-menu"> <a onClick={(e) => this.click(e)} href="http://www.google.com" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist\img\ava.jpg" className="user-image" alt="User Image" /> <span className="hidden-xs">levietkhanh</span> </a>
+                            <li className="dropdown user user-menu"> <Link onClick={(e) => this.click(e)} to="http://www.google.com" className="dropdown-toggle" data-toggle="dropdown">
+                                <img src="dist\img\ava.jpg" className="user-image" alt="User Image" /> <span className="hidden-xs">levietkhanh</span> </Link>
                             </li>
                         </ul>
                     </div>
                     <div className="dropdown-menu">
                         <ul>
                             <li className="user-footer">
-                                <a href="admin-info.html">Thông tin cá nhân</a>
+                                <Link to="admin-info.html">Thông tin cá nhân</Link>
                             </li>
                             <li className="user-footer">
-                                <a href="login.html">Thoát</a>
+                                <Link to="login.html">Thoát</Link>
                             </li>
                         </ul>
                     </div>

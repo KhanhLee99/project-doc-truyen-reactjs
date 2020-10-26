@@ -71,7 +71,7 @@ class AuthorItem extends Component {
                 <td>{author.name}</td>
                 <td>
                     <Link to={'/author/edit/' + author.id} title="Sửa" className="edit" onClick={(e, id) => this.editClick(e, author.id)}><i className="fa fa-pencil icon" /></Link>
-                    <a href='/' title="Xóa" className="delete" onClick={(e, id) => { this.deleteClick(e, author.id) }}><i className="fa fa-trash icon" /></a>
+                    <Link to='/' title="Xóa" className="delete" onClick={(e, id) => { this.deleteClick(e, author.id) }}><i className="fa fa-trash icon" /></Link>
                 </td>
             </tr>
         )
