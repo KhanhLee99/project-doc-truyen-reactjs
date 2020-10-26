@@ -21,6 +21,7 @@ export default class App extends Component {
       listUser: [],
       listStory: [],
       authorEdit: {},
+      isRedirect: false,
     }
   }
 
@@ -59,11 +60,9 @@ export default class App extends Component {
     this.loadUser();
   }
 
-  getAuthorById = (id) => {
-    Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
-      this.setState({
-        authorEdit: response.data
-      })
+  getAuthorEdit = (authorEdit) => {
+    this.setState({
+      authorEdit: authorEdit
     })
   }
 
@@ -73,14 +72,26 @@ export default class App extends Component {
     }
     else {
       Axios.get('http://127.0.0.1:8000/api/author/search/' + name).then((response) => {
-          this.setState({
-            listAuthor: response.data
-          })
+        this.setState({
+          listAuthor: response.data
+        })
       })
     }
   }
 
+  trueRedirect = () => {
+    this.setState({
+      isRedirect: true
+    })
+  }
+  falseRedirect = () => {
+    this.setState({
+      isRedirect: false
+    })
+  }
+
   render() {
+    console.log(this.state);
     return (
       <>
         <MyContext.Provider value={{
@@ -90,19 +101,21 @@ export default class App extends Component {
           listStory: this.state.listStory,
           loadAuthor: () => this.loadAuthor(),
           authorEdit: this.state.authorEdit,
-          getAuthorById: (id) => this.getAuthorById(id),
+          getAuthorEdit: (authorEdit) => this.getAuthorEdit(authorEdit),
           loadCategory: () => this.loadCategory(),
           loadStory: () => this.loadStory(),
           loadUser: () => this.loadUser(),
-          searchAuthor: (name) => this.searchAuthor(name)
+          searchAuthor: (name) => this.searchAuthor(name),
+          isRedirect: this.state.isRedirect,
+          trueRedirect: () => this.trueRedirect(),
+          falseRedirect: () => this.falseRedirect(),
         }}>
-          <Header />
-          <Sidebar />
           <Router>
+            <Header />
+            <Sidebar />
             <Url />
           </Router>
         </MyContext.Provider>
-
       </>
     )
   }

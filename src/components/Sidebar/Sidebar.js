@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import {
+    BrowserRouter as Route,
+    Link,
+} from "react-router-dom";
 
 export default class Sidebar extends Component {
     render() {
@@ -21,8 +25,8 @@ export default class Sidebar extends Component {
                             <a href='/' className="treeview-name"><i className="fa fa-pencil-square-o" /> <span>Tác giả</span> <i className="fa fa-angle-left pull-right" />
                             </a>
                             <ul className="treeview-menu">
-                                <li><a href="/author/add">Thêm mới</a></li>
-                                <li><a href="/authors">Danh sách tác giả</a></li>
+                                <li><Link to="/author/add">Thêm mới</Link></li>
+                                <li><Link to="/authors">Danh sách tác giả</Link></li>
                             </ul>
                         </li>
                         <li className="treeview">

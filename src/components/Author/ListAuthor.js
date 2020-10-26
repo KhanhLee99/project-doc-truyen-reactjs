@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import MyContext from '../../myContext';
 import {
     BrowserRouter as Route,
-    Link,
+    Link, Redirect
 } from "react-router-dom";
 import Pagination from './Pagination';
 import Search from './Search';
@@ -61,16 +61,25 @@ class AuthorItem extends Component {
         }
     }
     editClick = (e, id) => {
-        this.context.getAuthorById(id);
+        e.preventDefault();
+        Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
+            this.context.getAuthorEdit(response.data);
+            this.context.trueRedirect();
+        })
     }
     render() {
+        if(this.context.isRedirect) {
+            return (
+                <Redirect to='/author/edit' />
+            )
+        }
         var { author } = this.props;
         return (
             <tr>
                 <td>{this.props.stt}</td>
                 <td>{author.name}</td>
                 <td>
-                    <Link to={'/author/edit/' + author.id} title="Sửa" className="edit" onClick={(e, id) => this.editClick(e, author.id)}><i className="fa fa-pencil icon" /></Link>
+                    <Link to='/author/edit' title="Sửa" className="edit" onClick={(e, id) => this.editClick(e, author.id)}><i className="fa fa-pencil icon" /></Link>
                     <a href='/' title="Xóa" className="delete" onClick={(e, id) => { this.deleteClick(e, author.id) }}><i className="fa fa-trash icon" /></a>
                 </td>
             </tr>
