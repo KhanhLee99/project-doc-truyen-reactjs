@@ -32,6 +32,9 @@ class AddCategory extends Component {
     }
 
     addClick = () =>{
+
+        //console.log(this.state.newCategory);
+
         Axios.post('http://127.0.0.1:8000/api/category/add', this.state.newCategory).then(() => {
             this.setState({
                 newCategory:{

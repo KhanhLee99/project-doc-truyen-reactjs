@@ -17,7 +17,7 @@ export default class Search extends Component {
     render() {
         return (
             <div className="form-search fl-right">
-                <Link to="/category/add" id="add-category" className="fl-left">Thêm mới</Link>
+                <Link to="/author/add" id="add-category" className="fl-left">Thêm mới</Link>
                 <input type="submit" value="Tìm kiếm" onClick={() => this.searchClick()} />
                 <input type="text" name="name" ref={this.nameRef} />
             </div>

@@ -73,19 +73,19 @@ export default class App extends Component {
     }
     else {
       Axios.get('http://127.0.0.1:8000/api/author/search/' + name).then((response) => {
-          this.setState({
-            listAuthor: response.data
-          })
+        this.setState({
+          listAuthor: response.data
+        })
       })
     }
   }
 
   searchCategory = (name) => {
-    if(name === ""){
+    if (name === "") {
       this.loadCategory();
     }
     else {
-      Axios.get(('http://127.0.0.1:8000/api/category/search/' + name)).then((response) =>{
+      Axios.get(('http://127.0.0.1:8000/api/category/search/' + name)).then((response) => {
         this.setState({
           listCategory: response.data
         })
@@ -94,9 +94,9 @@ export default class App extends Component {
   }
 
   searchStory = (name) => {
-    if(name ===''){
+    if (name === '') {
       this.loadStory();
-    }else{
+    } else {
       Axios.get('http://127.0.0.1:8000/api/story/search/' + name).then((response) => {
         this.setState({
           listStory: response.data
@@ -106,11 +106,11 @@ export default class App extends Component {
   }
 
   searchUser = (name) => {
-    if(name === ''){
+    if (name === '') {
       this.loadUser();
     }
-    else{
-      Axios.get('http://127.0.0.1:8000/api/user/search/' + name).then((response) =>{
+    else {
+      Axios.get('http://127.0.0.1:8000/api/user/search/' + name).then((response) => {
         this.setState({
           listUser: response.data
         })
@@ -118,7 +118,7 @@ export default class App extends Component {
     }
   }
 
-
+  
 
   render() {
     return (
@@ -137,11 +137,12 @@ export default class App extends Component {
           searchAuthor: (name) => this.searchAuthor(name),
           searchCategory: (name) => this.searchCategory(name),
           searchUser: (name) => this.searchUser(name),
-          searchStory: (name) => this.searchStory(name)
+          searchStory: (name) => this.searchStory(name),
+          //addAuthor: (name) => this.addAuthor(name)
         }}>
           <Router>
-          <Header />
-          <Sidebar />
+            <Header />
+            <Sidebar />
             <Url />
           </Router>
         </MyContext.Provider>
