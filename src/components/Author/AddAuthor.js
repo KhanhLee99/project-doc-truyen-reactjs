@@ -6,7 +6,7 @@ import MyContext from '../../myContext';
 export default class AddAuthor extends Component {
     constructor(props) {
         super(props);
-
+        //khanh moi sua o day
         this.nameRef = React.createRef();
         this.descriptionRef = React.createRef();
     }
