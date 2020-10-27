@@ -52,7 +52,7 @@ class Url extends Component {
                         <ListCategory/>
                     </Route>
 
-                    <Route path="/author/edit/:id" children={<EditAuthor />} />
+                    <Route path="/author/edit" children={<EditAuthor />} />
                         
                     
                     

@@ -1,38 +1,38 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
-
+import {
+    BrowserRouter as Route,
+    Link, Redirect
+} from "react-router-dom";
 import MyContext from '../../myContext';
 
 class EditAuthor extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            description: ""
-        }
+        
         this.nameRef = React.createRef();
+        this.descriptionRef = React.createRef();
     }
 
-    changeDescription = (e) => {
-        this.setState({
-            description: e.target.value
-        })
-    }
-
-    editClick = (e, id) => { 
-        e.preventDefault(); 
+    editClick = (e, id) => {
+        e.preventDefault();
         let authorEdit = {
             name: this.nameRef.current.value,
-            description: this.state.description
+            description: this.descriptionRef.current.value
         }
-        Axios.put('http://127.0.0.1:8000/api/author/'+id, authorEdit).then((responsive) => {
-            this.setState({
-                    description: ""
-            });
-            alert('Da sua thanh cong')
+        Axios.put('http://127.0.0.1:8000/api/author/' + id, authorEdit).then((responsive) => {
+            alert('Đã sửa thành công');
+            this.context.loadAuthor();
+            this.context.falseRedirect();
         })
     }
-    
+
     render() {
+        if (!this.context.isRedirect) {
+            return (
+                <Redirect to='/authors' />
+            )
+        }
         return (
             <div className="content-wrapper">
                 <div className="main-content">
@@ -43,7 +43,7 @@ class EditAuthor extends Component {
                         <input ref={this.nameRef} type="text" name="name" id="name" defaultValue={this.context.authorEdit.name} />
 
                         <label htmlFor="description">Mô tả ngắn</label>
-                        <textarea onChange={(e) => this.changeDescription(e)} name="description" id="description" defaultValue={this.context.authorEdit.description} />
+                        <textarea ref={this.descriptionRef} name="description" id="description" defaultValue={this.context.authorEdit.description} />
 
                         <button onClick={(e, id) => this.editClick(e, this.context.authorEdit.id)} >Chỉnh sửa</button>
                     </form>
@@ -55,6 +55,7 @@ class EditAuthor extends Component {
 EditAuthor.contextType = MyContext;
 export default EditAuthor;
 
-
-
+{/* <input ref={(input) => { this.name = input }} type="text" name="name" id="name" defaultValue={this.context.authorEdit.name} /> */ }
+// this.name.value
+{/* <textarea  ref={(input) => { this.description = input }} name="description" id="description" defaultValue={this.context.authorEdit.description} /> */ }
 
