@@ -86,10 +86,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditAuthor);
 
-{/* <input ref={(input) => { this.name = input }} type="text" name="name" id="name" defaultValue={this.context.authorEdit.name} /> */ }
+// {/* <input ref={(input) => { this.name = input }} type="text" name="name" id="name" defaultValue={this.context.authorEdit.name} /> */ }
 // this.name.value
-{/* <textarea  ref={(input) => { this.description = input }} name="description" id="description" defaultValue={this.context.authorEdit.description} /> */ }
+// {/* <textarea  ref={(input) => { this.description = input }} name="description" id="description" defaultValue={this.context.authorEdit.description} /> */ }
 
 // trueRedirect: () => {
-        //     dispatch({type: "TRUE_REDIRECT"})
-        // },
+//     dispatch({type: "TRUE_REDIRECT"})
+// },

@@ -30,11 +30,7 @@ class Search extends Component {
         )
     }
 }
-const mapStateToProps = (state, ownProps) => {
-    return {
-        authors: state.authors
-    }
-}
+
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         fetchAllAuthors: () => {
@@ -45,4 +41,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(null, mapDispatchToProps)(Search)

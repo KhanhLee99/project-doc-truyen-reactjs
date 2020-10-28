@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import MyContext from '../../myContext';
 import Search from './Search';
-import {
-    BrowserRouter as Route,
-    Link,
-} from "react-router-dom";
+import { connect } from 'react-redux';
+import { actFetchUsersRequest } from '../../actions/users';
+import UserItem from './UserItem';
+import Pagination from '../User/Pagination';
 
-export default class ListUser extends Component {
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         listUser: []
-    //     }
-    // }
+class ListUser extends Component {
     
-    // componentDidMount() {
-    //     Axios.get('http://127.0.0.1:8000/api/users').then((response) => {
-    //         this.setState({
-    //             listUser: response.data
-    //         })
-    //     })
-    // }
+    componentDidMount() {
+        this.props.fetchUsers();
+    }
     
     render() {
 
-        const listUser = this.context.listUser.map((item, index) => {
+        const listUser = this.props.users.map((item, index) => {
             return <UserItem stt={index+1} user={item} key={index}/>
         })
 
@@ -52,66 +39,29 @@ export default class ListUser extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có {this.context.listUser.length} bản ghi)</div>
-                    <div className="paging">
-                        <ul id="list-paging" className="fl-right">
-                            <li>
-                                <Link to>&lt;</Link>
-                            </li>
-                            <li className="paging-active">
-                                <Link to>1</Link>
-                            </li>
-                            <li>
-                                <Link to>2</Link>
-                            </li>
-                            <li>
-                                <Link to>3</Link>
-                            </li>
-                            <li>
-                                <Link to>4</Link>
-                            </li>
-                            <li>
-                                <Link to>&gt;</Link>
-                            </li>
-                        </ul>
-                    </div>
+                    <div className="num-record">(Có {this.props.users.length} bản ghi)</div>
+                    <Pagination/>
                 </div>
             </div>
         )
     }
 }
-
-ListUser.contextType = MyContext;
-
-class UserItem extends Component {
-
-    deleteClick =(e, id) => {
-        e.preventDefault();
-        if(window.confirm('Ban co chac muon xoa?')){
-            Axios.delete('http://127.0.0.1:8000/api/user/' +id).then((response) =>{
-                this.context.loadUser();
-            })
-        }
-    }
-
-    render() {
-        let {user} = this.props;
-        return (
-            <tr>
-                <td scope="row">{this.props.stt}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                    <Link to title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
-                    <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, user.id)}><i className="fa fa-trash icon" /></Link>
-                </td>
-            </tr>
-        );
+const mapStateToProps = (state, ownProps) => {
+    return {
+        users: state.users
     }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchUsers: (users) => {
+            dispatch(actFetchUsersRequest(users))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ListUser)
 
-UserItem.contextType = MyContext;
+
+
 
 
 

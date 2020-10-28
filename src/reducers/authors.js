@@ -16,7 +16,7 @@ const authors = (state = initialState, action) => {
             return [...state];
             
         case 'ADD_AUTHOR':
-            state.push(action.author);
+            state.unshift(action.author);
             return [...state];
 
         case 'DELETE_AUTHOR':
