@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import {
-    BrowserRouter as Route,
-    Link, Redirect
-} from "react-router-dom";
 import { actEditAuthorRequest, actFetchAuthorsRequest, actGetAuthorRequest } from '../../actions/author';
 
 class EditAuthor extends Component {
@@ -18,19 +14,18 @@ class EditAuthor extends Component {
         this.descriptionRef = React.createRef();
     }
 
-    editClick = (e) => {
+    editClick = (e,) => {
         e.preventDefault();
-        // let { history } = this.props;
+        let { history } = this.props;
         let authorEdit = {
             id: this.state.id,
             name: this.nameRef.current.value,
             description: this.descriptionRef.current.value
         }
-        
+
         this.props.editAuthor(authorEdit);
         alert('Da sua thanh cong');
-        // this.props.fetchAllAuthors();
-        // history.goBack();
+        history.push('/authors');
     }
     componentDidMount() {
         var { match } = this.props;
@@ -40,17 +35,16 @@ class EditAuthor extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps && nextProps.authorEditing){
-            var {authorEditing} = nextProps;
+    componentWillReceiveProps(nextProps) {
+        if (nextProps && nextProps.authorEditing) {
+            var { authorEditing } = nextProps;
             this.setState({
-                id : authorEditing.id,
-                name : authorEditing.name,
-                description : authorEditing.description,
+                id: authorEditing.id,
+                name: authorEditing.name,
+                description: authorEditing.description,
             });
         }
     }
-
 
     render() {
         return (
@@ -75,8 +69,6 @@ class EditAuthor extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         authorEditing: state.authorEditing,
-        isRedirect: state.isRedirect,
-
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -84,17 +76,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fetchAllAuthors: () => {
             dispatch(actFetchAuthorsRequest())
         },
-        getAuthor: (id) => {
-            dispatch(actGetAuthorRequest(id))
+        getAuthor: (id, author) => {
+            dispatch(actGetAuthorRequest(id, author))
         },
         editAuthor: (author) => {
             dispatch(actEditAuthorRequest(author))
         },
     }
 }
-export default connect(mapStateToProps , mapDispatchToProps)(EditAuthor) ;
+export default connect(mapStateToProps, mapDispatchToProps)(EditAuthor);
 
 {/* <input ref={(input) => { this.name = input }} type="text" name="name" id="name" defaultValue={this.context.authorEdit.name} /> */ }
 // this.name.value
 {/* <textarea  ref={(input) => { this.description = input }} name="description" id="description" defaultValue={this.context.authorEdit.description} /> */ }
 
+// trueRedirect: () => {
+        //     dispatch({type: "TRUE_REDIRECT"})
+        // },

@@ -32,6 +32,7 @@ const authors = (state = initialState, action) => {
             index = findIndex(state, action.author.id);
             state[index] = action.author;
             return [...state]
+
         default:
             return [...state]
     }

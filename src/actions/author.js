@@ -85,7 +85,7 @@ export const actEditAuthor = (author) => {
 export const actEditAuthorRequest = (author) => {
     return dispatch => {
         return callApi(`author/${author.id}`, 'PUT', author).then(res => {
-            dispatch(actEditAuthor(res.data));
+            dispatch(actEditAuthor(author));
         });
     };
 }
