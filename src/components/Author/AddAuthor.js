@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import Axios from 'axios';
-import MyContext from '../../myContext';
+import { connect } from 'react-redux';
+import { actAddAuthorRequest } from '../../actions/author';
 
 
-export default class AddAuthor extends Component {
+class AddAuthor extends Component {
     constructor(props) {
         super(props);
-        //khanh moi sua o day
         this.nameRef = React.createRef();
         this.descriptionRef = React.createRef();
     }
@@ -17,14 +16,14 @@ export default class AddAuthor extends Component {
             alert('Không để trống tên tác giả');
         }
         else {
+            var { history } = this.props;
             let newAuthor = {
                 name: this.nameRef.current.value,
                 description: this.descriptionRef.current.value
             }
-            Axios.post('http://127.0.0.1:8000/api/author/add', newAuthor).then((responsive) => {
-                alert('Da them thanh cong');
-                this.context.loadAuthor();
-            })
+            this.props.addAuthor(newAuthor);
+            alert('Da them thanh cong');
+            history.push("/authors");
         }
     }
 
@@ -47,4 +46,11 @@ export default class AddAuthor extends Component {
         )
     }
 }
-AddAuthor.contextType = MyContext;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        addAuthor: (author) => {
+            dispatch(actAddAuthorRequest(author))
+        }
+    }
+}
+export default connect(null, mapDispatchToProps)(AddAuthor)

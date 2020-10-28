@@ -72,4 +72,47 @@ class Url extends Component {
     }
 }
 
-export default Url;
+const routes = [
+    // {
+    //     path: '/',
+    //     exact: true,
+    //     main: () => <HomePage />
+    // },
+    {
+        path: '/authors',
+        exact: false,
+        main: () => <ListAuthor />
+    },
+    {
+        path: '/author/add',
+        exact: false,
+        main: ({history}) => <AddAuthor history={history} />
+    },
+    {
+        path: '/users',
+        exact: false,
+        main: () => <ListUser />
+    },
+    {
+        path: '/stories',
+        exact: false,
+        main: () => <ListStory />
+    },
+    {
+        path: '/story/add',
+        exact: false,
+        main: () => <AddStory />
+    },
+    {
+        path: '/categories',
+        exact: false,
+        main: () => <ListCategory />
+    },
+    {
+        path: '/category/add',
+        exact: false,
+        main: () => <AddCategory />
+    },
+]
+
+export default routes;

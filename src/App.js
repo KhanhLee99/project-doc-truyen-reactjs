@@ -8,8 +8,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Url from './Router/Url';
-import MyContext from './myContext';
+import routes from './Router/Url';
 import Axios from 'axios'
 
 export default class App extends Component {
@@ -53,12 +52,12 @@ export default class App extends Component {
       })
     })
   }
-  componentDidMount() {
-    this.loadAuthor();
-    this.loadCategory();
-    this.loadStory();
-    this.loadUser();
-  }
+  // componentDidMount() {
+  //   this.loadAuthor();
+  //   this.loadCategory();
+  //   this.loadStory();
+  //   this.loadUser();
+  // }
 
   getAuthorEdit = (authorEdit) => {
     this.setState({
@@ -131,10 +130,10 @@ export default class App extends Component {
 
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <>
-        <MyContext.Provider value={{
+        {/* <MyContext.Provider value={{
           listAuthor: this.state.listAuthor,
           listCategory: this.state.listCategory,
           listUser: this.state.listUser,
@@ -152,14 +151,30 @@ export default class App extends Component {
           searchCategory: (name) => this.searchCategory(name),
           searchUser: (name) => this.searchUser(name),
           searchStory: (name) => this.searchStory(name)
-        }}>
+        }}> */}
           <Router>
             <Header />
             <Sidebar />
-            <Url />
+            {this.showContentMenus(routes)}
           </Router>
-        </MyContext.Provider>
+        {/* </MyContext.Provider> */}
       </>
     )
+  }
+  showContentMenus = (routes) => {
+    var result = null;
+    if (routes.length > 0) {
+      result = routes.map((route, index) => {
+        return (
+          <Route
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            component={route.main}
+          />
+        );
+      });
+    }
+    return <Switch>{result}</Switch>;
   }
 }
