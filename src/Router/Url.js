@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router,
+import {
+    BrowserRouter as Router,
     Switch,
     Route,
-    Link,} from "react-router-dom";
+    Link,
+} from "react-router-dom";
 
 import ListAuthor from '../components/Author/ListAuthor';
 import AddAuthor from '../components/Author/AddAuthor';
@@ -33,8 +35,8 @@ class Url extends Component {
                     <Route path="/users">
                         <ListUser />
                     </Route>
-                    
-                   
+
+
                     <Route path="/story/add">
                         <AddStory />
                     </Route>
@@ -43,29 +45,29 @@ class Url extends Component {
                     </Route>
 
                     <Route path="/stories">
-                        <ListStory/>
+                        <ListStory />
                     </Route>
                     <Route path="/category/add">
-                        <AddCategory/>
+                        <AddCategory />
                     </Route>
                     <Route path="/categories">
-                        <ListCategory/>
+                        <ListCategory />
                     </Route>
 
                     <Route path="/author/edit" children={<EditAuthor />} />
-                        
-                    
-                    
+
+
+
                     {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />
                     <Route path="/chi-tiet/:slug.:id.html">
                             <ChiTiet />
                         </Route> */}
-                    
+
                     {/* <Route path="/edit/:id">
                         <Edit />
                     </Route> */}
-                    
-                    
+
+
                 </Switch>
             </div>
         );
@@ -86,7 +88,12 @@ const routes = [
     {
         path: '/author/add',
         exact: false,
-        main: ({history}) => <AddAuthor history={history} />
+        main: ({ history }) => <AddAuthor history={history} />
+    },
+    {
+        path: '/author/:id/edit',
+        exact: false,
+        main: ({ match, history }) => <EditAuthor match={match} history={history} />
     },
     {
         path: '/users',

@@ -19,10 +19,9 @@ class AuthorItem extends Component {
         if (window.confirm('Ban co chac muon xoa?')) {
             this.props.deleteAuthor(id);
         }
-
     }
     editClick = (e, id) => {
-        e.preventDefault();
+        // e.preventDefault();
         // Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
         //     this.context.getAuthorEdit(response.data);
         //     this.context.trueRedirect();
@@ -36,7 +35,7 @@ class AuthorItem extends Component {
                 <td>{this.props.stt}</td>
                 <td>{author.name}</td>
                 <td>
-                    <Link to='/author/edit' title="Sửa" className="edit" onClick={(e, id) => this.editClick(e, author.id)}><i className="fa fa-pencil icon" /></Link>
+                    <Link to={`/author/${author.id}/edit`} title="Sửa" className="edit" onClick={(e, id) => this.editClick(e, author.id)}><i className="fa fa-pencil icon" /></Link>
                     <a href='/' title="Xóa" className="delete" onClick={(e, id) => { this.deleteClick(e, author.id) }}><i className="fa fa-trash icon" /></a>
                 </td>
             </tr>

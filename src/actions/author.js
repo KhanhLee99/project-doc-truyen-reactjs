@@ -44,3 +44,48 @@ export const actDeleteAuthorRequest = (id) => {
         });
     };
 }
+
+export const actSearchAuthor = (authorsSearch) => {
+    return {
+        type : 'SEARCH_AUTHOR',
+        authorsSearch
+    }
+}
+
+export const actSearchAuthorRequest = (name) => {
+    return dispatch => {
+        return callApi(`author/search/${name}`, 'GET', null).then(res => {
+            dispatch(actSearchAuthor(res.data));
+        });
+    };
+}
+
+export const actGetAuthor = (author) => {
+    return {
+        type : 'GET_AUTHOR',
+        author
+    }
+}
+
+export const actGetAuthorRequest = (id) => {
+    return dispatch => {
+        return callApi(`author/${id}`, 'GET', null).then(res => {
+            dispatch(actGetAuthor(res.data));
+        });
+    };
+}
+
+export const actEditAuthor = (author) => {
+    return {
+        type : 'EDIT_AUTHOR',
+        author
+    }
+}
+
+export const actEditAuthorRequest = (author) => {
+    return dispatch => {
+        return callApi(`author/${author.id}`, 'PUT', author).then(res => {
+            dispatch(actEditAuthor(res.data));
+        });
+    };
+}

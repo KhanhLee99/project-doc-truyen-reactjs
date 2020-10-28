@@ -24,6 +24,14 @@ const authors = (state = initialState, action) => {
             state.splice(index, 1);
             return [...state];
 
+        case 'SEARCH_AUTHOR':
+            state = action.authorsSearch; 
+            return [...state]
+
+        case 'EDIT_AUTHOR':
+            index = findIndex(state, action.author.id);
+            state[index] = action.author;
+            return [...state]
         default:
             return [...state]
     }
