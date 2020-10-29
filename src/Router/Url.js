@@ -16,6 +16,7 @@ import AddStory from '../components/Story/AddStory';
 import ListCategory from '../components/Category/ListCategory';
 import AddCategory from '../components/Category/AddCategory';
 import EditAuthor from '../components/Author/EditAuthor';
+import EditCategory from '../components/Category/EditCategory';
 
 
 class Url extends Component {
@@ -118,7 +119,12 @@ const routes = [
     {
         path: '/category/add',
         exact: false,
-        main: () => <AddCategory />
+        main: ({history}) => <AddCategory history={history} />
+    },
+    {
+        path: '/category/:id/edit',
+        exact: false,
+        main: ({ match, history }) => <EditCategory match={match} history={history} />
     },
 ]
 

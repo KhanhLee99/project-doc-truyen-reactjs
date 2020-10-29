@@ -3,7 +3,7 @@ import Search from './Search';
 import { connect } from 'react-redux';
 import { actFetchUsersRequest } from '../../actions/users';
 import UserItem from './UserItem';
-import Pagination from '../User/Pagination';
+import Pagination from './Pagination';
 
 class ListUser extends Component {
     
