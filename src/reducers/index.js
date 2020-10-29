@@ -5,6 +5,8 @@ import isRedirect from './isRedirect';
 import users from './users';
 import categories from './categories';
 import categoryEditing from './categoryEditing';
+import stories from './stories';
+import storyEditing from './storyEditing';
 
 
 const appReducers = combineReducers({
@@ -13,7 +15,9 @@ const appReducers = combineReducers({
     isRedirect,
     users,
     categories,
-    categoryEditing
+    categoryEditing,
+    stories,
+    storyEditing
 });
 
 export default appReducers;

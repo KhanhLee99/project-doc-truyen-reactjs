@@ -1,96 +1,67 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import MyContext from '../../myContext';
+import { connect } from 'react-redux';
+import { actFetchAuthorsRequest } from '../../actions/author';
+import { actFetchCategoriesRequest } from '../../actions/category';
+import { actAddStoryRequest, actFetchStoriesRequest } from '../../actions/story';
 
 
 class AddStory extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            newStory: {
-                name: '',
-                author_id: '',
-                status: '',
-                description: '',
-                // path_img: ''
-            }
+        this.nameRef = React.createRef();
+        this.author_idRef = React.createRef();
+        this.statusRef = React.createRef();
+        this.descriptionRef = React.createRef();
+    }
+
+    componentDidMount() {
+        this.props.fetchAllAuthors();
+        this.props.fetchCategories();
+    }
+
+    renderAuthors = () => {
+        if (this.props.authors.length > 0) {
+            return this.props.authors.map((item, index) => {
+                if (item.name === "Đang cập nhật") {
+                    return (
+                        <option value={item.id} key={index} selected>{item.name}</option>
+                    )
+                }
+                else {
+                    return (
+                        <option value={item.id} key={index}>{item.name}</option>
+                    )
+                }
+
+            })
         }
     }
 
-    changeName = (e) => {
-        this.setState({
-            newStory: {
-                name: e.target.value,
-                author_id: this.state.newStory.author_id,
-                status: this.state.newStory.status,
-                description: this.state.newStory.description,
-                // path_img: this.state.newStory.path_img
-            }
-        })
+    renderCategories = () => {
+        if (this.props.categories.length > 0) {
+            return this.props.categories.map((item, index) => {
+                return (
+                    <option value={item.id} key={index}>{item.name}</option>
+                )
+            })
+        }
     }
 
     
-    changeAuthor = (e) => {
-        this.setState({
-            newStory: {
-                name: this.state.newStory.name,
-                author_id: e.target.value,
-                status: this.state.newStory.status,
-                description: this.state.newStory.description,
-                // path_img: this.state.newStory.path_img
-            }
-        })
-    }
-    changeStatus = (e) => {
-        this.setState({
-            newStory: {
-                name: this.state.newStory.name,
-                author_id: this.state.newStory.author_id,
-                status: e.target.value,
-                description: this.state.newStory.description,
-                // path_img: this.state.newStory.path_img
-            }
-        })
-    }
-    changeDescription = (e) => {
-        this.setState({
-            newStory: {
-                name: this.state.newStory.name,
-                author_id: this.state.newStory.author_id,
-                status: this.state.newStory.status,
-                description: e.target.value,
-                // path_img: this.state.newStory.path_img
-            }
-        })
-    }
-    // changePathImg = (e) => {
-    //     this.setState({
-    //         newStory: {
-    //             name: this.state.newStory.name,
-    //             author_id: this.state.newStory.author_id,
-    //             status: this.state.newStory.status,
-    //             description: this.state.newStory.description,
-    //             path_img: e.target.value
-    //         }
-    //     })
-    // }
-
-    addClick = (e) =>{
+    addClick = (e) => {
         e.preventDefault();
-        Axios.post('http://127.0.0.1:8000/api/story/add', this.state.newStory).then((responsive) => {
-            this.setState({
-                
-                newStory: {
-                    name: '',
-                    author_id: '',
-                    status: '',
-                    description: '',
-                    // path_img: ''
-                }
-            });
-            alert('Da them thanh cong');
-            this.context.loadStory();
-        })
+        let { history } = this.props;
+        let story = {
+            name: this.nameRef.current.value,
+            author_id: this.author_idRef.current.value,
+            status: this.statusRef.current.value,
+            description: this.descriptionRef.current.value,
+        }
+        this.props.addStory(story);
+        this.props.fetchStories();
+
+        alert('Đã thêm thành công');
+        history.push('/stories');
     }
 
     render() {
@@ -99,39 +70,61 @@ class AddStory extends Component {
                 <div className="main-content">
                     <h2>THÊM MỚI TRUYỆN</h2>
                     <div className="hr1" />
-                    <form action>
-                        <label htmlFor="name">Tên truyện</label>
-                        <input onChange={(e) => this.changeName(e)} type="text" name="name" id="name" />
-                        {/* <label htmlFor="category">Chuyên mục</label>
-                        <select name="category" id="category">
-                            <option value>--- Chọn chuyên mục ---</option>
-                            <option value>Chuyên mục 1</option>
-                            <option value>Chuyên mục 2</option>
-                        </select> */}
-                        <label htmlFor="author">Tác giả</label>
-                        <select onChange={(e) => this.changeAuthor(e)} name="author" id="author">
-                            <option value>--- Chọn tác giả ---</option>
-                            <option value="1">Tác giả 1</option>
-                            <option value="2">Tác giả 2</option>
-                        </select>
-                        <label htmlFor="category">Tình trạng</label>
-                        <select onChange={(e) => this.changeStatus(e)}  name="status" id="status">
-                            <option value>--- Chọn tình trạng truyện ---</option>
-                            <option value ="1" selected>Đang cập nhật</option>
-                            <option value ="2">Hoàn thành</option>
-                        </select>
-                        <label htmlFor="description">Mô tả ngắn</label>
-                        <textarea onChange={(e) => this.changeDescription(e)}  name="description" id="description" />
-                        <label htmlFor="file">Ảnh đại diện</label>
-                        <input onChange={(e) => this.changePathImg(e)} type="file" name="file" id="file" />
-                        <button onClick={(e) => this.addClick(e)} >Thêm mới</button>
-                    </form>
+
+                    <label htmlFor="name">Tên truyện</label>
+                    <input ref={this.nameRef} type="text" name="name" id="name" />
+
+                    <label htmlFor="category">Chuyên mục</label>
+                    <select name="category" id="category" multiple>
+                        <option value>--- Chọn chuyên mục ---</option>
+                        {this.renderCategories()}
+                    </select>
+
+                    <label htmlFor="author">Tác giả</label>
+                    <select ref={this.author_idRef} name="author" id="author">
+                        {this.renderAuthors()}
+                    </select>
+
+                    <label htmlFor="category">Tình trạng</label>
+                    <select ref={this.statusRef} name="status" id="status">
+                        <option value="updating" selected>Đang cập nhật</option>
+                        <option value="completed">Hoàn thành</option>
+                    </select>
+
+                    <label htmlFor="description">Mô tả ngắn</label>
+                    <textarea ref={this.descriptionRef} name="description" id="description" />
+
+                    <label htmlFor="file">Ảnh đại diện</label>
+                    <input type="file" name="file" id="file" />
+
+                    <button onClick={(e) => this.addClick(e)} >Thêm mới</button>
                 </div>
             </div>
 
         );
     }
 }
+const mapStateToProps = (state, ownProps) => {
+    return {
+        authors: state.authors,
+        categories: state.categories,
+    }
+}
 
-export default AddStory;
-AddStory.contextType = MyContext;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchAllAuthors: () => {
+            dispatch(actFetchAuthorsRequest())
+        },
+        fetchCategories: () => {
+            dispatch(actFetchCategoriesRequest())
+        },
+        addStory: (story) => {
+            dispatch(actAddStoryRequest(story))
+        },
+        fetchStories: () => {
+            dispatch(actFetchStoriesRequest())
+        },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddStory)

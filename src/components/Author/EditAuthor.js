@@ -14,7 +14,7 @@ class EditAuthor extends Component {
         this.descriptionRef = React.createRef();
     }
 
-    editClick = (e,) => {
+    editClick = (e) => {
         e.preventDefault();
         let { history } = this.props;
         let authorEdit = {
@@ -76,8 +76,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fetchAllAuthors: () => {
             dispatch(actFetchAuthorsRequest())
         },
-        getAuthor: (id, author) => {
-            dispatch(actGetAuthorRequest(id, author))
+        getAuthor: (id) => {
+            dispatch(actGetAuthorRequest(id))
         },
         editAuthor: (author) => {
             dispatch(actEditAuthorRequest(author))
