@@ -9,6 +9,7 @@ import stories from './stories';
 import storyEditing from './storyEditing';
 import chapters from './chapters';
 import chapterGetting from './chapterGetting';
+import images from './images';
 
 
 const appReducers = combineReducers({
@@ -21,7 +22,8 @@ const appReducers = combineReducers({
     stories,
     storyEditing,
     chapters,
-    chapterGetting
+    chapterGetting,
+    images
 });
 
 export default appReducers;

@@ -20,6 +20,8 @@ import EditCategory from '../components/Category/EditCategory';
 import EditStory from '../components/Story/EditStory';
 import ListChapter from '../components/Chapter/ListChapter';
 import AddChapter from '../components/Chapter/AddChapter';
+import DetailChapter from '../components/Chapter/DetailChapter';
+import EditChapter from '../components/Chapter/EditChapter';
 
 
 class Url extends Component {
@@ -128,6 +130,16 @@ const routes = [
         path: '/chapter/add/story/:id',
         exact: false,
         main: ({ match, history }) => <AddChapter match={match} history={history} />
+    },
+    {
+        path: '/chapter/:id/detail',
+        exact: false,
+        main: ({ match, history }) => <DetailChapter match={match} history={history} />
+    },
+    {
+        path: '/chapter/edit/:id',
+        exact: false,
+        main: ({ match, history }) => <EditChapter match={match} history={history} />
     },
     {
         path: '/categories',

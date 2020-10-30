@@ -4,6 +4,10 @@ const chapterGetting = (state = InitialState, action) => {
         case 'GET_NEW_CHAPTER':
             state = action.chapter
             return {...state}
+
+        case 'GET_CHAPTER':
+            state = action.chapter
+            return {...state}
         
         default:
             return state

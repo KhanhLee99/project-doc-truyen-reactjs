@@ -4,6 +4,10 @@ const storyEditing = (state = InitialState, action) => {
         case 'GET_STORY':
             state = action.story;
             return {...state}
+
+        case 'GET_STORY_BY_CHAPTER':
+            state = action.story;
+            return {...state}
         
         default:
             return state

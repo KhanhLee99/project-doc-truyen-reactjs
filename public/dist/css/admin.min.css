@@ -579,3 +579,11 @@ option {
 	opacity: 1;
 	visibility: visible;
 }
+.read {
+	width: 90%;
+	margin: 0 25px;
+}
+
+.uppercase{
+	text-transform: uppercase;
+}

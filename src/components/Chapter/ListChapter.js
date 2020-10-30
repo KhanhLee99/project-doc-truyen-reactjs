@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actGetAuthorByStoryIdRequest } from '../../actions/author'
+import { actFetchChaptersRequest } from '../../actions/chapter'
 import { actGetStoryRequest } from '../../actions/story'
 import Categories from './Categories'
 import ChapterItem from './ChapterItem'
@@ -17,6 +18,7 @@ class ListChapter extends Component {
         }
     }
     componentDidMount() {
+       
         var { match } = this.props;
         if (match) {
             var id = match.params.id;
@@ -25,6 +27,7 @@ class ListChapter extends Component {
             })
             this.props.getStory(id);
             this.props.getAuthorByStoryId(id);
+            this.props.fetchChapters(id);
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -39,6 +42,11 @@ class ListChapter extends Component {
     }
 
     render() {
+        const listChapter = this.props.chapters.map((item, index) => {
+            return (
+                <ChapterItem key={index} chapter={item} stt={index + 1} />
+            )
+        })
         return (
             <div className="content-wrapper">
                 <div className="main-list">
@@ -47,25 +55,25 @@ class ListChapter extends Component {
                         <span><b className="story-name">{this.state.story.name}</b>( <a href className="story-author">{this.state.author.name}</a>  )</span>
                         <Categories />
                     </div>
-                    <Search id = {this.state.id}/>
+                    <Search id={this.state.id} />
                     <div className="list">
                         <table className="content-table">
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Tên mục</th>
                                     <th>Tên chương</th>
-                                    <th>Người đăng</th>
+                                    <th>Số trang</th>
                                     <th>Ngày đăng</th>
+                                    <th>Cập nhật</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <ChapterItem />
+                                {listChapter}
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có 10 bản ghi)</div>
+                    <div className="num-record">(Có {this.props.chapters.length} bản ghi)</div>
                     <Pagination />
                 </div>
             </div>
@@ -76,6 +84,7 @@ const mapStateToProps = (state) => {
     return {
         storyEditing: state.storyEditing,
         authorEditing: state.authorEditing,
+        chapters: state.chapters,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -85,6 +94,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getAuthorByStoryId: (id) => {
             dispatch(actGetAuthorByStoryIdRequest(id))
+        },
+        fetchChapters: (story_id) => {
+            dispatch(actFetchChaptersRequest(story_id))
         },
     }
 }

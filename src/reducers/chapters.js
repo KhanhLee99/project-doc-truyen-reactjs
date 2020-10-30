@@ -1,8 +1,9 @@
 const InitialState = []
 const chapters = (state = InitialState, action) => {
     switch (action.type) {
-        // case ACTION_TYPE_2:
-        //     return state
+        case 'FETCH_CHAPTERS':
+            state = action.chapters;
+            return [...state]
         default:
             return state
     }

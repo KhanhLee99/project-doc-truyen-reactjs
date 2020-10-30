@@ -1,5 +1,4 @@
 import callApi from './../utils/apiCaller';
-import { actFetchAuthorsRequest } from './author';
 
 
 // get list story
@@ -95,3 +94,18 @@ export const actEditStoryRequest = (story) => {
 //         story
 //     }
 // }
+
+export const actGetStoryByChapterIdRequest = (id) => {
+    return dispatch => {
+        return callApi(`story/chapter/${id}`, 'GET', null).then(res => {
+            dispatch(actGetStoryByChapterId(res.data));
+        });
+    };
+}
+
+export const actGetStoryByChapterId = (story) => {
+    return {
+        type : 'GET_STORY_BY_CHAPTER',
+        story
+    }
+}

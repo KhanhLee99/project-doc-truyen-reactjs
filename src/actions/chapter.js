@@ -32,3 +32,35 @@ export const actGetNewChapter = (chapter) => {
     }
 }
 
+export const actFetchChaptersRequest = (story_id) => {
+    return dispatch => {
+        return callApi(`story/${story_id}/chapters`, 'GET', null).then(res => {
+            dispatch(actFetchChapters(res.data));
+
+        });
+    };
+}
+
+export const actFetchChapters = (chapters) => {
+    return {
+        type : 'FETCH_CHAPTERS',
+        chapters
+    }
+}
+
+export const actGetChapterRequest = (id) => {
+    return dispatch => {
+        return callApi(`chapter/${id}`, 'GET', null).then(res => {
+            dispatch(actGetChapter(res.data));
+
+        });
+    };
+}
+
+export const actGetChapter = (chapter) => {
+    return {
+        type : 'GET_CHAPTER',
+        chapter
+    }
+}
+

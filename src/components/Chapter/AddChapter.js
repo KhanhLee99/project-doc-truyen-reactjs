@@ -7,7 +7,6 @@ class AddChapter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            status: false,
             pages: 0,
             page: []
         }
@@ -38,7 +37,6 @@ class AddChapter extends Component {
         }
         this.state.page = this.state.page.filter(x => (x.stt !== path.stt))
         this.state.page.push(path);
-
     }
 
     renderInput = () => {
