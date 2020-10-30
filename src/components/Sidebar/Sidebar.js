@@ -11,7 +11,7 @@ export default class Sidebar extends Component {
                 <section className="sidebar">
                     <ul className="sidebar-menu">
                         <li className="treeview">
-                            <Link to="/home" className="treeview-name"> <i className="fa fa-home" /> <span>Dashboard</span> </Link>
+                            <Link to="/home" className="treeview-name treeview-active"> <i className="fa fa-home" /> <span>Dashboard</span> </Link>
                         </li>
                         <li className="treeview">
                             <Link to='/' className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />
@@ -36,7 +36,7 @@ export default class Sidebar extends Component {
                                 <li><Link to="/stories">Danh sách truyện</Link></li>
                             </ul>
                         </li>
-                        <li className="treeview"> <Link to="/users" className="treeview-active treeview-name"><i className="fa fa-users"> </i> <span>Thành viên</span></Link></li>
+                        <li className="treeview"> <Link to="/users" className=" treeview-name"><i className="fa fa-users"> </i> <span>Thành viên</span></Link></li>
                     </ul>
                 </section>
             </aside>

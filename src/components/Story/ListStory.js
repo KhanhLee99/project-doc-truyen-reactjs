@@ -10,14 +10,29 @@ import { actFetchAuthorsRequest } from '../../actions/author';
 class ListStory extends Component {
 
     componentDidMount() {
-       this.props.fetchStories();
-       this.props.fetchAllAuthors();
+        this.props.fetchStories();
+        this.props.fetchAllAuthors();
     }
-
+    findIndex = (list, id) => {
+        var result = -1;
+        list.forEach((item, index) => {
+            if (item.id === id) {
+                result = index;
+            }
+        })
+        return result;
+    }
+    getNameAuthor = (list, id) => {
+        if (list.length > 0) {
+            let name = (id === null) ? 'Đang cập nhật' : list[this.findIndex(list, id)].name;
+            return name;
+        }
+        return 'Loading..';
+    }
     render() {
 
-        const listStory = this.props.stories.map((item, index) =>{
-            return <StoryItem stt={index+1} story={item} key={index}/>
+        const listStory = this.props.stories.map((item, index) => {
+            return <StoryItem stt={index + 1} story={item} key={index} author_name = {this.getNameAuthor(this.props.authors, item.author_id)} />
         })
 
         return (
@@ -25,7 +40,7 @@ class ListStory extends Component {
                 <div className="main-list">
                     <h2 className="fl-left">DANH SÁCH TRUYỆN</h2>
                     <div className="hr" />
-                    <Search/>
+                    <Search />
                     <div className="list">
                         <table className="content-table">
                             <thead>
@@ -35,6 +50,7 @@ class ListStory extends Component {
                                     <th>Tác giả</th>
                                     <th>Trạng thái</th>
                                     <th>Ngày đăng</th>
+                                    <th>Cập nhật</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
@@ -44,7 +60,7 @@ class ListStory extends Component {
                         </table>
                     </div>
                     <div className="num-record">(Có {this.props.stories.length} bản ghi)</div>
-                    <Pagination/>
+                    <Pagination />
                 </div>
             </div>
 
@@ -54,7 +70,8 @@ class ListStory extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        stories: state.stories
+        stories: state.stories,
+        authors: state.authors,
     }
 }
 const mapDispatchToProps = (dispatch) => {

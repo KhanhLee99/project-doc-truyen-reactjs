@@ -89,3 +89,18 @@ export const actEditAuthorRequest = (author) => {
         });
     };
 }
+
+export const actGetAuthorByStoryId = (author) => {
+    return {
+        type : 'GET_AUTHOR_BY_STORY_ID',
+        author
+    }
+}
+
+export const actGetAuthorByStoryIdRequest = (id) => {
+    return dispatch => {
+        return callApi(`author/story/${id}`, 'GET', null).then(res => {
+            dispatch(actGetAuthorByStoryId(res.data));
+        });
+    };
+}

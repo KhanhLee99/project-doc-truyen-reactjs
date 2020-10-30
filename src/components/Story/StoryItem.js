@@ -18,23 +18,23 @@ class StoryItem extends Component {
             this.props.deleteStory(id);
         }
     }
-    findIndex = (list, id) => {
-        var result = -1;
-        list.forEach((item, index) => {
-            if (item.id === id) {
-                result = index;
-            }
-        })
-        return result;
-    }
-    getNameAuthor = (list, id) => {
-        if (list.length > 0) {
-            let name = (id === null) ? 'Đang cập nhật' : list[this.findIndex(list, id)].name;
-            return name;
-        }
-        return 'Loading..';
+    // findIndex = (list, id) => {
+    //     var result = -1;
+    //     list.forEach((item, index) => {
+    //         if (item.id === id) {
+    //             result = index;
+    //         }
+    //     })
+    //     return result;
+    // }
+    // getNameAuthor = (list, id) => {
+    //     if (list.length > 0) {
+    //         let name = (id === null) ? 'Đang cập nhật' : list[this.findIndex(list, id)].name;
+    //         return name;
+    //     }
+    //     return 'Loading..';
+    // }
 
-    }
     // componentDidMount() {
     //     this.props.fetchAllAuthors();
     // }
@@ -56,10 +56,12 @@ class StoryItem extends Component {
         return (
             <tr>
                 <td scope="row">{this.props.stt}</td>
-                <td><Link to="list-chapter.html">{story.name}</Link></td>
-                <td>{this.getNameAuthor(this.props.authors, story.author_id)}</td>
+                <td><Link to={`story/${story.id}`}>{story.name}</Link></td>
+                {/* <td>{this.getNameAuthor(this.props.authors, story.author_id)}</td> */}
+                <td>{this.props.author_name}</td>
                 <td>{status}</td>
                 <td>{moment(story.created_at).format("L")}</td>
+                <td>{moment(story.updated_at).format("L")}</td>
                 <td>
                     <Link to="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></Link>
                     <Link to={`story/${story.id}/edit`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>

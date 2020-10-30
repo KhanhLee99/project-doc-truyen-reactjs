@@ -12,6 +12,7 @@ class AddStory extends Component {
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
         this.descriptionRef = React.createRef();
+        this.path_imageRef = React.createRef();
     }
 
     componentDidMount() {
@@ -56,6 +57,7 @@ class AddStory extends Component {
             author_id: this.author_idRef.current.value,
             status: this.statusRef.current.value,
             description: this.descriptionRef.current.value,
+            path_image: this.path_imageRef.current.value,
         }
         this.props.addStory(story);
         this.props.fetchStories();
@@ -94,8 +96,9 @@ class AddStory extends Component {
                     <label htmlFor="description">Mô tả ngắn</label>
                     <textarea ref={this.descriptionRef} name="description" id="description" />
 
-                    <label htmlFor="file">Ảnh đại diện</label>
-                    <input type="file" name="file" id="file" />
+                    <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
+                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" />
+                    {/* <input type="file" name="file" id="file" /> */}
 
                     <button onClick={(e) => this.addClick(e)} >Thêm mới</button>
                 </div>

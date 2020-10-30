@@ -12,12 +12,14 @@ class EditStory extends Component {
             name: '',
             author_id: '',
             status: '',
-            description: ''
+            description: '',
+            path_image: ''
         }
         this.nameRef = React.createRef();
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
         this.descriptionRef = React.createRef();
+        this.path_imageRef = React.createRef();
     }
 
     componentDidMount() {
@@ -39,6 +41,7 @@ class EditStory extends Component {
                 author_id: storyEditing.author_id,
                 status: storyEditing.status,
                 description: storyEditing.description,
+                path_image: storyEditing.path_image,
             });
         }
     }
@@ -91,22 +94,6 @@ class EditStory extends Component {
         }
 
     }
-    // addClick = (e) => {
-    //     e.preventDefault();
-    //     let { history } = this.props;
-    //     let status = (this.statusRef.current.value === "2") ? 'completed' : 'updating'
-    //     let story = {
-    //         name: this.nameRef.current.value,
-    //         author_id: this.author_idRef.current.value,
-    //         status: status,
-    //         description: this.descriptionRef.current.value,
-    //     }
-    //     this.props.addStory(story);
-    //     this.props.fetchStories();
-
-    //     alert('Đã thêm thành công');
-    //     history.push('/stories');
-    // }
 
     editClick = (e) => {
         e.preventDefault();
@@ -117,6 +104,7 @@ class EditStory extends Component {
             author_id: this.author_idRef.current.value,
             status: this.statusRef.current.value,
             description: this.descriptionRef.current.value,
+            path_image: this.path_imageRef.current.value,
         }
         this.props.editStory(story);
         this.props.fetchStories();
@@ -151,7 +139,8 @@ class EditStory extends Component {
                     <label htmlFor="description">Mô tả ngắn</label>
                     <textarea ref={this.descriptionRef} name="description" id="description" defaultValue={this.state.description} />
 
-                    <label htmlFor="file">Ảnh đại diện</label>
+                    <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
+                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" defaultValue={this.state.path_image}/>
                     <input type="file" name="file" id="file" />
 
                     <button onClick={(e) => this.editClick(e)} >Chỉnh sửa</button>
