@@ -8,6 +8,7 @@ import categoryEditing from './categoryEditing';
 import stories from './stories';
 import storyEditing from './storyEditing';
 import chapters from './chapters';
+import chapterGetting from './chapterGetting';
 
 
 const appReducers = combineReducers({
@@ -19,7 +20,8 @@ const appReducers = combineReducers({
     categoryEditing,
     stories,
     storyEditing,
-    chapters
+    chapters,
+    chapterGetting
 });
 
 export default appReducers;

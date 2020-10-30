@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actGetStoryRequest } from '../../actions/story'
+import { actAddChapterRequest, actAddChapterImageRequest } from '../../actions/chapter'
 
 class AddChapter extends Component {
     constructor(props) {
         super(props);
         this.state = {
             status: false,
-            pages: 0
+            pages: 0,
+            page: []
         }
         this.pagesRef = React.createRef();
+        this.nameRef = React.createRef();
     }
 
     componentDidMount() {
@@ -22,8 +25,20 @@ class AddChapter extends Component {
 
     isChange = () => {
         this.setState({
-            pages: this.pagesRef.current.value
+            pages: this.pagesRef.current.value,
         })
+    }
+
+    changePath = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        var path = {
+            stt: name,
+            path_image: value
+        }
+        this.state.page = this.state.page.filter(x => (x.stt !== path.stt))
+        this.state.page.push(path);
+
     }
 
     renderInput = () => {
@@ -32,22 +47,45 @@ class AddChapter extends Component {
             for (let i = 0; i < this.state.pages; i++) {
                 inputs[i] = i;
             }
-
             return inputs.map((item, index) => {
                 return (
-                    <input type="text" name={`page${item}`} id={`page${item}`} placeholder={`Đường dẫn trang ${item}`} />
+                    <input key={index} type="text" name={item} id={item} placeholder={`Đường dẫn trang ${item}`} onChange={(e) => this.changePath(e)} />
                 )
             })
         }
         return;
-
     }
 
-    addClick = (e) => {
+    addClickChapter = (e) => {
         e.preventDefault();
-        alert(this.pagesRef.current.value);
+        if (this.nameRef.current.value === '' || this.state.pages < 1) {
+            alert('Error');
+        }
+        else {
+            var chapter = {
+                name: this.nameRef.current.value,
+                pages: parseInt(this.pagesRef.current.value),
+                story_id: this.props.storyEditing.id
+            }
+            this.props.addChapter(chapter);
+            console.log(chapter);
+            alert('Da them thanh cong');
+        }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps && nextProps.chapterGetting) {
+            var { chapterGetting } = nextProps;
+            for (let item of this.state.page) {
+                var image = {
+                    stt: parseInt(item.stt),
+                    path_image: item.path_image,
+                    chapter_id: chapterGetting.id
+                }
+                this.props.addChapterImage(image);
+            }
+        }
+    }
 
     render() {
         return (
@@ -55,19 +93,18 @@ class AddChapter extends Component {
                 <div className="main-content">
                     <h2>THÊM MỚI CHƯƠNG ({this.props.storyEditing.name})</h2>
                     <div className="hr1" />
-                    <form action>
-                        <label htmlFor="name">Tên chương</label>
-                        <input type="text" name="name" id="name" />
+                    <label htmlFor="name">Tên chương</label>
+                    <input type="text" name="name" id="name" ref={this.nameRef} />
 
-                        <label htmlFor="pages">Số trang</label>
-                        <input type="number" min="0" max="50" name="pages" id="pages" ref={this.pagesRef} onChange={() => this.isChange()} defaultValue={1} />
+                    <label htmlFor="pages">Số trang</label>
+                    <input type="number" min="0" name="pages" id="pages" ref={this.pagesRef} onChange={() => this.isChange()} defaultValue={0} />
 
-                        {this.renderInput()}
+                    {this.renderInput()}
 
-                        {/* <label htmlFor="file">Upload</label>
+                    {/* <label htmlFor="file">Upload</label>
                         <input type="file" name="file" id="file" /> */}
-                        <button onClick={(e) => this.addClick(e)}>Thêm mới</button>
-                    </form>
+
+                    <button onClick={(e) => this.addClickChapter(e)}>Thêm mới chương</button>
                 </div>
             </div>
         )
@@ -76,12 +113,19 @@ class AddChapter extends Component {
 const mapStateToProps = (state) => {
     return {
         storyEditing: state.storyEditing,
+        chapterGetting: state.chapterGetting,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         getStory: (id) => {
             dispatch(actGetStoryRequest(id))
+        },
+        addChapter: (chapter) => {
+            dispatch(actAddChapterRequest(chapter))
+        },
+        addChapterImage: (image) => {
+            dispatch(actAddChapterImageRequest(image))
         },
     }
 }
