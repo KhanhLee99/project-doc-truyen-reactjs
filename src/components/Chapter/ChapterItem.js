@@ -1,9 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { actDeleteChapterRequest } from '../../actions/chapter';
 
 var moment = require('moment')
 
-export default class ChapterItem extends Component {
+class ChapterItem extends Component {
+    deleteClick = (e, id) => {
+        e.preventDefault();
+        if(window.confirm('Bạn có chắc muốn xóa ?')){
+            this.props.deleteChapter(id);
+        }
+
+    }
     render() {
         var { chapter } = this.props;
         return (
@@ -15,9 +24,18 @@ export default class ChapterItem extends Component {
                 <td>{moment(chapter.updated_at).format("L")}</td>
                 <td>
                     <Link to={`/chapter/edit/${chapter.id}`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
-                    <a href title="Xóa" className="delete"><i className="fa fa-trash icon" /></a>
+                    <Link to={`/chapter/delete/${chapter.id}`} title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, chapter.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
             </tr>
         )
     }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        deleteChapter: (id) => {
+            dispatch(actDeleteChapterRequest(id))
+        }
+    }
+}
+export default connect(null, mapDispatchToProps)(ChapterItem)

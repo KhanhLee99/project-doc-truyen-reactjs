@@ -144,7 +144,7 @@ const routes = [
     {
         path: '/categories',
         exact: false,
-        main: () => <ListCategory />
+        main: ({ history }) => <ListCategory history={history} />
     },
     {
         path: '/category/add',

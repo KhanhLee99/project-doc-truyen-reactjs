@@ -56,7 +56,7 @@ class AddChapter extends Component {
 
     addClickChapter = (e) => {
         e.preventDefault();
-        if (this.nameRef.current.value === '' || this.state.pages < 1) {
+        if (this.nameRef.current.value === '' || this.state.pages < 1 || this.state.page.length < 1) {
             alert('Error');
         }
         else {
@@ -65,9 +65,11 @@ class AddChapter extends Component {
                 pages: parseInt(this.pagesRef.current.value),
                 story_id: this.props.storyEditing.id
             }
-            this.props.addChapter(chapter);
-            console.log(chapter);
-            alert('Da them thanh cong');
+            if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                this.props.addChapter(chapter);
+            }
+
+
         }
     }
 

@@ -3,7 +3,7 @@ import callApi from './../utils/apiCaller';
 export const actAddChapterRequest = (chapter) => {
     return dispatch => {
         return callApi('chapter/add', 'POST', chapter).then(res => {
-            // dispatch(actFetchUsers(res.data));
+            dispatch(actAddChapter(res.data));
             dispatch(actGetNewChapter(res.data));
 
         });
@@ -63,4 +63,33 @@ export const actGetChapter = (chapter) => {
         chapter
     }
 }
+export const actEditChapterRequest = (chapter) => {
+    return dispatch => {
+        return callApi(`chapter/${chapter.id}`, 'PUT', chapter).then(res => {
+            // dispatch(actEditChapter(chapter));
 
+        });
+    };
+}
+
+export const actEditChapter = (chapter) => {
+    return {
+        type : 'EDIT_CHAPTER',
+        chapter
+    }
+}
+
+export const actDeleteChapterRequest = (id) => {
+    return dispatch => {
+        return callApi(`chapter/${id}`, 'DELETE', null).then(res => {
+            dispatch(actDeleteChapter(id));
+        });
+    };
+}
+
+export const actDeleteChapter = (id) => {
+    return {
+        type : 'DELETE_CHAPTER',
+        id
+    }
+}

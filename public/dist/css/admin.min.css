@@ -587,3 +587,7 @@ option {
 .uppercase{
 	text-transform: uppercase;
 }
+
+.icon-back{
+	margin-right: 13px;
+}
