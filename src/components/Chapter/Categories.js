@@ -1,16 +1,34 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class Categories extends Component {
+class Categories extends Component {
+
+    renderCategories = () => {
+        if(this.props.storyCategories.length === 0){
+            return (
+                <li>Đang cập nhật</li>
+            )
+        }
+        else{
+            return this.props.storyCategories.map((item, index) => {
+                return (
+                    <li key={index}>{item.name}</li>
+                )
+            })
+        }
+    }
     render() {
         return (
             <ul>
-                <li>Chuyên mục 1</li>
-                <li>Chuyên mục 2</li>
-                <li>Chuyên mục 3</li>
-                <li>Chuyên mục 4</li>
-                <li>Chuyên mục 5</li>
-                <li>Chuyên mục 6</li>
+                {this.renderCategories()}
             </ul>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        storyCategories: state.storyCategories,
+    }
+}
+
+export default connect(mapStateToProps, null)(Categories)

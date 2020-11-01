@@ -24,6 +24,11 @@ const chapters = (state = InitialState, action) => {
             state.splice(index, 1);
             return [...state]
         
+        case 'EDIT_CHAPTER':
+            index = findIndex(state, action.chapter.id)
+            state[index] = action.chapter;
+            return [...state]
+        
         default:
             return state
     }

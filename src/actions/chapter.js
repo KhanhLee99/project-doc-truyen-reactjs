@@ -66,7 +66,7 @@ export const actGetChapter = (chapter) => {
 export const actEditChapterRequest = (chapter) => {
     return dispatch => {
         return callApi(`chapter/${chapter.id}`, 'PUT', chapter).then(res => {
-            // dispatch(actEditChapter(chapter));
+            dispatch(actEditChapter(chapter));
 
         });
     };

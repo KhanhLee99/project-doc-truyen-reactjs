@@ -7,6 +7,7 @@ class AddChapter extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             pages: 0,
             page: []
         }
@@ -18,7 +19,12 @@ class AddChapter extends Component {
         var { match } = this.props;
         if (match) {
             var id = match.params.id;
-            this.props.getStory(id);
+            if (id) {
+                this.setState({
+                    id: id
+                })
+                this.props.getStory(id);
+            }
         }
     }
 
@@ -68,14 +74,13 @@ class AddChapter extends Component {
             if (window.confirm('Bạn có chắc muốn thêm ?')) {
                 this.props.addChapter(chapter);
             }
-
-
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps && nextProps.chapterGetting) {
             var { chapterGetting } = nextProps;
+            var { history } = this.props;
             for (let item of this.state.page) {
                 var image = {
                     stt: parseInt(item.stt),
@@ -83,6 +88,7 @@ class AddChapter extends Component {
                     chapter_id: chapterGetting.id
                 }
                 this.props.addChapterImage(image);
+                history.push(`/story/${this.state.id}`);
             }
         }
     }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import { actEditStoryRequest, actGetStoryRequest, actFetchStoriesRequest } from '../../actions/story';
+import { actFetchStoryCategoriesRequest } from '../../actions/story_categories';
 
 class EditStory extends Component {
     constructor(props) {
@@ -13,7 +14,10 @@ class EditStory extends Component {
             author_id: '',
             status: '',
             description: '',
-            path_image: ''
+            path_image: '',
+            categories: [],
+            storyCategories: [],
+            tmpCategoriesChecked: []
         }
         this.nameRef = React.createRef();
         this.author_idRef = React.createRef();
@@ -29,12 +33,14 @@ class EditStory extends Component {
         if (match) {
             var id = match.params.id;
             this.props.getStory(id);
+            this.props.fetchStoryCategories(id);
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.storyEditing) {
+        if (nextProps && nextProps.storyEditing && nextProps.storyCategories) {
             var { storyEditing } = nextProps;
+            var { storyCategories } = nextProps;
             this.setState({
                 id: storyEditing.id,
                 name: storyEditing.name,
@@ -42,6 +48,7 @@ class EditStory extends Component {
                 status: storyEditing.status,
                 description: storyEditing.description,
                 path_image: storyEditing.path_image,
+                storyCategories: storyCategories
             });
         }
     }
@@ -66,13 +73,38 @@ class EditStory extends Component {
     }
 
     renderCategories = () => {
+        if (this.state.storyCategories.length > 0) {
+            for (let item of this.state.storyCategories) {
+                this.state.tmpCategoriesChecked.push(item.id);
+            }
+        }
         if (this.props.categories.length > 0) {
             return this.props.categories.map((item, index) => {
-                return (
-                    <option value={item.id} key={index}>{item.name}</option>
-                )
+                if (this.state.tmpCategoriesChecked.indexOf(item.id) !== -1) {
+                    return (
+                        <label><input checked type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
+                    )
+                }
+                else {
+                    return (
+                        <label><input type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
+                    )
+                }
+
             })
         }
+    }
+
+    changeCheckBox = (e, id) => {
+        if (e.target.checked) {
+            this.state.categories.push(id);
+        }
+        else {
+            let index = this.findIndex(this.state.categories, id);
+            this.state.categories.splice(index, 1);
+
+        }
+        alert(JSON.stringify(this.state.categories));
     }
 
     renderStatus = () => {
@@ -113,6 +145,7 @@ class EditStory extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div className="content-wrapper">
                 <div className="main-content">
@@ -123,10 +156,17 @@ class EditStory extends Component {
                     <input ref={this.nameRef} type="text" name="name" id="name" defaultValue={this.state.name} />
 
                     <label htmlFor="category">Chuyên mục</label>
-                    <select name="category" id="category" multiple>
-                        <option value>--- Chọn chuyên mục ---</option>
-                        {this.renderCategories()}
-                    </select>
+                    <div className="multiselect">
+                        <div className="selectBox">
+                            <select>
+                                <option>--- Chọn chuyên mục ---</option>
+                            </select>
+                            <div className="overSelect"></div>
+                        </div>
+                        <div id="checkboxes">
+                            {this.renderCategories()}
+                        </div>
+                    </div>
 
                     <label htmlFor="author">Tác giả</label>
                     <select ref={this.author_idRef} name="author" id="author">
@@ -140,7 +180,7 @@ class EditStory extends Component {
                     <textarea ref={this.descriptionRef} name="description" id="description" defaultValue={this.state.description} />
 
                     <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
-                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" defaultValue={this.state.path_image}/>
+                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" defaultValue={this.state.path_image} />
                     <input type="file" name="file" id="file" />
 
                     <button onClick={(e) => this.editClick(e)} >Chỉnh sửa</button>
@@ -155,6 +195,7 @@ const mapStateToProps = (state) => {
         storyEditing: state.storyEditing,
         categories: state.categories,
         authors: state.authors,
+        storyCategories: state.storyCategories,
     }
 }
 
@@ -174,6 +215,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchStories: () => {
             dispatch(actFetchStoriesRequest())
+        },
+        fetchStoryCategories: (id) => {
+            dispatch(actFetchStoryCategoriesRequest(id))
         },
     }
 }

@@ -111,36 +111,38 @@ class EditChapter extends Component {
 
     saveClick = (e) => {
         e.preventDefault();
-
-        if (this.state.page.length > 0) {
-            for (var item of this.state.page) {
-                let image = {
-                    path_image: item.path_image,
-                    stt: parseInt(item.stt),
-                    chapter_id: this.state.chapter.id
-                }
-                if (this.state.stt.indexOf(parseInt(item.stt)) !== -1) {
-
-                    this.props.editImage(image);
-                }
-                else {
-                    this.props.addChapterImage(image);
-                }
-            }
-            alert('Đã sửa đường dẫn thành công');
+        var {history} = this.props;
+        if (this.nameRef.current.value === "") {
+            alert('Không được để trống Tên chương');
         }
-        if (this.state.changeStatus) {
-            if (this.nameRef.current.value === "") {
-                alert('error');
-            }
-            else {
-                let chapter = {
-                    id: this.state.chapter.id,
-                    name: this.nameRef.current.value,
-                    story_id: this.state.story.id,
+        else {
+            if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                if (this.state.page.length > 0) {
+                    for (var item of this.state.page) {
+                        let image = {
+                            path_image: item.path_image,
+                            stt: parseInt(item.stt),
+                            chapter_id: this.state.chapter.id
+                        }
+                        if (this.state.stt.indexOf(parseInt(item.stt)) !== -1) {
+
+                            this.props.editImage(image);
+                        }
+                        else {
+                            this.props.addChapterImage(image);
+                        }
+                    }
                 }
-                this.props.editChapter(chapter);
-                alert('Đã sửa tên chương thành công');
+                if (this.state.changeStatus) {
+                    let chapter = {
+                        id: this.state.chapter.id,
+                        name: this.nameRef.current.value,
+                        story_id: this.state.story.id,
+                        pages: this.state.pages
+                    }
+                    this.props.editChapter(chapter);
+                }
+                history.push(`/story/${this.state.story.id}`);
             }
         }
     }
@@ -161,9 +163,6 @@ class EditChapter extends Component {
                     <input type="text" name="name" id="name" onChange={() => this.handleChange()} ref={this.nameRef} defaultValue={this.state.chapter.name} />
 
                     {this.renderInput()}
-
-                    {/* <label htmlFor="file">Upload</label>
-                        <input type="file" name="file" id="file" /> */}
 
                     <button onClick={(e) => this.saveClick(e)}>Lưu </button>
                 </div>

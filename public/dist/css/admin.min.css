@@ -399,6 +399,7 @@ option {
 	margin-bottom: 10px;
 }
 .detail-story .story-img{
+	width: 130px;
 	height: 150px;
 	margin-right: 20px;
 	
@@ -591,3 +592,40 @@ option {
 .icon-back{
 	margin-right: 13px;
 }
+
+/* checkboxes */
+.multiselect {
+	width: 100%;
+  }
+
+  .selectBox {
+	position: relative;
+  }
+
+  .selectBox select {
+	width: 65%;
+  }
+
+  .overSelect {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+  }
+
+  #checkboxes {
+	display: none;
+	width: 65%;
+	border: 1px #dadada solid;
+	border-top: none;
+	margin-top: -20px;
+  }
+
+  #checkboxes label {
+	display: block;
+  }
+
+  #checkboxes label:hover {
+	background-color: #1e90ff;
+  }

@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { actGetStoryByChapterIdRequest } from '../../actions/story';
 import { actGetChapterRequest } from '../../actions/chapter';
 import { actFetchImagesRequest } from '../../actions/image';
+import { Link } from 'react-router-dom';
 
 class DetailChapter extends Component {
-    
+
     componentDidMount() {
         var { match } = this.props;
         if (match) {
@@ -14,6 +15,12 @@ class DetailChapter extends Component {
             this.props.getChapter(id);
             this.props.fetchImages(id);
         }
+    }
+
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
     }
 
     render() {
@@ -25,7 +32,7 @@ class DetailChapter extends Component {
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h2 className="fl-left uppercase">{this.props.storyEditing.name} ({this.props.chapterGetting.name})</h2>
+                    <h2 className="fl-left uppercase"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>{this.props.storyEditing.name} ({this.props.chapterGetting.name})</h2>
                     <div className="hr" />
                     {listImage}
                 </div>

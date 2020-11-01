@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import { actFetchCategoriesRequest } from '../../actions/category';
+import { actAddStoryCategoryRequest } from '../../actions/story_categories';
 import { actAddStoryRequest, actFetchStoriesRequest } from '../../actions/story';
 
 
 class AddStory extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            categories: []
+        }
         this.nameRef = React.createRef();
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
@@ -42,16 +46,37 @@ class AddStory extends Component {
         if (this.props.categories.length > 0) {
             return this.props.categories.map((item, index) => {
                 return (
-                    <option value={item.id} key={index}>{item.name}</option>
+                    <label><input type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
                 )
             })
         }
     }
 
-    
+    changeCheckBox = (e, id) => {
+        if (e.target.checked) {
+            this.state.categories.push(id);
+        }
+        else {
+            let index = this.findIndex(this.state.categories, id);
+            this.state.categories.splice(index, 1);
+
+        }
+        // alert(JSON.stringify(this.state.categories));
+    }
+
+    findIndex = (list, id) => {
+        var result = -1;
+        list.forEach((item, index) => {
+            if (item === id) {
+                result = index;
+            }
+        })
+        return result;
+    }
+
+
     addClick = (e) => {
         e.preventDefault();
-        let { history } = this.props;
         let story = {
             name: this.nameRef.current.value,
             author_id: this.author_idRef.current.value,
@@ -60,10 +85,24 @@ class AddStory extends Component {
             path_image: this.path_imageRef.current.value,
         }
         this.props.addStory(story);
-        this.props.fetchStories();
+        // this.props.fetchStories();
+    }
 
-        alert('Đã thêm thành công');
-        history.push('/stories');
+    componentWillReceiveProps(nextProps) {
+        if (nextProps && nextProps.storyEditing) {
+            var { storyEditing } = nextProps;
+            var { history } = this.props;
+            for (let item of this.state.categories) {
+                var storyCategory = {
+                    story_id: storyEditing.id,
+                    category_id: item
+                }
+                this.props.addStoryCategory(storyCategory);
+                this.props.fetchStories();
+                history.push('/stories');
+            }
+            // alert('Đã thêm thành công');
+        }
     }
 
     render() {
@@ -77,10 +116,17 @@ class AddStory extends Component {
                     <input ref={this.nameRef} type="text" name="name" id="name" />
 
                     <label htmlFor="category">Chuyên mục</label>
-                    <select name="category" id="category" multiple>
-                        <option value>--- Chọn chuyên mục ---</option>
-                        {this.renderCategories()}
-                    </select>
+                    <div className="multiselect">
+                        <div className="selectBox">
+                            <select>
+                                <option>--- Chọn chuyên mục ---</option>
+                            </select>
+                            <div className="overSelect"></div>
+                        </div>
+                        <div id="checkboxes">
+                            {this.renderCategories()}
+                        </div>
+                    </div>
 
                     <label htmlFor="author">Tác giả</label>
                     <select ref={this.author_idRef} name="author" id="author">
@@ -107,14 +153,15 @@ class AddStory extends Component {
         );
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         authors: state.authors,
         categories: state.categories,
+        storyEditing: state.storyEditing,
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllAuthors: () => {
             dispatch(actFetchAuthorsRequest())
@@ -127,6 +174,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         fetchStories: () => {
             dispatch(actFetchStoriesRequest())
+        },
+        addStoryCategory: (storyCategory) => {
+            dispatch(actAddStoryCategoryRequest(storyCategory))
         },
     }
 }

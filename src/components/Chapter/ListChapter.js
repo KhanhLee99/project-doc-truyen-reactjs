@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { actGetAuthorByStoryIdRequest } from '../../actions/author'
 import { actFetchChaptersRequest } from '../../actions/chapter'
 import { actGetStoryRequest } from '../../actions/story'
+import { actFetchStoryCategoriesRequest } from '../../actions/story_categories'
 import Categories from './Categories'
 import ChapterItem from './ChapterItem'
 import Pagination from './Pagination'
@@ -15,6 +16,7 @@ class ListChapter extends Component {
             id: '',
             story: {},
             author: {},
+            // categories: []
         }
     }
     componentDidMount() {
@@ -26,22 +28,27 @@ class ListChapter extends Component {
                 id: id
             })
             this.props.getStory(id);
-            this.props.getAuthorByStoryId(id);
+            // this.props.getAuthorByStoryId(id);
+            this.props.fetchStoryCategories(id);
             this.props.fetchChapters(id);
         }
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.storyEditing && nextProps.authorEditing) {
+        if (nextProps && nextProps.storyEditing) {
             var { storyEditing } = nextProps;
-            var { authorEditing } = nextProps;
+            // var { categories } = nextProps;
+            // var { authorEditing } = nextProps;
             this.setState({
                 story: storyEditing,
-                author: authorEditing
+                // author: authorEditing,
+                // categories: categories
             });
         }
     }
 
     render() {
+        // console.log(this.state.categories)
+
         const listChapter = this.props.chapters.map((item, index) => {
             return (
                 <ChapterItem key={index} chapter={item} stt={index + 1} />
@@ -52,7 +59,9 @@ class ListChapter extends Component {
                 <div className="main-list">
                     <div className="detail-story fl-left">
                         <img src={this.state.story.path_image} className="story-img fl-left" />
-                        <span><b className="story-name">{this.state.story.name}</b>( <a href className="story-author">{this.state.author.name}</a>  )</span>
+                        <span><b className="story-name">{this.state.story.name}</b>
+                        {/* ( <a href className="story-author">{this.state.author.name}</a>  ) */}
+                        </span>
                         <Categories />
                     </div>
                     <Search id={this.state.id} />
@@ -85,6 +94,7 @@ const mapStateToProps = (state) => {
         storyEditing: state.storyEditing,
         authorEditing: state.authorEditing,
         chapters: state.chapters,
+        // storyCategories: state.storyCategories,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -97,6 +107,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchChapters: (story_id) => {
             dispatch(actFetchChaptersRequest(story_id))
+        },
+        fetchStoryCategories: (id) => {
+            dispatch(actFetchStoryCategoriesRequest(id))
         },
     }
 }

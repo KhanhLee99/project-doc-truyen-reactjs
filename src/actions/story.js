@@ -52,7 +52,7 @@ export const actDeleteStory = (id) => {
 export const actAddStoryRequest = (story) => {
     return dispatch => {
         return callApi('story/add', 'POST', story).then(res => {
-            // alert('Đã thêm thành công');
+            dispatch(actGetNewStory(res.data));
         });
     };
 }
@@ -64,6 +64,13 @@ export const actAddStoryRequest = (story) => {
 //     }
 // }
 
+// GET_NEW_STORY
+export const actGetNewStory = (story) => {
+    return {
+        type : 'GET_NEW_STORY',
+        story
+    }
+}
 // get story
 export const actGetStoryRequest = (id) => {
     return dispatch => {
