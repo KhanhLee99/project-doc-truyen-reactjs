@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { actGetAuthorByStoryIdRequest } from '../../actions/author'
 import { actFetchChaptersRequest } from '../../actions/chapter'
 import { actGetStoryRequest } from '../../actions/story'
@@ -20,7 +21,7 @@ class ListChapter extends Component {
         }
     }
     componentDidMount() {
-       
+
         var { match } = this.props;
         if (match) {
             var id = match.params.id;
@@ -45,10 +46,12 @@ class ListChapter extends Component {
             });
         }
     }
-
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
     render() {
-        // console.log(this.state.categories)
-
         const listChapter = this.props.chapters.map((item, index) => {
             return (
                 <ChapterItem key={index} chapter={item} stt={index + 1} />
@@ -57,10 +60,14 @@ class ListChapter extends Component {
         return (
             <div className="content-wrapper">
                 <div className="main-list">
+                    <h2 className="fl-left"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>DANH SÁCH CHƯƠNG</h2>
+                    <div className="hr" />
                     <div className="detail-story fl-left">
+
+
                         <img src={this.state.story.path_image} className="story-img fl-left" />
                         <span><b className="story-name">{this.state.story.name}</b>
-                        {/* ( <a href className="story-author">{this.state.author.name}</a>  ) */}
+                            {/* ( <a href className="story-author">{this.state.author.name}</a>  ) */}
                         </span>
                         <Categories />
                     </div>

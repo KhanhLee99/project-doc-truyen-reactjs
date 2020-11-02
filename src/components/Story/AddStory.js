@@ -50,6 +50,11 @@ class AddStory extends Component {
                 )
             })
         }
+        else {
+            return (
+                <label>Loading...</label>
+            )
+        }
     }
 
     changeCheckBox = (e, id) => {

@@ -11,6 +11,7 @@ import chapters from './chapters';
 import chapterGetting from './chapterGetting';
 import images from './images';
 import storyCategories from './storyCategories';
+import isLogin from './isLogin';
 
 
 const appReducers = combineReducers({
@@ -25,7 +26,8 @@ const appReducers = combineReducers({
     chapters,
     chapterGetting,
     images,
-    storyCategories
+    storyCategories,
+    isLogin
 });
 
 export default appReducers;

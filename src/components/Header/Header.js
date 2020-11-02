@@ -17,7 +17,7 @@ export default class Header extends Component {
                     <div className="navbar-custom-menu">
                         <ul className="nav navbar-nav">
                             <li className="dropdown user user-menu"> <Link onClick={(e) => this.click(e)} to="http://www.google.com" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist\img\ava.jpg" className="user-image" alt="User Image" /> <span className="hidden-xs">levietkhanh</span> </Link>
+                                <img src="dist\img\ava.jpg" className="user-image" /> <span className="hidden-xs">levietkhanh</span> </Link>
                             </li>
                         </ul>
                     </div>

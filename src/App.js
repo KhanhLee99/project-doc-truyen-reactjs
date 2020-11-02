@@ -8,15 +8,31 @@ import {
   Route,
 } from "react-router-dom";
 import routes from './Router/Url';
+import { connect } from 'react-redux';
+import Login from './components/Login/Login';
 
-export default class App extends Component {
+class App extends Component {
+  renderApp = () => {
+    if (this.props.isLogin) {
+      return (
+        <Router>
+          <Header />
+          <Sidebar />
+          {this.showContentMenus(routes)}
+        </Router>
+      )
+    }
+    else {
+      return (
+        <Login />
+      )
+    }
+  }
   render() {
     return (
-      <Router>
-        <Header />
-        <Sidebar />
-        {this.showContentMenus(routes)}
-      </Router>
+      <>
+        {this.renderApp()}
+      </>
     )
   }
   showContentMenus = (routes) => {
@@ -36,3 +52,11 @@ export default class App extends Component {
     return <Switch>{result}</Switch>;
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.isLogin
+  }
+}
+
+export default connect(mapStateToProps, null)(App)

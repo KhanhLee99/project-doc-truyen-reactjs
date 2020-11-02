@@ -109,7 +109,7 @@ const routes = [
     {
         path: '/stories',
         exact: false,
-        main: () => <ListStory />
+        main: ({ history }) => <ListStory history={history}/>
     },
     {
         path: '/story/add',

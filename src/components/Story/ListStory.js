@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import StoryItem from './StoryItem';
 import Pagination from './Pagination';
 import { actFetchAuthorsRequest } from '../../actions/author';
+import { Link } from 'react-router-dom';
 
 
 class ListStory extends Component {
@@ -29,16 +30,20 @@ class ListStory extends Component {
         }
         return 'Loading..';
     }
+
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
     render() {
-
         const listStory = this.props.stories.map((item, index) => {
-            return <StoryItem stt={index + 1} story={item} key={index} author_name = {this.getNameAuthor(this.props.authors, item.author_id)} />
+            return <StoryItem stt={index + 1} story={item} key={index} author_name={this.getNameAuthor(this.props.authors, item.author_id)} />
         })
-
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h2 className="fl-left">DANH SÁCH TRUYỆN</h2>
+                    <h2 className="fl-left"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>DANH SÁCH TRUYỆN</h2>
                     <div className="hr" />
                     <Search />
                     <div className="list">
