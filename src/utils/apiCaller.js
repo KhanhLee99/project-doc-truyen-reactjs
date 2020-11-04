@@ -9,3 +9,4 @@ export default function callApi(endpoint, method = 'GET', body){
         console.log(err);
     });
 };
+

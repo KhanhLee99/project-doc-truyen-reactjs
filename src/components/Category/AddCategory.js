@@ -11,14 +11,19 @@ class AddCategory extends Component {
     }
 
     addClick = () => {
-        let category = {
-            name: this.nameRef.current.value,
-            description: this.descriptionRef.current.value
+        if (this.nameRef.current.value === '') {
+            alert('ko dc de trong')
         }
-        let { history } = this.props;
-        this.props.addCategory(category);
-        alert('Da them thanh cong!');
-        history.push('/categories');
+        else {
+            let category = {
+                name: this.nameRef.current.value,
+                description: this.descriptionRef.current.value
+            }
+            let { history } = this.props;
+            this.props.addCategory(category);
+            alert('Da them thanh cong!');
+            history.push('/categories');
+        }
     }
 
     render() {
@@ -40,7 +45,7 @@ class AddCategory extends Component {
         );
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         addCategory: (category) => {
             dispatch(actAddCategoryRequest(category))

@@ -46,7 +46,7 @@ class ListStory extends Component {
             setTimeout(() => {
                 this.setState({
                     html: "Không tìm thấy"
-                })
+                });
             }, 15000);
 
             let html = (

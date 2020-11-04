@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { actEditUserRequest, actGetUserRequest } from '../../actions/users'
+import showAlert from '../../utils/showAlert';
 
 class UserCurrent extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class UserCurrent extends Component {
 
     saveClick = () => {
         if (!this.state.changeStatus) {
-            alert('Ko thay doi j')
+            showAlert("Không sửa thông tin nào", "success")
             this.setState({
                 inputStatus: !this.state.inputStatus,
                 changeStatus: false
@@ -34,7 +35,7 @@ class UserCurrent extends Component {
         }
         else {
             if (this.nameRef.current.value === "") {
-                alert('ten ko dc de trong');
+                showAlert("Tên không được để trống", "warning")
             }
             else {
                 let user = {
@@ -44,7 +45,7 @@ class UserCurrent extends Component {
                 }
                 this.props.editUser(user);
                 localStorage.setItem("userData", JSON.stringify(user));
-                alert('da thay doi ten')
+                showAlert("", "Đã sửa tên thành công", "success")
                 this.setState({
                     inputStatus: !this.state.inputStatus,
                     changeStatus: false,
@@ -78,7 +79,14 @@ class UserCurrent extends Component {
             return (
                 <>
                     <li className="tt"><input onChange={() => this.changeName()} className='edit-name' type='text' defaultValue={this.state.name} ref={this.nameRef} /></li>
-                    <li className="edit" onClick={() => this.saveClick()}><i className="fa fa-check" /> <span>Lưu</span></li>
+                    <li className="edit" >
+                        <span className="mr" onClick={() => this.saveClick()}>
+                            <i className="fa fa-check" style={{color:"green"}}/> <span>Lưu</span>
+                        </span>
+                        <span className="mr" onClick={() => this.editClick()}>
+                            <i className="fa fa-close" style={{color:"red"}}/> <span>Hủy</span>
+                        </span>
+                    </li>
 
                 </>
             )

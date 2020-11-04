@@ -1,17 +1,9 @@
-import React, { Component } from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-} from "react-router-dom";
+import React  from 'react';
 
 import ListAuthor from '../components/Author/ListAuthor';
 import AddAuthor from '../components/Author/AddAuthor';
 import ListUser from '../components/User/ListUser';
 import ListStory from '../components/Story/ListStory';
-//
-
 import AddStory from '../components/Story/AddStory';
 import ListCategory from '../components/Category/ListCategory';
 import AddCategory from '../components/Category/AddCategory';
@@ -24,70 +16,15 @@ import DetailChapter from '../components/Chapter/DetailChapter';
 import EditChapter from '../components/Chapter/EditChapter';
 import UserCurrent from '../components/Admin/UserCurrent';
 import Login from '../components/Login/Login';
+import Dashboard from '../components/Dasboard/Dashboard';
 
-
-class Url extends Component {
-    render() {
-        return (
-            <div>
-                <Switch>
-                    {/* <Route exact path="/">
-                        <Home />
-                    </Route> */}
-                    <Route path="/authors">
-                        <ListAuthor />
-                    </Route>
-                    <Route path="/author/add">
-                        <AddAuthor />
-                    </Route>
-                    <Route path="/users">
-                        <ListUser />
-                    </Route>
-
-
-                    <Route path="/story/add">
-                        <AddStory />
-                    </Route>
-                    <Route path="/category/add">
-                        <AddCategory />
-                    </Route>
-
-                    <Route path="/stories">
-                        <ListStory />
-                    </Route>
-                    <Route path="/category/add">
-                        <AddCategory />
-                    </Route>
-                    <Route path="/categories">
-                        <ListCategory />
-                    </Route>
-
-                    <Route path="/author/edit" children={<EditAuthor />} />
-
-
-
-                    {/* <Route path="/chi-tiet/:slug.:id.html" children={<ChiTiet />} />
-                    <Route path="/chi-tiet/:slug.:id.html">
-                            <ChiTiet />
-                        </Route> */}
-
-                    {/* <Route path="/edit/:id">
-                        <Edit />
-                    </Route> */}
-
-
-                </Switch>
-            </div>
-        );
-    }
-}
 
 const routes = [
-    // {
-    //     path: '/',
-    //     exact: true,
-    //     main: () => <HomePage />
-    // },
+    {
+        path: '/dashboard',
+        exact: true,
+        main: () => <Dashboard />
+    },
     {
         path: '/authors',
         exact: false,

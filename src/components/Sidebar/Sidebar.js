@@ -38,7 +38,7 @@ class Sidebar extends Component {
                 <section className="sidebar">
                     <ul className="sidebar-menu">
                         <li className="treeview">
-                            <Link to="/home" className="treeview-name treeview-active"> <i className="fa fa-home" /> <span>Dashboard</span> </Link>
+                            <a href="/dashboard" className="treeview-name treeview-active"> <i className="fa fa-home" /> <span>Dashboard</span> </a>
                         </li>
                         <li className="treeview">
                             <a href='' className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />
@@ -63,9 +63,9 @@ class Sidebar extends Component {
                                 <li><Link to="/stories">Danh sách truyện</Link></li>
                             </ul>
                         </li>
-                        <li className="treeview"> <Link to="/users" className=" treeview-name"><i className="fa fa-users"> </i> <span>Thành viên</span></Link></li>
+                        <li className="treeview"> <a href="/users" className=" treeview-name"><i className="fa fa-users"> </i> <span>Thành viên</span></a></li>
                         <li className="treeview">
-                            <Link to="/admin/edit" className="treeview-active"> <i className="fa fa-info-circle" /> <span>Thông tin tài khoản</span> </Link>
+                            <a href="/admin/edit" className="treeview-active"> <i className="fa fa-info-circle" /> <span>Thông tin tài khoản</span> </a>
                         </li>
                         <li className="treeview">
                             <Link to="/"><i className="fa fa-unlock-alt" /> <span>Đổi mật khẩu</span></Link>

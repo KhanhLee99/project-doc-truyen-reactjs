@@ -636,3 +636,7 @@ option {
 	  padding: 5px 10px;
 	  font-size: 15px;
   }
+
+  .mr {
+	  margin-right: 18px;
+  }

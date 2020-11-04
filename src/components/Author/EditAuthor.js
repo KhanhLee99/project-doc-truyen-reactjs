@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { actEditAuthorRequest, actFetchAuthorsRequest, actGetAuthorRequest } from '../../actions/author';
+import showAlert from '../../utils/showAlert';
 
 class EditAuthor extends Component {
     constructor(props) {
@@ -16,16 +17,24 @@ class EditAuthor extends Component {
 
     editClick = (e) => {
         e.preventDefault();
-        let { history } = this.props;
-        let authorEdit = {
-            id: this.state.id,
-            name: this.nameRef.current.value,
-            description: this.descriptionRef.current.value
+        if (this.nameRef.current.value === "") {
+            showAlert("Không được để trống tên tác giả", "warning");
+        }
+        else {
+            if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                let { history } = this.props;
+                let authorEdit = {
+                    id: this.state.id,
+                    name: this.nameRef.current.value,
+                    description: this.descriptionRef.current.value
+                }
+
+                this.props.editAuthor(authorEdit);
+                showAlert("Đã sửa thông tin tác giả thành công", "success");
+                history.push('/authors');
+            }
         }
 
-        this.props.editAuthor(authorEdit);
-        alert('Da sua thanh cong');
-        history.push('/authors');
     }
     componentDidMount() {
         var { match } = this.props;

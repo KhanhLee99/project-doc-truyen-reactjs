@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import showAlert from '../../utils/showAlert';
+
 
 class Login extends Component {
     constructor(props) {
@@ -30,12 +32,9 @@ class Login extends Component {
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("userData", JSON.stringify(response.data.data));
                     this.setState({
-                        // msg: response.data.message,
-                        // errMsg: "",
-                        // errMsgEmail: "",
-                        // errMsgPwd: "",
                         redirect: true,
                     });
+                    showAlert('Đã đăng nhập thành công', 'success');
                     this.props.setLoginTrue();
                 }
                 else {
@@ -48,9 +47,6 @@ class Login extends Component {
                                 errMsg: "",
 
                             });
-                            // setTimeout(() => {
-                            //     this.setState({ errMsgEmail: "", errMsgPwd: "" });
-                            // }, 5000);
                         }
                         else {
                             this.setState({
@@ -59,9 +55,6 @@ class Login extends Component {
                                 errMsgPwd: "",
                                 msg: ""
                             });
-                            // setTimeout(() => {
-                            //     this.setState({ errMsg: "" });
-                            // }, 2000);
                         }
                     }
                 }
@@ -112,7 +105,7 @@ class Login extends Component {
         )
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         isLogin: state.isLogin
     }

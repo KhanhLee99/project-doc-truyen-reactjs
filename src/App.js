@@ -9,49 +9,17 @@ import {
 } from "react-router-dom";
 import routes from './Router/Url';
 import { connect } from 'react-redux';
-import Login from './components/Login/Login';
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import 'animate.css/animate.compat.css'
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     isLogin: null
-  //   }
-  // }
-  // componentDidMount() {
-  //   const login = localStorage.getItem("isLoggedIn");
-  //   if (login) {
-  //     this.setState({
-  //       isLogin: true
-  //     })
-  //   }
-  // }
-
-
-  // renderApp = () => {
-  //   if (this.state.isLogin) {
-  //     return (
-  //       <Router>
-  //         <Header />
-  //         <Sidebar />
-  //         {this.showContentMenus(routes)}
-  //       </Router>
-  //     )
-  //   }
-  //   else if (this.state.isLogin === null) {
-  //     return (
-  //       <Router>
-  //         <Route exact path="/login" component={Login}></Route>
-  //       </Router>
-  //     )
-  //   }
-  // }
-
   render() {
     return (
       <>
         <Router>
           <Header />
+          <ReactNotification />
           <Sidebar />
           {this.showContentMenus(routes)}
         </Router>

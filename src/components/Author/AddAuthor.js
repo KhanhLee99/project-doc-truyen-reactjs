@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { actAddAuthorRequest } from '../../actions/author';
+import showAlert from '../../utils/showAlert';
 
 
 class AddAuthor extends Component {
@@ -13,17 +14,19 @@ class AddAuthor extends Component {
 
     addClick = () => {
         if (this.nameRef.current.value === "") {
-            alert('Không để trống tên tác giả');
+            showAlert("Không được để trống tên tác giả", "warning")
         }
         else {
-            var { history } = this.props;
-            let newAuthor = {
-                name: this.nameRef.current.value,
-                description: this.descriptionRef.current.value
+            if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                var { history } = this.props;
+                let newAuthor = {
+                    name: this.nameRef.current.value,
+                    description: this.descriptionRef.current.value
+                }
+                this.props.addAuthor(newAuthor);
+                showAlert("Đã thêm tác giả thành công", "success")
+                history.push("/authors");
             }
-            this.props.addAuthor(newAuthor);
-            alert('Da them thanh cong');
-            history.push("/authors");
         }
     }
 
