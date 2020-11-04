@@ -5,10 +5,16 @@ import { connect } from 'react-redux';
 import StoryItem from './StoryItem';
 import Pagination from './Pagination';
 import { actFetchAuthorsRequest } from '../../actions/author';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class ListStory extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            html: "Loading.."
+        }
+    }
 
     componentDidMount() {
         this.props.fetchStories();
@@ -30,6 +36,28 @@ class ListStory extends Component {
         }
         return 'Loading..';
     }
+    renderNumRecord = () => {
+        if (this.props.stories.length > 0) {
+            return (
+                <div className="num-record">(Có {this.props.stories.length} bản ghi)</div>
+            )
+        }
+        else {
+            setTimeout(() => {
+                this.setState({
+                    html: "Không tìm thấy"
+                })
+            }, 15000);
+
+            let html = (
+                <div className="num-record">{this.state.html}</div>
+            );
+
+            return (
+                <div className="num-record">{html}</div>
+            );
+        }
+    }
 
     backClick = (e) => {
         e.preventDefault();
@@ -37,6 +65,9 @@ class ListStory extends Component {
         history.goBack();
     }
     render() {
+        if (this.props.isLogin === null) {
+            return <Redirect to="/"  />;
+        }
         const listStory = this.props.stories.map((item, index) => {
             return <StoryItem stt={index + 1} story={item} key={index} author_name={this.getNameAuthor(this.props.authors, item.author_id)} />
         })
@@ -64,7 +95,9 @@ class ListStory extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có {this.props.stories.length} bản ghi)</div>
+                    {/* <div className="num-record">(Có {this.props.stories.length} bản ghi)</div> */}
+                    {this.renderNumRecord()}
+
                     <Pagination />
                 </div>
             </div>
@@ -77,6 +110,7 @@ const mapStateToProps = (state) => {
     return {
         stories: state.stories,
         authors: state.authors,
+        isLogin: state.isLogin,
     }
 }
 const mapDispatchToProps = (dispatch) => {

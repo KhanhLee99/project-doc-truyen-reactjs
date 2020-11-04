@@ -12,26 +12,49 @@ import { connect } from 'react-redux';
 import Login from './components/Login/Login';
 
 class App extends Component {
-  renderApp = () => {
-    if (this.props.isLogin) {
-      return (
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     isLogin: null
+  //   }
+  // }
+  // componentDidMount() {
+  //   const login = localStorage.getItem("isLoggedIn");
+  //   if (login) {
+  //     this.setState({
+  //       isLogin: true
+  //     })
+  //   }
+  // }
+
+
+  // renderApp = () => {
+  //   if (this.state.isLogin) {
+  //     return (
+  //       <Router>
+  //         <Header />
+  //         <Sidebar />
+  //         {this.showContentMenus(routes)}
+  //       </Router>
+  //     )
+  //   }
+  //   else if (this.state.isLogin === null) {
+  //     return (
+  //       <Router>
+  //         <Route exact path="/login" component={Login}></Route>
+  //       </Router>
+  //     )
+  //   }
+  // }
+
+  render() {
+    return (
+      <>
         <Router>
           <Header />
           <Sidebar />
           {this.showContentMenus(routes)}
         </Router>
-      )
-    }
-    else {
-      return (
-        <Login />
-      )
-    }
-  }
-  render() {
-    return (
-      <>
-        {this.renderApp()}
       </>
     )
   }

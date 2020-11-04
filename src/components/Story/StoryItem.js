@@ -51,7 +51,6 @@ class StoryItem extends Component {
     render() {
 
         let { story } = this.props;
-        console.log(typeof story.author_id);
         var status = (story.status === 'updating') ? 'Đang cập nhật' : 'Hoàn thành'
         return (
             <tr>

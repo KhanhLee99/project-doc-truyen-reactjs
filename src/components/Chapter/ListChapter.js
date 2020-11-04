@@ -46,6 +46,21 @@ class ListChapter extends Component {
             });
         }
     }
+    renderNumRecord = () => {
+        if (this.props.chapters.length > 0) {
+            return (
+                <div className="num-record">(Có {this.props.chapters.length} bản ghi)</div>
+            )
+        }
+        else {
+            let html = (
+                <div className="num-record"></div>
+            );
+            return (
+                <div className="num-record">{html}</div>
+            );
+        }
+    }
     backClick = (e) => {
         e.preventDefault();
         var { history } = this.props;

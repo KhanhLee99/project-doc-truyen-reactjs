@@ -2,8 +2,10 @@ import './login.css';
 import { isLoginTrue } from '../../actions/login';
 import React, { Component } from 'react'
 import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +20,6 @@ export default class Login extends Component {
     }
 
     loginClick = () => {
-        // alert(this.emailRef.current.value + " " + this.passwordRef.current.value)
         Axios
             .post("http://localhost:8000/api/login", {
                 email: this.emailRef.current.value,
@@ -29,12 +30,13 @@ export default class Login extends Component {
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("userData", JSON.stringify(response.data.data));
                     this.setState({
-                        msg: response.data.message,
-                        errMsg: "",
-                        errMsgEmail: "",
-                        errMsgPwd: "",
+                        // msg: response.data.message,
+                        // errMsg: "",
+                        // errMsgEmail: "",
+                        // errMsgPwd: "",
                         redirect: true,
                     });
+                    this.props.setLoginTrue();
                 }
                 else {
                     if (response.data.status === "failed") {
@@ -68,6 +70,12 @@ export default class Login extends Component {
             });
     }
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/stories" />;
+        }
+        if (this.props.isLogin) {
+            return <Redirect to="/stories" />;
+        }
         return (
             <div className="block-login">
                 <div className="welcome-login">
@@ -104,3 +112,17 @@ export default class Login extends Component {
         )
     }
 }
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isLogin: state.isLogin
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setLoginTrue: () => {
+            dispatch(isLoginTrue())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

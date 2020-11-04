@@ -1,15 +1,31 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import {
     BrowserRouter as Route,
     Link,
 } from "react-router-dom";
 
-export default class Header extends Component {
+class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userCurrent: {}
+        }
+    }
+
     click = (e) => {
         e.preventDefault();
     }
+    componentDidMount() {
+        this.setState({
+            userCurrent: this.props.userCurrent
+        })
+    }
+
     render() {
-        return (
+        console.log(this.props.userCurrent);
+        // var email = (this.props.userCurrent.email) ? this.props.userCurrent.email.split('@')[0] : 'Admin';
+        var header = (this.props.isLogin) ? (
             <header className="main-header">
                 <Link to="dashboard.html" className="logo"> <span className="logo-lg">ADMIN</span> </Link>
                 <nav className="navbar navbar-static-top" role="navigation">
@@ -17,7 +33,7 @@ export default class Header extends Component {
                     <div className="navbar-custom-menu">
                         <ul className="nav navbar-nav">
                             <li className="dropdown user user-menu"> <Link onClick={(e) => this.click(e)} to="http://www.google.com" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist\img\ava.jpg" className="user-image" /> <span className="hidden-xs">levietkhanh</span> </Link>
+                                <img src="dist\img\ava.jpg" className="user-image" /> <span className="hidden-xs">levietkhanh99</span> </Link>
                             </li>
                         </ul>
                     </div>
@@ -33,6 +49,18 @@ export default class Header extends Component {
                     </div>
                 </nav>
             </header>
+        ) : (null)
+        return (
+            <>
+                {header}
+            </>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        userCurrent: state.userCurrent,
+        isLogin: state.isLogin,
+    }
+}
+export default connect(mapStateToProps, null)(Header)

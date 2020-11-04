@@ -1,6 +1,12 @@
-export const isLoginTrue = (isLogin) => {
+export const isLoginTrue = () => {
     return {
         type : 'IS_LOGIN_TRUE',
-        isLogin
+        
+    }
+}
+export const isLoginFalse = () => {
+    return {
+        type : 'IS_LOGIN_FALSE',
+        
     }
 }

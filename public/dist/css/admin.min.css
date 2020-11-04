@@ -441,7 +441,7 @@ option {
 }
 ._1info {
 	width: 100%;
-	height: 40px;
+	height: 50px;
 	border-bottom: 1px solid #d5d5d5;
 	font-size: 19px;
 }
@@ -521,10 +521,7 @@ option {
 .main-header .navbar-custom-menu{
 	float: right;
 	margin-right: 15px!important;
-	/* border: 1px solid red; */
-	/* margin-top: 5px; */
-	/* height: 100px; */
-	width: 160px;
+	width: 200px;
 }
 
 .main-header .navbar-custom-menu ul{
@@ -540,7 +537,7 @@ option {
 .main-header .navbar-custom-menu .hidden-xs{
 	position: relative;
 	top: -19px;
-	font-size: 17px;
+	font-size: 13px;
 }
 
 .main-header .dropdown-menu{
@@ -561,7 +558,7 @@ option {
 }
 
 .main-header .dropdown-menu .user-footer{
-	padding: 8px 22px;
+	padding: 8px 20px;
 }
 
 .main-header .dropdown-menu .user-footer:hover{
@@ -616,7 +613,7 @@ option {
 
   #checkboxes {
 	display: none;
-	width: 65%;
+	width: 64.8%;
 	border: 1px #dadada solid;
 	border-top: none;
 	margin-top: -20px;
@@ -628,4 +625,14 @@ option {
 
   #checkboxes label:hover {
 	background-color: #1e90ff;
+  }
+
+  .hidden{
+	  opacity: 0;
+	  visibility: hidden;
+  }
+
+  .edit-name{
+	  padding: 5px 10px;
+	  font-size: 15px;
   }

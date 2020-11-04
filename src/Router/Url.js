@@ -22,6 +22,8 @@ import ListChapter from '../components/Chapter/ListChapter';
 import AddChapter from '../components/Chapter/AddChapter';
 import DetailChapter from '../components/Chapter/DetailChapter';
 import EditChapter from '../components/Chapter/EditChapter';
+import UserCurrent from '../components/Admin/UserCurrent';
+import Login from '../components/Login/Login';
 
 
 class Url extends Component {
@@ -155,6 +157,16 @@ const routes = [
         path: '/category/:id/edit',
         exact: false,
         main: ({ match, history }) => <EditCategory match={match} history={history} />
+    },
+    {
+        path: '/admin/edit',
+        exact: false,
+        main: ({ match, history }) => <UserCurrent match={match} history={history} />
+    },
+    {
+        path: '/',
+        exact: true,
+        main: () => <Login/>
     },
 ]
 

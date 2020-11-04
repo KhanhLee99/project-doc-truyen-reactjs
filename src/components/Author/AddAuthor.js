@@ -46,7 +46,7 @@ class AddAuthor extends Component {
         )
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         addAuthor: (author) => {
             dispatch(actAddAuthorRequest(author))
