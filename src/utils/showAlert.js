@@ -11,7 +11,7 @@ export default function showAlert(messageAlert, typeAlert) {
         animationIn: ["animated", "fadeIn"],
         animationOut: ["animated", "fadeOut"],
         dismiss: {
-            duration: 5000,
+            duration: 4000,
             onScreen: true,
             showIcon: true,
         },

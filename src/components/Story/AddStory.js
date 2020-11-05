@@ -64,7 +64,6 @@ class AddStory extends Component {
         else {
             let index = this.findIndex(this.state.categories, id);
             this.state.categories.splice(index, 1);
-
         }
         // alert(JSON.stringify(this.state.categories));
     }
@@ -90,25 +89,26 @@ class AddStory extends Component {
             path_image: this.path_imageRef.current.value,
         }
         this.props.addStory(story);
-        // this.props.fetchStories();
+        this.props.fetchStories();
+        alert('Đã thêm thành công');
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.storyEditing) {
-            var { storyEditing } = nextProps;
-            var { history } = this.props;
-            for (let item of this.state.categories) {
-                var storyCategory = {
-                    story_id: storyEditing.id,
-                    category_id: item
-                }
-                this.props.addStoryCategory(storyCategory);
-                this.props.fetchStories();
-                history.push('/stories');
-            }
-            // alert('Đã thêm thành công');
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps && nextProps.storyEditing) {
+    //         var { storyEditing } = nextProps;
+    //         var { history } = this.props;
+    //         for (let item of this.state.categories) {
+    //             var storyCategory = {
+    //                 story_id: storyEditing.id,
+    //                 category_id: item
+    //             }
+    //             this.props.addStoryCategory(storyCategory);
+    //             this.props.fetchStories();
+    //             // history.push('/stories');
+    //         }
+    //         // alert('Đã thêm thành công');
+    //     }
+    // }
 
     render() {
         return (

@@ -63,7 +63,7 @@ class StoryItem extends Component {
                 <td>{moment(story.updated_at).format("L")}</td>
                 <td>
                     <Link to="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></Link>
-                    <Link to={`story/${story.id}/edit`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
+                    <a href={`story/${story.id}/edit`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></a>
                     <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, story.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
             </tr>

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import { actEditStoryRequest, actGetStoryRequest, actFetchStoriesRequest } from '../../actions/story';
-import { actFetchStoryCategoriesRequest } from '../../actions/story_categories';
+import { actAddStoryCategoryRequest, actFetchStoryCategoriesRequest } from '../../actions/story_categories';
+import showAlert from '../../utils/showAlert';
+
 
 class EditStory extends Component {
     constructor(props) {
@@ -82,7 +84,7 @@ class EditStory extends Component {
             return this.props.categories.map((item, index) => {
                 if (this.state.tmpCategoriesChecked.indexOf(item.id) !== -1) {
                     return (
-                        <label><input checked type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
+                        <label><input checked type="checkbox" value={item.id} id={item.id} />{item.name}</label>
                     )
                 }
                 else {
@@ -90,10 +92,9 @@ class EditStory extends Component {
                         <label><input type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
                     )
                 }
-
             })
         }
-        else{
+        else {
             return (
                 <label>Loading</label>
             )
@@ -107,9 +108,18 @@ class EditStory extends Component {
         else {
             let index = this.findIndex(this.state.categories, id);
             this.state.categories.splice(index, 1);
-
         }
         alert(JSON.stringify(this.state.categories));
+    }
+
+    findIndex = (list, id) => {
+        var result = -1;
+        list.forEach((item, index) => {
+            if (item === id) {
+                result = index;
+            }
+        })
+        return result;
     }
 
     renderStatus = () => {
@@ -134,19 +144,30 @@ class EditStory extends Component {
 
     editClick = (e) => {
         e.preventDefault();
-        let { history } = this.props;
-        let story = {
-            id: this.state.id,
-            name: this.nameRef.current.value,
-            author_id: this.author_idRef.current.value,
-            status: this.statusRef.current.value,
-            description: this.descriptionRef.current.value,
-            path_image: this.path_imageRef.current.value,
+        if (window.confirm('Bạn có chắc muốn sửa ?')) {
+            let { history } = this.props;
+            let story = {
+                id: this.state.id,
+                name: this.nameRef.current.value,
+                author_id: this.author_idRef.current.value,
+                status: this.statusRef.current.value,
+                description: this.descriptionRef.current.value,
+                path_image: this.path_imageRef.current.value,
+            }
+            this.props.editStory(story);
+            if (this.state.categories.length > 0) {
+                for (let item of this.state.categories) {
+                    var storyCategory = {
+                        story_id: this.state.id,
+                        category_id: item
+                    }
+                    this.props.addStoryCategory(storyCategory);
+                }
+            }
+            this.props.fetchStories();
+            // showAlert('Đã sửa thành công', 'success');
+            // history.goBack();
         }
-        this.props.editStory(story);
-        this.props.fetchStories();
-        alert('Đã sửa thành công');
-        history.goBack();
     }
 
     render() {
@@ -186,7 +207,7 @@ class EditStory extends Component {
 
                     <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
                     <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" defaultValue={this.state.path_image} />
-                    <input type="file" name="file" id="file" />
+                    {/* <input type="file" name="file" id="file" /> */}
 
                     <button onClick={(e) => this.editClick(e)} >Chỉnh sửa</button>
                 </div>
@@ -223,6 +244,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchStoryCategories: (id) => {
             dispatch(actFetchStoryCategoriesRequest(id))
+        },
+        addStoryCategory: (storyCategory) => {
+            dispatch(actAddStoryCategoryRequest(storyCategory))
         },
     }
 }
