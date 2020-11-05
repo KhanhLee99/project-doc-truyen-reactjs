@@ -45,7 +45,7 @@ class UserCurrent extends Component {
                 }
                 this.props.editUser(user);
                 localStorage.setItem("userData", JSON.stringify(user));
-                showAlert("", "Đã sửa tên thành công", "success")
+                showAlert("Đã sửa tên thành công", "success")
                 this.setState({
                     inputStatus: !this.state.inputStatus,
                     changeStatus: false,

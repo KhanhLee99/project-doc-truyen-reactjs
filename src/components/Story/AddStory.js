@@ -42,31 +42,31 @@ class AddStory extends Component {
         }
     }
 
-    renderCategories = () => {
-        if (this.props.categories.length > 0) {
-            return this.props.categories.map((item, index) => {
-                return (
-                    <label><input type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
-                )
-            })
-        }
-        else {
-            return (
-                <label>Loading...</label>
-            )
-        }
-    }
+    // renderCategories = () => {
+    //     if (this.props.categories.length > 0) {
+    //         return this.props.categories.map((item, index) => {
+    //             return (
+    //                 <label><input type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
+    //             )
+    //         })
+    //     }
+    //     else {
+    //         return (
+    //             <label>Loading...</label>
+    //         )
+    //     }
+    // }
 
-    changeCheckBox = (e, id) => {
-        if (e.target.checked) {
-            this.state.categories.push(id);
-        }
-        else {
-            let index = this.findIndex(this.state.categories, id);
-            this.state.categories.splice(index, 1);
-        }
-        // alert(JSON.stringify(this.state.categories));
-    }
+    // changeCheckBox = (e, id) => {
+    //     if (e.target.checked) {
+    //         this.state.categories.push(id);
+    //     }
+    //     else {
+    //         let index = this.findIndex(this.state.categories, id);
+    //         this.state.categories.splice(index, 1);
+    //     }
+    //     // alert(JSON.stringify(this.state.categories));
+    // }
 
     findIndex = (list, id) => {
         var result = -1;
@@ -120,7 +120,7 @@ class AddStory extends Component {
                     <label htmlFor="name">Tên truyện</label>
                     <input ref={this.nameRef} type="text" name="name" id="name" />
 
-                    <label htmlFor="category">Chuyên mục</label>
+                    {/* <label htmlFor="category">Chuyên mục</label>
                     <div className="multiselect">
                         <div className="selectBox">
                             <select>
@@ -131,7 +131,7 @@ class AddStory extends Component {
                         <div id="checkboxes">
                             {this.renderCategories()}
                         </div>
-                    </div>
+                    </div> */}
 
                     <label htmlFor="author">Tác giả</label>
                     <select ref={this.author_idRef} name="author" id="author">

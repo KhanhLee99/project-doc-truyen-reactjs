@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import { actEditStoryRequest, actGetStoryRequest, actFetchStoriesRequest } from '../../actions/story';
-import { actAddStoryCategoryRequest, actFetchStoryCategoriesRequest } from '../../actions/story_categories';
+import { actAddStoryCategoryRequest, actDeleteStoryCategoriesRequest, actDeleteStoryCategoryRequest, actFetchStoryCategoriesRequest } from '../../actions/story_categories';
 import showAlert from '../../utils/showAlert';
 
 
@@ -17,9 +17,9 @@ class EditStory extends Component {
             status: '',
             description: '',
             path_image: '',
-            categories: [],
             storyCategories: [],
-            tmpCategoriesChecked: []
+            tmpCategoriesChecked: [],
+            changeInfoStory: false,
         }
         this.nameRef = React.createRef();
         this.author_idRef = React.createRef();
@@ -84,7 +84,7 @@ class EditStory extends Component {
             return this.props.categories.map((item, index) => {
                 if (this.state.tmpCategoriesChecked.indexOf(item.id) !== -1) {
                     return (
-                        <label><input checked type="checkbox" value={item.id} id={item.id} />{item.name}</label>
+                        <label><input defaultChecked type="checkbox" onClick={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
                     )
                 }
                 else {
@@ -102,14 +102,19 @@ class EditStory extends Component {
     }
 
     changeCheckBox = (e, id) => {
-        if (e.target.checked) {
-            this.state.categories.push(id);
+        var storyCategory = {
+            story_id: this.state.id,
+            category_id: id
+        }
+        if (this.state.tmpCategoriesChecked.indexOf(id) !== -1) {
+            this.props.deleteStoryCategory(storyCategory);
+            let index = this.findIndex(this.state.tmpCategoriesChecked, id);
+            this.state.tmpCategoriesChecked.splice(index, 1);
         }
         else {
-            let index = this.findIndex(this.state.categories, id);
-            this.state.categories.splice(index, 1);
+            this.props.addStoryCategory(storyCategory);
+            this.state.tmpCategoriesChecked.push(id);
         }
-        alert(JSON.stringify(this.state.categories));
     }
 
     findIndex = (list, id) => {
@@ -155,18 +160,12 @@ class EditStory extends Component {
                 path_image: this.path_imageRef.current.value,
             }
             this.props.editStory(story);
-            if (this.state.categories.length > 0) {
-                for (let item of this.state.categories) {
-                    var storyCategory = {
-                        story_id: this.state.id,
-                        category_id: item
-                    }
-                    this.props.addStoryCategory(storyCategory);
-                }
-            }
-            this.props.fetchStories();
-            // showAlert('Đã sửa thành công', 'success');
-            // history.goBack();
+
+            showAlert('Đã sửa thành công', 'success');
+            setTimeout(() => {
+                history.goBack();
+                // this.props.fetchStories();
+            }, 4000);
         }
     }
 
@@ -247,6 +246,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         addStoryCategory: (storyCategory) => {
             dispatch(actAddStoryCategoryRequest(storyCategory))
+        },
+        // deleteStoryCategories: (id) => {
+        //     dispatch(actDeleteStoryCategoriesRequest(id))
+        // },
+        deleteStoryCategory: (storyCategory) => {
+            dispatch(actDeleteStoryCategoryRequest(storyCategory))
         },
     }
 }

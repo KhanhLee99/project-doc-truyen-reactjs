@@ -22,3 +22,14 @@ export const actFetchStoryCategories = (categories) => {
         categories
     }
 }
+
+export const actDeleteStoryCategoriesRequest = (id) => {
+    return dispatch => {
+        return callApi(`storyCategory/deleteCategories/${id}`, 'DELETE', null)
+    };
+}
+export const actDeleteStoryCategoryRequest = (storyCategory) => {
+    return dispatch => {
+        return callApi(`storyCategory/delete/story/${storyCategory.story_id}/category/${storyCategory.category_id}`, 'DELETE', null)
+    };
+}
