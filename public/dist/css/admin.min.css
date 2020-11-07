@@ -640,3 +640,9 @@ option {
   .mr {
 	  margin-right: 18px;
   }
+
+  .avatar{
+	width: 180px;
+	height: 230px;
+	margin-bottom: 10px;
+}

@@ -6,8 +6,6 @@ import Pagination from './Pagination';
 import CategoryItem from './CategoryItem';
 class ListCategory extends Component {
 
-    
-
     componentDidMount() {
         this.props.fetchCategories();
     }

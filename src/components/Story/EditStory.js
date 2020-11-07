@@ -25,7 +25,7 @@ class EditStory extends Component {
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
         this.descriptionRef = React.createRef();
-        this.path_imageRef = React.createRef();
+        // this.path_imageRef = React.createRef();
     }
 
     componentDidMount() {
@@ -157,7 +157,8 @@ class EditStory extends Component {
                 author_id: this.author_idRef.current.value,
                 status: this.statusRef.current.value,
                 description: this.descriptionRef.current.value,
-                path_image: this.path_imageRef.current.value,
+                // path_image: this.path_imageRef.current.value,
+                path_image: this.state.path_image,
             }
             this.props.editStory(story);
 
@@ -168,6 +169,33 @@ class EditStory extends Component {
             }, 4000);
         }
     }
+
+    uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await this.convertBase64(file);
+        console.log(base64);
+        this.setState({
+            path_image: base64
+        })
+    };
+
+    convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            if (file && file.type.match('image.*')) {
+                fileReader.readAsDataURL(file);
+            }
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+
+        });
+    };
 
     render() {
         console.log(this.state);
@@ -204,9 +232,16 @@ class EditStory extends Component {
                     <label htmlFor="description">Mô tả ngắn</label>
                     <textarea ref={this.descriptionRef} name="description" id="description" defaultValue={this.state.description} />
 
-                    <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
-                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" defaultValue={this.state.path_image} />
+                    {/* <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
+                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" defaultValue={this.state.path_image} /> */}
                     {/* <input type="file" name="file" id="file" /> */}
+
+                    <div>
+                        <label htmlFor="file">Ảnh đại diện</label>
+                        <img className="avatar" src={(this.state.path_image === "") ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYCD0gAC06agTM-YuJIA7oQ2i40I60ieaMrA&usqp=CAU" : this.state.path_image} />
+                        <br />
+                        <input type="file" name="file" id="file" onChange={(e) => { this.uploadImage(e) }} />
+                    </div>
 
                     <button onClick={(e) => this.editClick(e)} >Chỉnh sửa</button>
                 </div>

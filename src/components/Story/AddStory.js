@@ -10,13 +10,14 @@ class AddStory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categories: []
+            categories: [],
+            baseImage: ""
         }
         this.nameRef = React.createRef();
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
         this.descriptionRef = React.createRef();
-        this.path_imageRef = React.createRef();
+        // this.path_imageRef = React.createRef();
     }
 
     componentDidMount() {
@@ -42,32 +43,6 @@ class AddStory extends Component {
         }
     }
 
-    // renderCategories = () => {
-    //     if (this.props.categories.length > 0) {
-    //         return this.props.categories.map((item, index) => {
-    //             return (
-    //                 <label><input type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
-    //             )
-    //         })
-    //     }
-    //     else {
-    //         return (
-    //             <label>Loading...</label>
-    //         )
-    //     }
-    // }
-
-    // changeCheckBox = (e, id) => {
-    //     if (e.target.checked) {
-    //         this.state.categories.push(id);
-    //     }
-    //     else {
-    //         let index = this.findIndex(this.state.categories, id);
-    //         this.state.categories.splice(index, 1);
-    //     }
-    //     // alert(JSON.stringify(this.state.categories));
-    // }
-
     findIndex = (list, id) => {
         var result = -1;
         list.forEach((item, index) => {
@@ -78,7 +53,6 @@ class AddStory extends Component {
         return result;
     }
 
-
     addClick = (e) => {
         e.preventDefault();
         let story = {
@@ -86,29 +60,40 @@ class AddStory extends Component {
             author_id: this.author_idRef.current.value,
             status: this.statusRef.current.value,
             description: this.descriptionRef.current.value,
-            path_image: this.path_imageRef.current.value,
+            // path_image: this.path_imageRef.current.value,
+            path_image: this.state.baseImage,
         }
         this.props.addStory(story);
         this.props.fetchStories();
         alert('Đã thêm thành công');
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps && nextProps.storyEditing) {
-    //         var { storyEditing } = nextProps;
-    //         var { history } = this.props;
-    //         for (let item of this.state.categories) {
-    //             var storyCategory = {
-    //                 story_id: storyEditing.id,
-    //                 category_id: item
-    //             }
-    //             this.props.addStoryCategory(storyCategory);
-    //             this.props.fetchStories();
-    //             // history.push('/stories');
-    //         }
-    //         // alert('Đã thêm thành công');
-    //     }
-    // }
+    uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await this.convertBase64(file);
+        console.log(base64);
+        this.setState({
+            baseImage: base64
+        })
+    };
+
+    convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            if (file && file.type.match('image.*')) {
+                fileReader.readAsDataURL(file);
+            }
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+
+        });
+    };
 
     render() {
         return (
@@ -119,19 +104,6 @@ class AddStory extends Component {
 
                     <label htmlFor="name">Tên truyện</label>
                     <input ref={this.nameRef} type="text" name="name" id="name" />
-
-                    {/* <label htmlFor="category">Chuyên mục</label>
-                    <div className="multiselect">
-                        <div className="selectBox">
-                            <select>
-                                <option>--- Chọn chuyên mục ---</option>
-                            </select>
-                            <div className="overSelect"></div>
-                        </div>
-                        <div id="checkboxes">
-                            {this.renderCategories()}
-                        </div>
-                    </div> */}
 
                     <label htmlFor="author">Tác giả</label>
                     <select ref={this.author_idRef} name="author" id="author">
@@ -147,9 +119,16 @@ class AddStory extends Component {
                     <label htmlFor="description">Mô tả ngắn</label>
                     <textarea ref={this.descriptionRef} name="description" id="description" />
 
-                    <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
-                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" />
-                    {/* <input type="file" name="file" id="file" /> */}
+                    {/* <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
+                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" /> */}
+
+                    <div>
+                        <label htmlFor="file">Ảnh đại diện</label>
+                        <img className="avatar" src={(this.state.baseImage === "") ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYCD0gAC06agTM-YuJIA7oQ2i40I60ieaMrA&usqp=CAU" : this.state.baseImage} />
+                        <br />
+                        <input type="file" name="file" id="file" onChange={(e) => { this.uploadImage(e) }} />
+                    </div>
+
 
                     <button onClick={(e) => this.addClick(e)} >Thêm mới</button>
                 </div>

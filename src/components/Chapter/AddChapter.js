@@ -94,6 +94,7 @@ class AddChapter extends Component {
     }
 
     render() {
+        console.log(this.props.chapterGetting);
         return (
             <div className="content-wrapper" >
                 <div className="main-content">

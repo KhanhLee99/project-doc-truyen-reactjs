@@ -11,7 +11,6 @@ class AddAuthor extends Component {
         this.descriptionRef = React.createRef();
     }
 
-
     addClick = () => {
         if (this.nameRef.current.value === "") {
             showAlert("Không được để trống tên tác giả", "warning")
