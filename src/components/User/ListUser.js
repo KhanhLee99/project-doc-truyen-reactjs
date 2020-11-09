@@ -4,13 +4,18 @@ import { connect } from 'react-redux';
 import { actFetchUsersRequest } from '../../actions/users';
 import UserItem from './UserItem';
 import Pagination from './Pagination';
+import { Link, Redirect } from 'react-router-dom';
 
 class ListUser extends Component {
     
     componentDidMount() {
         this.props.fetchUsers();
     }
-    
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
     render() {
 
         const listUser = this.props.users.map((item, index) => {
@@ -20,7 +25,7 @@ class ListUser extends Component {
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h2 className="fl-left">DANH SÁCH THÀNH VIÊN</h2>
+                    <h2 className="fl-left"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>DANH SÁCH THÀNH VIÊN</h2>
                     <div className="hr" />
                     <Search/>
                     <div className="list">

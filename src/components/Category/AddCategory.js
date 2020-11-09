@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actAddCategoryRequest } from '../../actions/category';
+import { Link, Redirect } from 'react-router-dom';
+import showAlert from '../../utils/showAlert';
+
+
 
 class AddCategory extends Component {
 
@@ -11,26 +15,33 @@ class AddCategory extends Component {
     }
 
     addClick = () => {
-        if (this.nameRef.current.value === '') {
-            alert('ko dc de trong')
+        if (this.nameRef.current.value === "") {
+            showAlert("Không được để trống tên Chuyên mục", "warning");
         }
         else {
-            let category = {
-                name: this.nameRef.current.value,
-                description: this.descriptionRef.current.value
+            if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                var { history } = this.props;
+                let newCategory = {
+                    name: this.nameRef.current.value,
+                    description: this.descriptionRef.current.value
+                }
+                this.props.addCategory(newCategory);
+                showAlert("Đã thêm chuyên mục thành công", "success")
+                history.push("/authors");
             }
-            let { history } = this.props;
-            this.props.addCategory(category);
-            alert('Da them thanh cong!');
-            history.push('/categories');
         }
+    }
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
     }
 
     render() {
         return (
             <div className="content-wrapper">
                 <div className="main-content">
-                    <h2>THÊM MỚI CHUYÊN MỤC</h2>
+                    <h2><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>THÊM MỚI CHUYÊN MỤC</h2>
                     <div className="hr1" />
                     <label htmlFor="name">Tên chuyên mục</label>
                     <input type="text" name="name" id="name" ref={this.nameRef} />

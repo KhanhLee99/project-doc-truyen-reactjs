@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actDeleteChapterRequest } from '../../actions/chapter';
 
-var moment = require('moment')
+// var moment = require('moment');
 
 class ChapterItem extends Component {
     deleteClick = (e, id) => {
@@ -20,8 +20,10 @@ class ChapterItem extends Component {
                 <td>{this.props.stt}</td>
                 <td><Link to={`/chapter/${chapter.id}/detail`}>{chapter.name}</Link></td>
                 <td>{chapter.pages}</td>
-                <td>{moment(chapter.created_at).format("L")}</td>
-                <td>{moment(chapter.updated_at).format("L")}</td>
+                {/* <td>{moment(chapter.created_at).format("L")}</td>
+                <td>{moment(chapter.updated_at).format("L")}</td> */}
+                <td>1/1/2020</td>
+                <td>1/1/2020</td>
                 <td>
                     <Link to={`/chapter/edit/${chapter.id}`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
                     <Link to={`/chapter/delete/${chapter.id}`} title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, chapter.id)}><i className="fa fa-trash icon" /></Link>

@@ -149,24 +149,29 @@ class EditStory extends Component {
 
     editClick = (e) => {
         e.preventDefault();
-        if (window.confirm('Bạn có chắc muốn sửa ?')) {
-            let { history } = this.props;
-            let story = {
-                id: this.state.id,
-                name: this.nameRef.current.value,
-                author_id: this.author_idRef.current.value,
-                status: this.statusRef.current.value,
-                description: this.descriptionRef.current.value,
-                // path_image: this.path_imageRef.current.value,
-                path_image: this.state.path_image,
+        if (this.nameRef.current.value === "") {
+            showAlert("Không được để trống tên truyện", "warning");
+        }
+        else{
+            if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                let { history } = this.props;
+                let story = {
+                    id: this.state.id,
+                    name: this.nameRef.current.value,
+                    author_id: this.author_idRef.current.value,
+                    status: this.statusRef.current.value,
+                    description: this.descriptionRef.current.value,
+                    // path_image: this.path_imageRef.current.value,
+                    path_image: this.state.path_image,
+                }
+                this.props.editStory(story);
+    
+                showAlert('Đã sửa thành công', 'success');
+                setTimeout(() => {
+                    history.goBack();
+                    // this.props.fetchStories();
+                }, 4000);
             }
-            this.props.editStory(story);
-
-            showAlert('Đã sửa thành công', 'success');
-            setTimeout(() => {
-                history.goBack();
-                // this.props.fetchStories();
-            }, 4000);
         }
     }
 

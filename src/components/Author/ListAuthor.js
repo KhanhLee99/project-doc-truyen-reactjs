@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-
+import { Link, Redirect } from 'react-router-dom';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import AuthorItem from './AuthorItem';
 import Pagination from './Pagination';
@@ -11,6 +11,11 @@ class ListAuthor extends Component {
     componentDidMount() {
         this.props.fetchAllAuthors();
     }
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
 
     render() {
         const listAuthor = this.props.authors.map((item, key) => (
@@ -19,7 +24,7 @@ class ListAuthor extends Component {
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h2 className="fl-left">DANH SÁCH TÁC GIẢ</h2>
+                    <h2 className="fl-left"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>DANH SÁCH TÁC GIẢ</h2>
                     <div className="hr" />
                     <Search />
                     <div className="list">

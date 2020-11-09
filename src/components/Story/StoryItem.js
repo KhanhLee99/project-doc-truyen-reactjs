@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import { actFetchAuthorsRequest } from '../../actions/author';
 import { actDeleteStoryRequest } from '../../actions/story';
-var moment = require('moment')
+// var moment = require('moment')
 class StoryItem extends Component {
     // constructor(props) {
     //     super(props);
@@ -59,8 +59,10 @@ class StoryItem extends Component {
                 {/* <td>{this.getNameAuthor(this.props.authors, story.author_id)}</td> */}
                 <td>{this.props.author_name}</td>
                 <td>{status}</td>
-                <td>{moment(story.created_at).format("L")}</td>
-                <td>{moment(story.updated_at).format("L")}</td>
+                {/* <td>{moment(story.created_at).format("L")}</td>
+                <td>{moment(story.updated_at).format("L")}</td> */}
+                <td>1/1/2020</td>
+                <td>1/1/2020</td>
                 <td>
                     <Link to="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></Link>
                     <Link to={`story/${story.id}/edit`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>

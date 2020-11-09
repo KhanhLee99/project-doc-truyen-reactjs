@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { actEditCategoryRequest, actGetCategoryRequest } from '../../actions/category';
+import showAlert from '../../utils/showAlert';
 
 class EditCategory extends Component {
     constructor(props) {
@@ -34,15 +35,23 @@ class EditCategory extends Component {
     }
     editClick = (e) => {
         e.preventDefault();
-        let { history } = this.props;
-        let category = {
-            id: this.state.id,
-            name: this.nameRef.current.value,
-            description: this.descriptionRef.current.value
+        if (this.nameRef.current.value === "") {
+            showAlert("Không được để trống tên chuyên mục", "warning");
         }
-        this.props.editCategory(category);
-        alert('Đã sửa thành công');
-        history.goBack();
+        else {
+            if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                let { history } = this.props;
+                let categoryEdit = {
+                    id: this.state.id,
+                    name: this.nameRef.current.value,
+                    description: this.descriptionRef.current.value
+                }
+
+                this.props.editCategory(categoryEdit);
+                showAlert("Đã sửa thông tin chuyên mục thành công", "success");
+                history.push('/category');
+            }
+        }
 
     }
     render() {
