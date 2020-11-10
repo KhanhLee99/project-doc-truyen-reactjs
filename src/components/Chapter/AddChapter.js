@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { actGetStoryRequest } from '../../actions/story'
 import { actAddChapterRequest, actAddChapterImageRequest } from '../../actions/chapter'
+import { Link } from 'react-router-dom';
 
 class AddChapter extends Component {
     constructor(props) {
@@ -64,8 +65,8 @@ class AddChapter extends Component {
     addClickChapter = (e) => {
         e.preventDefault();
         // if (this.nameRef.current.value === '' || this.state.pages < 1 || this.state.page.length < 1) {
-        if (this.nameRef.current.value === '') {
-            alert('Error');
+        if (this.nameRef.current.value === '' || this.state.pages < 1) {
+            alert('Lỗi chưa nhập tên hoặc chưa upload ảnh');
         }
         else {
             var chapter = {
@@ -94,14 +95,15 @@ class AddChapter extends Component {
             //     history.push(`/story/${this.state.id}`);
             // }
 
-            
             for (let item of this.state.selectedFiles) {
                 var image = {
                     path_image: item,
                     chapter_id: chapterGetting.id
                 }
                 this.props.addChapterImage(image);
-                history.push(`/story/${this.state.id}`);
+                setTimeout(() => {
+                    history.push(`/story/${this.state.id}`);
+                }, 2000);
             }
         }
     }
@@ -117,13 +119,6 @@ class AddChapter extends Component {
             pages: files.length
         }
         );
-    };
-
-    renderPhotos = (source) => {
-        return source.map((photo) => {
-            return <img src={photo} alt="" className="img-selected" key={photo} />
-
-        });
     };
 
     convertBase64 = (file) => {
@@ -143,12 +138,26 @@ class AddChapter extends Component {
         });
     };
 
+    renderPhotos = (source) => {
+        return source.map((photo) => {
+            return <img src={photo} alt="" className="img-selected" key={photo} />
+
+        });
+    };
+
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
+
+
     render() {
         console.log(this.state.selectedFiles);
         return (
             <div className="content-wrapper" >
                 <div className="main-content">
-                    <h2>THÊM MỚI CHƯƠNG ({this.props.storyEditing.name})</h2>
+                    <h2><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>THÊM MỚI CHƯƠNG ({this.props.storyEditing.name})</h2>
                     <div className="hr1" />
                     <label htmlFor="name">Tên chương</label>
                     <input type="text" name="name" id="name" ref={this.nameRef} />
@@ -161,16 +170,10 @@ class AddChapter extends Component {
                     <div>
                         <label htmlFor="file">Upload</label>
                         <input type="file" id="file" multiple onChange={this.handleImageChange} />
-                        {/* <div className="label-holder">
-                            <label htmlFor="file" className="label">
-                                <i className="material-icons">add_a_photo</i>
-                            </label>
-                        </div> */}
 
                         <div className="list-img">
                             {this.renderPhotos(this.state.selectedFiles)}
                         </div>
-
                     </div>
 
                     <button onClick={(e) => this.addClickChapter(e)}>Thêm mới chương</button>

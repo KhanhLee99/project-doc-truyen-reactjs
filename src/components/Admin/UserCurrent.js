@@ -55,7 +55,9 @@ class UserCurrent extends Component {
         }
     }
     componentDidMount() {
-        this.props.getUser(this.props.userCurrent.id);
+        if(this.props.userCurrent !== null){
+            this.props.getUser(this.props.userCurrent.id);
+        }
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps && nextProps.userCurrent) {

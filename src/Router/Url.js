@@ -28,7 +28,7 @@ const routes = [
     {
         path: '/authors',
         exact: false,
-        main: () => <ListAuthor />
+        main: ({ history }) => <ListAuthor history={history} />
     },
     {
         path: '/author/add',
@@ -43,7 +43,7 @@ const routes = [
     {
         path: '/users',
         exact: false,
-        main: () => <ListUser />
+        main: ({ history }) => <ListUser history={history} />
     },
     {
         path: '/stories',

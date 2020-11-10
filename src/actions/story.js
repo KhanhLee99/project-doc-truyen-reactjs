@@ -43,6 +43,7 @@ export const actDeleteStoryRequest = (id) => {
     return dispatch => {
         return callApi(`story/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteStory(id));
+            showAlert("Đã xóa truyện thành công", "success")
         }).catch(error => {
             showAlert(error, 'danger');
         });
@@ -60,18 +61,20 @@ export const actAddStoryRequest = (story) => {
     return dispatch => {
         return callApi('story/add', 'POST', story).then(res => {
             dispatch(actGetNewStory(res.data));
+            // dispatch(actAddStory(res.data));
+            showAlert("Đã thêm truyện thành công", "success")
         }).catch(error => {
             showAlert(error, 'danger');
         });
     };
 }
 
-// export const actAddStory = (story) => {
-//     return {
-//         type : 'ADD_STORY',
-//         story
-//     }
-// }
+export const actAddStory = (story) => {
+    return {
+        type : 'ADD_STORY',
+        story
+    }
+}
 
 // GET_NEW_STORY
 export const actGetNewStory = (story) => {

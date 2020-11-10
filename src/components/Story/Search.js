@@ -25,7 +25,7 @@ class Search extends Component {
     render() {
         return (
             <div className="form-search fl-right">
-                <Link to="add-story.html" id="add-category" className="fl-left">Thêm mới</Link>
+                <Link to="/story/add" id="add-category" className="fl-left">Thêm mới</Link>
                 <input type="submit" onClick={() => this.searchClick()} value="Tìm kiếm" />
                 <input type="text" ref={this.nameRef} onChange={() => this.isChange()} placeholder={'Nhập tên...'} />
             </div>

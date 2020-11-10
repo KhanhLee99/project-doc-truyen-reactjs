@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import { actEditStoryRequest, actGetStoryRequest, actFetchStoriesRequest } from '../../actions/story';
@@ -149,22 +150,28 @@ class EditStory extends Component {
 
     editClick = (e) => {
         e.preventDefault();
-        if (window.confirm('Bạn có chắc muốn sửa ?')) {
-            let { history } = this.props;
-            let story = {
-                id: this.state.id,
-                name: this.nameRef.current.value,
-                author_id: this.author_idRef.current.value,
-                status: this.statusRef.current.value,
-                description: this.descriptionRef.current.value,
-                // path_image: this.path_imageRef.current.value,
-                path_image: this.state.path_image,
+        if (this.nameRef.current.value === "") {
+            showAlert("Không được để trống tên truyện", "warning");
+        }
+        else{
+            if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                let { history } = this.props;
+                let story = {
+                    id: this.state.id,
+                    name: this.nameRef.current.value,
+                    author_id: this.author_idRef.current.value,
+                    status: this.statusRef.current.value,
+                    description: this.descriptionRef.current.value,
+                    // path_image: this.path_imageRef.current.value,
+                    path_image: this.state.path_image,
+                }
+                this.props.editStory(story);
+    
+                setTimeout(() => {
+                    history.goBack();
+                    // this.props.fetchStories();
+                }, 2000);
             }
-            this.props.editStory(story);
-            setTimeout(() => {
-                history.goBack();
-                // this.props.fetchStories();
-            }, 3000);
         }
     }
 
@@ -194,13 +201,17 @@ class EditStory extends Component {
 
         });
     };
-
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
     render() {
         console.log(this.state);
         return (
             <div className="content-wrapper">
                 <div className="main-content">
-                    <h2>SỬA THÔNG TIN TRUYỆN</h2>
+                    <h2><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>SỬA THÔNG TIN TRUYỆN</h2>
                     <div className="hr1" />
 
                     <label htmlFor="name">Tên truyện</label>

@@ -14,7 +14,7 @@ class StoryItem extends Component {
 
     deleteClick = (e, id) => {
         e.preventDefault();
-        if (window.confirm('Ban co chac muon xoa?')) {
+        if (window.confirm('Bạn có chắc muốn xóa ?')) {
             this.props.deleteStory(id);
         }
     }
@@ -49,10 +49,10 @@ class StoryItem extends Component {
     // }
 
     render() {
-        var array = [1, 4, 2, 3, 1, 4, 2, 5, 4, 5, 1, 3, 2, 4 , 1];
+        // var array = [1, 4, 2, 3, 1, 4, 2, 5, 4, 5, 1, 3, 2, 4 , 1];
         // $posts = Post::find([2,3]) // truyen vao mang id
-        var arrFilter = array.filter((item, index) => array.indexOf(item) === index);
-        console.log(arrFilter);
+        // var arrFilter = array.filter((item, index) => array.indexOf(item) === index);
+        // console.log(arrFilter);
         let { story } = this.props;
         var status = (story.status === 'updating') ? 'Đang cập nhật' : 'Hoàn thành'
         return (
@@ -64,7 +64,7 @@ class StoryItem extends Component {
                 <td>{moment(story.created_at).format("L")}</td>
                 <td>{moment(story.updated_at).format("L")}</td>
                 <td>
-                    <Link to="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></Link>
+                    <Link to={`story/${story.id}`} title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></Link>
                     <Link to={`story/${story.id}/edit`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
                     <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, story.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
@@ -82,9 +82,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         deleteStory: (id) => {
             dispatch(actDeleteStoryRequest(id))
         },
-        // fetchAllAuthors: () => {
-        //     dispatch(actFetchAuthorsRequest())
-        // },
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(StoryItem)

@@ -1,11 +1,19 @@
+import showAlert from '../utils/showAlert';
 import callApi from './../utils/apiCaller';
 
 export const actFetchCategoriesRequest = () => {
     return dispatch => {
         return callApi('categories', 'GET', null).then(res => {
-            // dispatch(actFetchCategories(res.data));
+            dispatch(actFetchCategories(res.data));
         });
     };
+}
+
+export const actFetchCategories = (categories) => {
+    return {
+        type : 'FETCH_CATEGORIES',
+        categories
+    }
 }
 
   
@@ -72,6 +80,7 @@ export const actEditCategoryRequest = (category) => {
     return dispatch => {
         return callApi(`category/${category.id}`, 'PUT', category).then(res => {
             dispatch(actEditCategory(category));
+            showAlert("Đã sửa thông tin chuyên mục thành công", "success");
         });
     };
 }

@@ -4,10 +4,17 @@ import { connect } from 'react-redux';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import Pagination from './Pagination';
 import CategoryItem from './CategoryItem';
+import { Link, Redirect } from 'react-router-dom';
+
 class ListCategory extends Component {
 
     componentDidMount() {
         this.props.fetchCategories();
+    }
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
     }
     
     render() {
@@ -21,7 +28,7 @@ class ListCategory extends Component {
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h2 className="fl-left">DANH SÁCH CHUYÊN MỤC</h2>
+                    <h2 className="fl-left"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>DANH SÁCH CHUYÊN MỤC</h2>
                     <div className="hr" />
                     <Search/>
                     <div className="list">

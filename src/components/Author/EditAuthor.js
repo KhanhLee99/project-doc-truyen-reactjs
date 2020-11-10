@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actEditAuthorRequest, actFetchAuthorsRequest, actGetAuthorRequest } from '../../actions/author';
 import showAlert from '../../utils/showAlert';
 
@@ -30,7 +31,6 @@ class EditAuthor extends Component {
                 }
 
                 this.props.editAuthor(authorEdit);
-                showAlert("Đã sửa thông tin tác giả thành công", "success");
                 history.push('/authors');
             }
         }
@@ -54,12 +54,16 @@ class EditAuthor extends Component {
             });
         }
     }
-
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
     render() {
         return (
             <div className="content-wrapper">
                 <div className="main-content">
-                    <h2>SỬA THÔNG TIN TÁC GIẢ</h2>
+                    <h2><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>SỬA THÔNG TIN TÁC GIẢ</h2>
                     <div className="hr1" />
                     <form>
                         <label htmlFor="name">Tên tác giả</label>
