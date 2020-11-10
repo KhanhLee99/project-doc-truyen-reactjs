@@ -646,3 +646,27 @@ option {
 	height: 230px;
 	margin-bottom: 10px;
 }
+/* .result{
+	min-height: 100%;
+	max-height: auto;
+	width: 100%;
+	background-color: #272c34;
+	margin-top:1rem ;
+	 display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: left; 
+	
+} */
+
+
+.list-img {
+	margin-top: 20px;
+	width: 100%;
+}
+
+.img-selected{
+	width: 170px;
+	height: 200px;
+	margin: 0px 2px;
+}

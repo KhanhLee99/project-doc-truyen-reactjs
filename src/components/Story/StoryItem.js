@@ -49,14 +49,16 @@ class StoryItem extends Component {
     // }
 
     render() {
-
+        var array = [1, 4, 2, 3, 1, 4, 2, 5, 4, 5, 1, 3, 2, 4 , 1];
+        // $posts = Post::find([2,3]) // truyen vao mang id
+        var arrFilter = array.filter((item, index) => array.indexOf(item) === index);
+        console.log(arrFilter);
         let { story } = this.props;
         var status = (story.status === 'updating') ? 'Đang cập nhật' : 'Hoàn thành'
         return (
             <tr>
                 <td scope="row">{this.props.stt}</td>
                 <td><Link to={`story/${story.id}`}>{story.name}</Link></td>
-                {/* <td>{this.getNameAuthor(this.props.authors, story.author_id)}</td> */}
                 <td>{this.props.author_name}</td>
                 <td>{status}</td>
                 <td>{moment(story.created_at).format("L")}</td>

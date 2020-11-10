@@ -3,17 +3,12 @@ import callApi from './../utils/apiCaller';
 export const actFetchCategoriesRequest = () => {
     return dispatch => {
         return callApi('categories', 'GET', null).then(res => {
-            dispatch(actFetchCategories(res.data));
+            // dispatch(actFetchCategories(res.data));
         });
     };
 }
 
-export const actFetchCategories = (categories) => {
-    return {
-        type : 'FETCH_CATEGORIES',
-        categories
-    }
-}
+  
 export const actSearchCategoriesRequest = (name) => {
     return dispatch => {
         return callApi(`category/search/${name}`, 'GET', null).then(res => {

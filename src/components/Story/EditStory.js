@@ -161,12 +161,10 @@ class EditStory extends Component {
                 path_image: this.state.path_image,
             }
             this.props.editStory(story);
-
-            showAlert('Đã sửa thành công', 'success');
             setTimeout(() => {
                 history.goBack();
                 // this.props.fetchStories();
-            }, 4000);
+            }, 3000);
         }
     }
 

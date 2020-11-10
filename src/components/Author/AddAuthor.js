@@ -23,7 +23,7 @@ class AddAuthor extends Component {
                     description: this.descriptionRef.current.value
                 }
                 this.props.addAuthor(newAuthor);
-                showAlert("Đã thêm tác giả thành công", "success")
+                // showAlert("Đã thêm tác giả thành công", "success")
                 history.push("/authors");
             }
         }

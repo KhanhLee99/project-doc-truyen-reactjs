@@ -1,4 +1,6 @@
 import callApi from './../utils/apiCaller';
+import showAlert from '../utils/showAlert';
+
 
 export const actFetchAuthorsRequest = () => {
     return dispatch => {
@@ -26,6 +28,7 @@ export const actAddAuthorRequest = (author) => {
     return dispatch => {
         return callApi('author/add', 'POST', author).then(res => {
             dispatch(actAddAuthor(res.data));
+            showAlert("Đã thêm tác giả thành công", "success")
         });
     };
 }

@@ -164,6 +164,8 @@ class EditChapter extends Component {
 
                     {this.renderInput()}
 
+                    <Link>Xóa tất cả ảnh ?</Link>
+
                     <button onClick={(e) => this.saveClick(e)}>Lưu </button>
                 </div>
             </div>
