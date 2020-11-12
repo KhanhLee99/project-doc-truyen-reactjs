@@ -1,16 +1,19 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
-import MyContext from '../../myContext';
-import {
-    BrowserRouter as Route,
-    Link, Redirect
-} from "react-router-dom";
+import { connect } from 'react-redux';
+
+import { actFetchAuthorsRequest } from '../../actions/author';
+import AuthorItem from './AuthorItem';
 import Pagination from './Pagination';
 import Search from './Search';
 
 class ListAuthor extends Component {
+    componentDidMount() {
+        this.props.fetchAllAuthors();
+    }
+
     render() {
-        const listAuthor = this.context.listAuthor.map((item, key) => (
+        const listAuthor = this.props.authors.map((item, key) => (
             <AuthorItem author={item} key={key} stt={key + 1} />
         ))
         return (
@@ -33,57 +36,25 @@ class ListAuthor extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có {this.context.listAuthor.length} bản ghi)</div>
+                    <div className="num-record">(Có {this.props.authors.length} bản ghi)</div>
                     <Pagination />
                 </div>
             </div>
         )
     }
 }
-ListAuthor.contextType = MyContext;
-export default ListAuthor;
-
-
-class AuthorItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            authorEdit: {}
-        }
-    }
-
-    deleteClick = (e, id) => {
-        e.preventDefault();
-        if (window.confirm('Ban co chac muon xoa?')) {
-            Axios.delete('http://127.0.0.1:8000/api/author/' + id).then((response) => {
-                this.context.loadAuthor();
-            })
-        }
-    }
-    editClick = (e, id) => {
-        e.preventDefault();
-        Axios.get('http://127.0.0.1:8000/api/author/' + id).then((response) => {
-            this.context.getAuthorEdit(response.data);
-            this.context.trueRedirect();
-        })
-    }
-    render() {
-        if(this.context.isRedirect) {
-            return (
-                <Redirect to='/author/edit' />
-            )
-        }
-        var { author } = this.props;
-        return (
-            <tr>
-                <td>{this.props.stt}</td>
-                <td>{author.name}</td>
-                <td>
-                    <Link to='/author/edit' title="Sửa" className="edit" onClick={(e, id) => this.editClick(e, author.id)}><i className="fa fa-pencil icon" /></Link>
-                    <a href='/' title="Xóa" className="delete" onClick={(e, id) => { this.deleteClick(e, author.id) }}><i className="fa fa-trash icon" /></a>
-                </td>
-            </tr>
-        )
+const mapStateToProps = (state, ownProps) => {
+    return {
+        authors: state.authors
     }
 }
-AuthorItem.contextType = MyContext;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchAllAuthors: () => {
+            dispatch(actFetchAuthorsRequest())
+        },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ListAuthor);
+
+

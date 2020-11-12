@@ -1,49 +1,100 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import MyContext from '../../myContext';
+import { connect } from 'react-redux';
+import { actFetchAuthorsRequest } from '../../actions/author';
+import { actFetchCategoriesRequest } from '../../actions/category';
+import { actAddStoryCategoryRequest } from '../../actions/story_categories';
+import { actAddStoryRequest, actFetchStoriesRequest } from '../../actions/story';
 
 
 class AddStory extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            categories: [],
+            baseImage: ""
+        }
         this.nameRef = React.createRef();
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
         this.descriptionRef = React.createRef();
+        // this.path_imageRef = React.createRef();
     }
 
-    
-    // changePathImg = (e) => {
-    //     this.setState({
-    //         newStory: {
-    //             name: this.state.newStory.name,
-    //             author_id: this.state.newStory.author_id,
-    //             status: this.state.newStory.status,
-    //             description: this.state.newStory.description,
-    //             path_img: e.target.value
-    //         }
-    //     })
-    // }
+    componentDidMount() {
+        this.props.fetchAllAuthors();
+        this.props.fetchCategories();
+    }
 
-    addClick = () =>{
-        if(this.nameRef.current.value===''){
-            alert('Khong de trong ten Truyen!');
-        }
-        else{
-            let newStory = {
-                name: this.nameRef.current.value,
-                author_id: this.author_idRef.current.value,
-                status: this.statusRef.current.value,
-                description: this.descriptionRef.current.value
-            }
-            Axios.post('http://127.0.0.1:8000/api/story/add', newStory).then(() => {
-                alert('Da them thanh cong');
-                this.context.loadStory();
+    renderAuthors = () => {
+        if (this.props.authors.length > 0) {
+            return this.props.authors.map((item, index) => {
+                if (item.name === "Đang cập nhật") {
+                    return (
+                        <option value={item.id} key={index} selected>{item.name}</option>
+                    )
+                }
+                else {
+                    return (
+                        <option value={item.id} key={index}>{item.name}</option>
+                    )
+                }
+
             })
         }
-        
     }
+
+    findIndex = (list, id) => {
+        var result = -1;
+        list.forEach((item, index) => {
+            if (item === id) {
+                result = index;
+            }
+        })
+        return result;
+    }
+
+    addClick = (e) => {
+        e.preventDefault();
+        let story = {
+            name: this.nameRef.current.value,
+            author_id: this.author_idRef.current.value,
+            status: this.statusRef.current.value,
+            description: this.descriptionRef.current.value,
+            // path_image: this.path_imageRef.current.value,
+            path_image: this.state.baseImage,
+        }
+        this.props.addStory(story);
+        this.props.fetchStories();
+        alert('Đã thêm thành công');
+    }
+
+    uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await this.convertBase64(file);
+        console.log(base64);
+        this.setState({
+            baseImage: base64
+        })
+    };
+
+    convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            if (file && file.type.match('image.*')) {
+                fileReader.readAsDataURL(file);
+            }
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+
+        });
+    };
 
     render() {
         return (
@@ -51,39 +102,67 @@ class AddStory extends Component {
                 <div className="main-content">
                     <h2>THÊM MỚI TRUYỆN</h2>
                     <div className="hr1" />
-                    <form action>
-                        <label htmlFor="name">Tên truyện</label>
-                        <input ref={this.nameRef} type="text" name="name" id="name" />
-                        {/* <label htmlFor="category">Chuyên mục</label>
-                        <select name="category" id="category">
-                            <option value>--- Chọn chuyên mục ---</option>
-                            <option value>Chuyên mục 1</option>
-                            <option value>Chuyên mục 2</option>
-                        </select> */}
-                        <label htmlFor="author">Tác giả</label>
-                        <select ref={this.author_idRef} name="author" id="author">
-                            <option value>--- Chọn tác giả ---</option>
-                            <option value="1">Tác giả 1</option>
-                            <option value="2">Tác giả 2</option>
-                        </select>
-                        <label htmlFor="category">Tình trạng</label>
-                        <select ref={this.statusRef}  name="status" id="status">
-                            <option value>--- Chọn tình trạng truyện ---</option>
-                            <option value ="1" selected>Đang cập nhật</option>
-                            <option value ="2">Hoàn thành</option>
-                        </select>
-                        <label htmlFor="description">Mô tả ngắn</label>
-                        <textarea ref={this.descriptionRef}  name="description" id="description" />
+
+                    <label htmlFor="name">Tên truyện</label>
+                    <input ref={this.nameRef} type="text" name="name" id="name" />
+
+                    <label htmlFor="author">Tác giả</label>
+                    <select ref={this.author_idRef} name="author" id="author">
+                        {this.renderAuthors()}
+                    </select>
+
+                    <label htmlFor="category">Tình trạng</label>
+                    <select ref={this.statusRef} name="status" id="status">
+                        <option value="updating" selected>Đang cập nhật</option>
+                        <option value="completed">Hoàn thành</option>
+                    </select>
+
+                    <label htmlFor="description">Mô tả ngắn</label>
+                    <textarea ref={this.descriptionRef} name="description" id="description" />
+
+                    {/* <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
+                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" /> */}
+
+                    <div>
                         <label htmlFor="file">Ảnh đại diện</label>
-                        <input type="file" name="file" id="file" />
-                        <button onClick={() => this.addClick()} >Thêm mới</button>
-                    </form>
+                        <img className="avatar" src={(this.state.baseImage === "") ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYCD0gAC06agTM-YuJIA7oQ2i40I60ieaMrA&usqp=CAU" : this.state.baseImage} />
+                        <br />
+                        <input type="file" name="file" id="file" onChange={(e) => { this.uploadImage(e) }} />
+                    </div>
+
+
+                    <button onClick={(e) => this.addClick(e)} >Thêm mới</button>
                 </div>
             </div>
 
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        authors: state.authors,
+        categories: state.categories,
+        storyEditing: state.storyEditing,
+    }
+}
 
-export default AddStory;
-AddStory.contextType = MyContext;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchAllAuthors: () => {
+            dispatch(actFetchAuthorsRequest())
+        },
+        fetchCategories: () => {
+            dispatch(actFetchCategoriesRequest())
+        },
+        addStory: (story) => {
+            dispatch(actAddStoryRequest(story))
+        },
+        fetchStories: () => {
+            dispatch(actFetchStoriesRequest())
+        },
+        addStoryCategory: (storyCategory) => {
+            dispatch(actAddStoryCategoryRequest(storyCategory))
+        },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddStory)

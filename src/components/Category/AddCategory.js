@@ -1,6 +1,6 @@
-import Axios from 'axios';
 import React, { Component } from 'react';
-import MyContext from '../../myContext';
+import { connect } from 'react-redux';
+import { actAddCategoryRequest } from '../../actions/category';
 
 class AddCategory extends Component {
 
@@ -11,23 +11,20 @@ class AddCategory extends Component {
     }
 
     addClick = () => {
-
-        if (this.nameRef.current.value === "") {
-            alert("Khong de trong ten Chuyen Muc!");
+        if (this.nameRef.current.value === '') {
+            alert('ko dc de trong')
         }
         else {
-            let newCategory = {
+            let category = {
                 name: this.nameRef.current.value,
                 description: this.descriptionRef.current.value
             }
-            Axios.post('http://127.0.0.1:8000/api/category/add', newCategory).then(() => {
-                alert('Da them thanh cong!');
-                this.context.loadCategory();
-            })
+            let { history } = this.props;
+            this.props.addCategory(category);
+            alert('Da them thanh cong!');
+            history.push('/categories');
         }
     }
-
-
 
     render() {
         return (
@@ -35,20 +32,24 @@ class AddCategory extends Component {
                 <div className="main-content">
                     <h2>THÊM MỚI CHUYÊN MỤC</h2>
                     <div className="hr1" />
-                    {/* <form action> */}
-
                     <label htmlFor="name">Tên chuyên mục</label>
-                    <input ref={this.nameRef} type="text" name="name" id="name" />
+                    <input type="text" name="name" id="name" ref={this.nameRef} />
+
                     <label htmlFor="description">Mô tả ngắn</label>
-                    <textarea ref={this.descriptionRef} name="description" id="description" defaultValue={""} />
+                    <textarea name="description" id="description" ref={this.descriptionRef} />
+
                     <button onClick={() => this.addClick()}>Thêm mới</button>
-                    {/* </form> */}
                 </div>
             </div>
 
         );
     }
 }
-
-AddCategory.contextType = MyContext;
-export default AddCategory;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addCategory: (category) => {
+            dispatch(actAddCategoryRequest(category))
+        }
+    }
+}
+export default connect(null, mapDispatchToProps)(AddCategory)

@@ -1,30 +1,31 @@
 import React, { Component } from 'react'
-import Axios from 'axios';
-import MyContext from '../../myContext';
+import { connect } from 'react-redux';
+import { actAddAuthorRequest } from '../../actions/author';
+import showAlert from '../../utils/showAlert';
 
 
-export default class AddAuthor extends Component {
+class AddAuthor extends Component {
     constructor(props) {
         super(props);
-
         this.nameRef = React.createRef();
         this.descriptionRef = React.createRef();
     }
 
-
     addClick = () => {
         if (this.nameRef.current.value === "") {
-            alert('Không để trống tên tác giả');
+            showAlert("Không được để trống tên tác giả", "warning")
         }
         else {
-            let newAuthor = {
-                name: this.nameRef.current.value,
-                description: this.descriptionRef.current.value
+            if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                var { history } = this.props;
+                let newAuthor = {
+                    name: this.nameRef.current.value,
+                    description: this.descriptionRef.current.value
+                }
+                this.props.addAuthor(newAuthor);
+                showAlert("Đã thêm tác giả thành công", "success")
+                history.push("/authors");
             }
-            Axios.post('http://127.0.0.1:8000/api/author/add', newAuthor).then((responsive) => {
-                alert('Da them thanh cong');
-                this.context.loadAuthor();
-            })
         }
     }
 
@@ -47,4 +48,11 @@ export default class AddAuthor extends Component {
         )
     }
 }
-AddAuthor.contextType = MyContext;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addAuthor: (author) => {
+            dispatch(actAddAuthorRequest(author))
+        }
+    }
+}
+export default connect(null, mapDispatchToProps)(AddAuthor)

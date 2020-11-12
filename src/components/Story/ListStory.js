@@ -1,44 +1,82 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import MyContext from '../../myContext';
 import Search from './Search'
-import {
-    BrowserRouter as Route,
-    Link,
-} from "react-router-dom";
+import { actFetchStoriesRequest } from '../../actions/story';
+import { connect } from 'react-redux';
+import StoryItem from './StoryItem';
+import Pagination from './Pagination';
+import { actFetchAuthorsRequest } from '../../actions/author';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class ListStory extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         listStory: []
-    //     }
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            html: "Loading.."
+        }
+    }
 
-
-
-    // componentDidMount() {
-    //     Axios.get('http://127.0.0.1:8000/api/stories').then((response) => {
-    //         this.setState({
-    //             listStory: response.data
-    //         });
-    //         console.log(response);
-    //     })
-    // }
-
-    render() {
-
-        const listStory = this.context.listStory.map((item, index) =>{
-            return <StoryItem stt={index+1} story={item} key={index}/>
+    componentDidMount() {
+        this.props.fetchStories();
+        this.props.fetchAllAuthors();
+    }
+    findIndex = (list, id) => {
+        var result = -1;
+        list.forEach((item, index) => {
+            if (item.id === id) {
+                result = index;
+            }
         })
+        return result;
+    }
+    getNameAuthor = (list, id) => {
+        if (list.length > 0) {
+            let name = (id === null) ? 'Đang cập nhật' : list[this.findIndex(list, id)].name;
+            return name;
+        }
+        return 'Loading..';
+    }
+    renderNumRecord = () => {
+        if (this.props.stories.length > 0) {
+            return (
+                <div className="num-record">(Có {this.props.stories.length} bản ghi)</div>
+            )
+        }
+        else {
+            setTimeout(() => {
+                this.setState({
+                    html: "Không tìm thấy"
+                });
+            }, 15000);
 
+            let html = (
+                <div className="num-record">{this.state.html}</div>
+            );
+
+            return (
+                <div className="num-record">{html}</div>
+            );
+        }
+    }
+
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
+    render() {
+        if (this.props.isLogin === null) {
+            return <Redirect to="/"  />;
+        }
+        const listStory = this.props.stories.map((item, index) => {
+            return <StoryItem stt={index + 1} story={item} key={index} author_name={this.getNameAuthor(this.props.authors, item.author_id)} />
+        })
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h2 className="fl-left">DANH SÁCH TRUYỆN</h2>
+                    <h2 className="fl-left"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>DANH SÁCH TRUYỆN</h2>
                     <div className="hr" />
-                    <Search/>
+                    <Search />
                     <div className="list">
                         <table className="content-table">
                             <thead>
@@ -46,10 +84,9 @@ class ListStory extends Component {
                                     <th>STT</th>
                                     <th>Tên truyện</th>
                                     <th>Tác giả</th>
-                                    <th>Số chương</th>
                                     <th>Trạng thái</th>
-                                    <th>Người thêm</th>
                                     <th>Ngày đăng</th>
+                                    <th>Cập nhật</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
@@ -58,29 +95,10 @@ class ListStory extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="num-record">(Có {this.context.listStory.length} bản ghi)</div>
-                    <div className="paging">
-                        <ul id="list-paging" className="fl-right">
-                            <li>
-                                <Link to>&lt;</Link>
-                            </li>
-                            <li className="paging-active">
-                                <Link to>1</Link>
-                            </li>
-                            <li>
-                                <Link to>2</Link>
-                            </li>
-                            <li>
-                                <Link to>3</Link>
-                            </li>
-                            <li>
-                                <Link to>4</Link>
-                            </li>
-                            <li>
-                                <Link to>&gt;</Link>
-                            </li>
-                        </ul>
-                    </div>
+                    {/* <div className="num-record">(Có {this.props.stories.length} bản ghi)</div> */}
+                    {this.renderNumRecord()}
+
+                    <Pagination />
                 </div>
             </div>
 
@@ -88,43 +106,21 @@ class ListStory extends Component {
     }
 }
 
-ListStory.contextType = MyContext;
-
-class StoryItem extends Component {
-
-    deleteClick = (e, id) => {
-        e.preventDefault();
-        if(window.confirm('Ban co chac muon xoa?')){
-            Axios.delete('http://127.0.0.1:8000/api/story/' +id).then((response) => {
-                this.context.loadStory();
-            })
-        }
-    }
-    
-
-    render() {
-
-        let {story} = this.props;
-
-        return (
-            <tr>
-                <td scope="row">{this.props.stt}</td>
-                <td><Link to="list-chapter.html">{story.name}</Link></td>
-                <td>{story.author_id}</td>
-                <td>15</td>
-                <td>Đang cập nhật</td>
-                <td>Admin</td>
-                <td>3/4/2020</td>
-                <td>
-                    <Link to="list-chapter.html" title="Xem chi tiết" className="edit"><i className="fa fa-file icon" /></Link>
-                    <Link to='/' title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
-                    <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, story.id)}><i className="fa fa-trash icon" /></Link>
-                </td>
-            </tr>
-        );
+const mapStateToProps = (state) => {
+    return {
+        stories: state.stories,
+        authors: state.authors,
+        isLogin: state.isLogin,
     }
 }
-
-StoryItem.contextType = MyContext;
-
-export default ListStory;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchStories: () => {
+            dispatch(actFetchStoriesRequest())
+        },
+        fetchAllAuthors: () => {
+            dispatch(actFetchAuthorsRequest())
+        },
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ListStory)
