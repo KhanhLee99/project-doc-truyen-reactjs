@@ -26,8 +26,9 @@ class AddCategory extends Component {
                     description: this.descriptionRef.current.value
                 }
                 this.props.addCategory(newCategory);
-                showAlert("Đã thêm chuyên mục thành công", "success")
-                history.push("/categories");
+                setTimeout(() => {
+                    history.push("/categories");
+                }, 2000);
             }
         }
     }

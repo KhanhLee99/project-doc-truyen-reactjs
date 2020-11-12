@@ -30,12 +30,6 @@ class AddChapter extends Component {
         }
     }
 
-    // isChange = () => {
-    //     this.setState({
-    //         pages: this.pagesRef.current.value,
-    //     })
-    // }
-
     changePath = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -47,21 +41,6 @@ class AddChapter extends Component {
         this.state.page.push(path);
     }
 
-    // renderInput = () => {
-    //     var inputs = [];
-    //     if (this.state.pages > 0) {
-    //         for (let i = 0; i < this.state.pages; i++) {
-    //             inputs[i] = i;
-    //         }
-    //         return inputs.map((item, index) => {
-    //             return (
-    //                 <input key={index} type="text" name={item} id={item} placeholder={`Đường dẫn trang ${item}`} onChange={(e) => this.changePath(e)} />
-    //             )
-    //         })
-    //     }
-    //     return;
-    // }
-
     addClickChapter = (e) => {
         e.preventDefault();
         // if (this.nameRef.current.value === '' || this.state.pages < 1 || this.state.page.length < 1) {
@@ -71,7 +50,6 @@ class AddChapter extends Component {
         else {
             var chapter = {
                 name: this.nameRef.current.value,
-                // pages: parseInt(this.pagesRef.current.value),
                 pages: parseInt(this.state.pages),
                 story_id: this.props.storyEditing.id
             }
@@ -85,15 +63,6 @@ class AddChapter extends Component {
         if (nextProps && nextProps.chapterGetting) {
             var { chapterGetting } = nextProps;
             var { history } = this.props;
-            // for (let item of this.state.page) {
-            //     var image = {
-            //         stt: parseInt(item.stt),
-            //         path_image: item.path_image,
-            //         chapter_id: chapterGetting.id
-            //     }
-            //     this.props.addChapterImage(image);
-            //     history.push(`/story/${this.state.id}`);
-            // }
 
             for (let item of this.state.selectedFiles) {
                 var image = {
@@ -161,11 +130,6 @@ class AddChapter extends Component {
                     <div className="hr1" />
                     <label htmlFor="name">Tên chương</label>
                     <input type="text" name="name" id="name" ref={this.nameRef} />
-
-                    {/* <label htmlFor="pages">Số trang</label>
-                    <input type="number" min="0" name="pages" id="pages" ref={this.pagesRef} onChange={() => this.isChange()} defaultValue={0} /> */}
-
-                    {/* {this.renderInput()} */}
 
                     <div>
                         <label htmlFor="file">Upload</label>

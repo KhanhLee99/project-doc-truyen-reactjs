@@ -24,7 +24,9 @@ class AddAuthor extends Component {
                     description: this.descriptionRef.current.value
                 }
                 this.props.addAuthor(newAuthor);
-                history.push("/authors");
+                setTimeout(() => {
+                    history.push("/authors");
+                }, 2000);
             }
         }
     }

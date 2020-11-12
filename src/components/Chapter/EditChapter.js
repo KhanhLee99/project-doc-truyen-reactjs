@@ -15,7 +15,8 @@ class EditChapter extends Component {
             pages: 0,
             page: [],
             stt: [],
-            changeStatus: false,
+            changeName: false,
+            changeImage: false,
         }
         this.pagesRef = React.createRef();
         this.nameRef = React.createRef();
@@ -45,7 +46,7 @@ class EditChapter extends Component {
     }
     handleChange = () => {
         this.setState({
-            changeStatus: true
+            changeName: true
         })
     }
     changePath = (e) => {
@@ -59,56 +60,6 @@ class EditChapter extends Component {
         this.state.page.push(path);
     }
 
-    // renderInput = () => {
-    //     var inputs = [];
-    //     if (this.state.pages > 0) {
-    //         for (let i = 0; i < this.state.pages; i++) {
-    //             inputs[i] = i;
-    //         }
-    //         if (this.state.images.length > 0) {
-    //             this.state.images = this.state.images.sort(function (a, b) {
-    //                 return a.stt - b.stt;
-    //             })
-
-    //             for (var image of this.state.images) {
-    //                 this.state.stt.push(image.stt);
-    //             }
-
-    //             var temp = [];
-    //             for (let i = 0; i < this.state.pages; i++) {
-    //                 let tmpImg = {};
-    //                 for (var image of this.state.images) {
-    //                     if (image.stt === i) {
-    //                         tmpImg = image;
-    //                     }
-    //                 }
-    //                 temp.push(tmpImg);
-
-    //             }
-    //             console.log(temp);
-    //             return inputs.map((item, index) => {
-    //                 if (this.state.stt.indexOf(index) !== -1) {
-    //                     return (
-    //                         <>
-    //                             <label htmlFor={item}>{`Đường dẫn trang ${item}`}</label>
-    //                             <input key={index} type="text" name={item} id={item} placeholder={`Đường dẫn trang ${item}`} onChange={(e) => this.changePath(e)} defaultValue={temp[index].path_image} />
-    //                         </>
-    //                     )
-    //                 }
-    //                 else {
-    //                     return (
-    //                         <>
-    //                             <label htmlFor={item}>{`Đường dẫn trang ${item}`}</label>
-    //                             <input key={index} type="text" name={item} id={item} placeholder={`Đường dẫn trang ${item}`} onChange={(e) => this.changePath(e)} />
-    //                         </>
-    //                     )
-    //                 }
-    //             })
-    //         }
-    //     }
-    //     return;
-    // }
-
     saveClick = async (e) => {
         e.preventDefault();
         var { history } = this.props;
@@ -117,18 +68,23 @@ class EditChapter extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn sửa ?')) {
-                if (this.state.images.length > 0) {
-                    for (var image of this.state.images) {
-                        await this.props.addChapterImage(image);
+                if (this.state.changeImage) {
+                    if (this.state.images.length > 0) {
+                        for (var image of this.state.images) {
+                            await this.props.addChapterImage(image);
+                        }
                     }
                 }
-                let chapter = {
-                    id: this.state.chapter.id,
-                    name: this.nameRef.current.value,
-                    story_id: this.state.story.id,
-                    pages: this.state.pages
+                
+                if (this.state.changeName) {
+                    let chapter = {
+                        id: this.state.chapter.id,
+                        name: this.nameRef.current.value,
+                        story_id: this.state.story.id,
+                        pages: this.state.pages
+                    }
+                    await this.props.editChapter(chapter);
                 }
-                await this.props.editChapter(chapter);
                 history.push(`/story/${this.state.story.id}`);
             }
         }
@@ -143,7 +99,8 @@ class EditChapter extends Component {
         }
         this.setState({
             images: files,
-            pages: files.length
+            pages: files.length,
+            changeImage: true
         }
         );
     };
@@ -216,10 +173,7 @@ class EditChapter extends Component {
                     <label htmlFor="name">Tên chương</label>
                     <input type="text" name="name" id="name" onChange={() => this.handleChange()} ref={this.nameRef} defaultValue={this.state.chapter.name} />
 
-                    {/* {this.renderInput()} */}
-
                     <div className="list-img">
-                        {/* {this.renderPhotos(this.state.selectedFiles)} */}
                         {this.renderImage()}
                     </div>
 

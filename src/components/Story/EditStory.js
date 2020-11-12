@@ -153,7 +153,7 @@ class EditStory extends Component {
         if (this.nameRef.current.value === "") {
             showAlert("Không được để trống tên truyện", "warning");
         }
-        else{
+        else {
             if (window.confirm('Bạn có chắc muốn sửa ?')) {
                 let { history } = this.props;
                 let story = {
@@ -166,7 +166,7 @@ class EditStory extends Component {
                     path_image: this.state.path_image,
                 }
                 this.props.editStory(story);
-    
+
                 setTimeout(() => {
                     history.goBack();
                     // this.props.fetchStories();
@@ -240,10 +240,6 @@ class EditStory extends Component {
 
                     <label htmlFor="description">Mô tả ngắn</label>
                     <textarea ref={this.descriptionRef} name="description" id="description" defaultValue={this.state.description} />
-
-                    {/* <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
-                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" defaultValue={this.state.path_image} /> */}
-                    {/* <input type="file" name="file" id="file" /> */}
 
                     <div>
                         <label htmlFor="file">Ảnh đại diện</label>

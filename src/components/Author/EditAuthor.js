@@ -31,10 +31,11 @@ class EditAuthor extends Component {
                 }
 
                 this.props.editAuthor(authorEdit);
-                history.push('/authors');
+                setTimeout(() => {
+                    history.push("/authors");
+                }, 2000);
             }
         }
-
     }
     componentDidMount() {
         var { match } = this.props;

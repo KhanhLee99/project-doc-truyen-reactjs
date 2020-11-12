@@ -47,9 +47,10 @@ class EditCategory extends Component {
                     name: this.nameRef.current.value,
                     description: this.descriptionRef.current.value
                 }
-
                 this.props.editCategory(categoryEdit);
-                history.push('/categories');
+                setTimeout(() => {
+                    history.push("/categories");
+                }, 2000);
             }
         }
     }
