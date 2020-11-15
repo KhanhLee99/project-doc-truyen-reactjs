@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { actFetchUsersRequest } from '../../actions/users';
 import UserItem from './UserItem';
 import Pagination from './Pagination';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class ListUser extends Component {
     
@@ -51,12 +51,12 @@ class ListUser extends Component {
         )
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         users: state.users
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         fetchUsers: (users) => {
             dispatch(actFetchUsersRequest(users))

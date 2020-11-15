@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
-    BrowserRouter as Route,
     Link,
 } from "react-router-dom";
 import { actFetchCategoriesRequest, actSearchCategoriesRequest } from '../../actions/category';
@@ -31,7 +30,7 @@ class Search extends Component {
         );
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         fetchCategories: () => {
             dispatch(actFetchCategoriesRequest())

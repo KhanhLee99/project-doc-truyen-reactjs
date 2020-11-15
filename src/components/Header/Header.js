@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
-    BrowserRouter as Route,
     Link,
 } from "react-router-dom";
 import { isLoginFalse } from '../../actions/login';
@@ -46,7 +45,7 @@ class Header extends Component {
                     <div className="navbar-custom-menu">
                         <ul className="nav navbar-nav">
                             <li className="dropdown user user-menu"> <Link onClick={(e) => this.click(e)} to="http://www.google.com" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist\img\ava.jpg" className="user-image" /> <span className="hidden-xs">{email}</span> </Link>
+                                <img src="dist\img\ava.jpg" className="user-image" alt=""/> <span className="hidden-xs">{email}</span> </Link>
                             </li>
                         </ul>
                     </div>

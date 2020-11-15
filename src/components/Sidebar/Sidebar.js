@@ -1,26 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
-    BrowserRouter as Route,
     Link,
-    Redirect,
 } from "react-router-dom";
 import { isLoginFalse } from '../../actions/login';
 
 class Sidebar extends Component {
-    constructor(props) {
-        super(props);
-        // this.state = {
-        //     isLogin: true
-        // }
-    }
 
     logoutClick = (e) => {
         localStorage.clear();
         this.props.setLoginFalse();
-        // this.setState({
-        //     isLogin: null
-        // })
     }
     render() {
         var sidebar = (this.props.isLogin) ? (
@@ -31,7 +20,7 @@ class Sidebar extends Component {
                             <a href="/dashboard" className="treeview-name"> <i className="fa fa-home" /> <span>Dashboard</span> </a>
                         </li>
                         <li className="treeview">
-                            <a href='' className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />
+                            <a href='/categories' className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />
                             </a>
                             <ul className="treeview-menu">
                                 <li><Link to="/category/add">Thêm mới</Link></li>

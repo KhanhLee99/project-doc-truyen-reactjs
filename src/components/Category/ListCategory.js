@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import Pagination from './Pagination';
 import CategoryItem from './CategoryItem';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class ListCategory extends Component {
 

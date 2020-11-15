@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
-    BrowserRouter as Route,
-    Link, Redirect
+    Link, 
 } from "react-router-dom";
 import { actDeleteAuthorRequest } from '../../actions/author';
 

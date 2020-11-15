@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
-    BrowserRouter as Route,
     Link,
 } from "react-router-dom";
 import { actDeleteUserRequest } from '../../actions/users';
@@ -17,7 +16,7 @@ class UserItem extends Component {
         let { user } = this.props;
         return (
             <tr>
-                <td scope="row">{this.props.stt}</td>
+                <td>{this.props.stt}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>

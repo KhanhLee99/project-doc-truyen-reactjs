@@ -20,17 +20,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 	//
-	var selectBox = document.querySelector('.selectBox');
-	var expanded = false;
-	selectBox.onclick = function () {
-		var checkboxes = document.getElementById("checkboxes");
-		if (!expanded) {
-			checkboxes.style.display = "block";
-			expanded = true;
-		}
-		else {
-			checkboxes.style.display = "none";
-			expanded = false;
-		}
-	}
+	// var selectBox = document.querySelector('.selectBox');
+	// var expanded = false;
+	// selectBox.onclick = function () {
+	// 	var checkboxes = document.getElementById("checkboxes");
+	// 	if (!expanded) {
+	// 		checkboxes.style.display = "block";
+	// 		expanded = true;
+	// 	}
+	// 	else {
+	// 		checkboxes.style.display = "none";
+	// 		expanded = false;
+	// 	}
+	// }
 }, false);

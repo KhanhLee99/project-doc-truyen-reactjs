@@ -64,7 +64,7 @@ class ListChapter extends Component {
     backClick = (e) => {
         e.preventDefault();
         var { history } = this.props;
-        history.goBack();
+        if (history) { history.goBack(); }
     }
     render() {
         const listChapter = this.props.chapters.map((item, index) => {
@@ -78,13 +78,12 @@ class ListChapter extends Component {
                     <h2 className="fl-left"><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>DANH SÁCH CHƯƠNG</h2>
                     <div className="hr" />
                     <div className="detail-story fl-left">
-
-
-                        <img src={this.state.story.path_image} className="story-img fl-left" />
+                        <img src={this.state.story.path_image} className="story-img fl-left" alt=""/>
                         <span><b className="story-name">{this.state.story.name}</b>
                             {/* ( <a href className="story-author">{this.state.author.name}</a>  ) */}
                         </span>
                         <Categories />
+                        <Link to={`/edit-category/story/${this.props.match.params.id}`} title="Sửa thể loại" className="edit"><i className="fa fa-pencil icon" /></Link>
                     </div>
                     <Search id={this.state.id} />
                     <div className="list">
@@ -116,7 +115,6 @@ const mapStateToProps = (state) => {
         storyEditing: state.storyEditing,
         authorEditing: state.authorEditing,
         chapters: state.chapters,
-        // storyCategories: state.storyCategories,
     }
 }
 const mapDispatchToProps = (dispatch) => {
