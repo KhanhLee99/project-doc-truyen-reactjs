@@ -31,7 +31,7 @@ class ChapterItem extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         deleteChapter: (id) => {
             dispatch(actDeleteChapterRequest(id))

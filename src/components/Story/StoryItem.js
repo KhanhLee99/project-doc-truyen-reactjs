@@ -57,7 +57,7 @@ class StoryItem extends Component {
         var status = (story.status === 'updating') ? 'Đang cập nhật' : 'Hoàn thành'
         return (
             <tr>
-                <td scope="row">{this.props.stt}</td>
+                <td>{this.props.stt}</td>
                 <td><Link to={`story/${story.id}`}>{story.name}</Link></td>
                 <td>{this.props.author_name}</td>
                 <td>{status}</td>
@@ -72,12 +72,12 @@ class StoryItem extends Component {
         );
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         authors: state.authors
     }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         deleteStory: (id) => {
             dispatch(actDeleteStoryRequest(id))

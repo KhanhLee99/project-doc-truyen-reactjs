@@ -1,7 +1,6 @@
-import Axios from 'axios'
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import AuthorItem from './AuthorItem';
 import Pagination from './Pagination';

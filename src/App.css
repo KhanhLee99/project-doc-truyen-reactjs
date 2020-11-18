@@ -632,40 +632,14 @@ option {
 }
 
 /* checkboxes */
-.multiselect {
-	width: 100%;
-  }
-
-  .selectBox {
-	position: relative;
-  }
-
-  .selectBox select {
-	width: 65%;
-  }
-
-  .overSelect {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-  }
 
   #checkboxes {
-	display: none;
-	width: 64.8%;
-	border: 1px #dadada solid;
-	border-top: none;
-	margin-top: -20px;
+	/* display: none; */
+	margin: 0 20px;
   }
 
   #checkboxes label {
 	display: block;
-  }
-
-  #checkboxes label:hover {
-	background-color: #1e90ff;
   }
 
   .hidden{

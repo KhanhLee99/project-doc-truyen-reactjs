@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
-    BrowserRouter as Route,
-    Link,
+    Link
 } from "react-router-dom";
 
 export default class Pagination extends Component {

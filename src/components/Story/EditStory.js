@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actFetchAuthorsRequest } from '../../actions/author';
-import { actFetchCategoriesRequest } from '../../actions/category';
 import { actEditStoryRequest, actGetStoryRequest, actFetchStoriesRequest } from '../../actions/story';
-import { actAddStoryCategoryRequest, actDeleteStoryCategoriesRequest, actDeleteStoryCategoryRequest, actFetchStoryCategoriesRequest } from '../../actions/story_categories';
 import showAlert from '../../utils/showAlert';
 
 
@@ -18,32 +16,25 @@ class EditStory extends Component {
             status: '',
             description: '',
             path_image: '',
-            storyCategories: [],
-            tmpCategoriesChecked: [],
-            changeInfoStory: false,
         }
         this.nameRef = React.createRef();
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
         this.descriptionRef = React.createRef();
-        // this.path_imageRef = React.createRef();
     }
 
     componentDidMount() {
         this.props.fetchAllAuthors();
-        this.props.fetchCategories();
         let { match } = this.props;
         if (match) {
             var id = match.params.id;
             this.props.getStory(id);
-            this.props.fetchStoryCategories(id);
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps && nextProps.storyEditing && nextProps.storyCategories) {
+        if (nextProps && nextProps.storyEditing) {
             var { storyEditing } = nextProps;
-            var { storyCategories } = nextProps;
             this.setState({
                 id: storyEditing.id,
                 name: storyEditing.name,
@@ -51,7 +42,6 @@ class EditStory extends Component {
                 status: storyEditing.status,
                 description: storyEditing.description,
                 path_image: storyEditing.path_image,
-                storyCategories: storyCategories
             });
         }
     }
@@ -70,62 +60,8 @@ class EditStory extends Component {
                         <option value={item.id} key={index}>{item.name}</option>
                     )
                 }
-
             })
         }
-    }
-
-    renderCategories = () => {
-        if (this.state.storyCategories.length > 0) {
-            for (let item of this.state.storyCategories) {
-                this.state.tmpCategoriesChecked.push(item.id);
-            }
-        }
-        if (this.props.categories.length > 0) {
-            return this.props.categories.map((item, index) => {
-                if (this.state.tmpCategoriesChecked.indexOf(item.id) !== -1) {
-                    return (
-                        <label><input defaultChecked type="checkbox" onClick={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
-                    )
-                }
-                else {
-                    return (
-                        <label><input type="checkbox" onChange={(e, id) => this.changeCheckBox(e, item.id)} value={item.id} id={item.id} />{item.name}</label>
-                    )
-                }
-            })
-        }
-        else {
-            return (
-                <label>Loading</label>
-            )
-        }
-    }
-
-    changeCheckBox = (e, id) => {
-        var storyCategory = {
-            story_id: this.state.id,
-            category_id: id
-        }
-        if (this.state.tmpCategoriesChecked.indexOf(id) !== -1) {
-            this.props.deleteStoryCategory(storyCategory);
-            let index = this.findIndex(this.state.tmpCategoriesChecked, id);
-            this.state.tmpCategoriesChecked.splice(index, 1);
-        }
-        else {
-            this.props.addStoryCategory(storyCategory);
-            this.state.tmpCategoriesChecked.push(id);
-        }
-    }
-
-    findIndex = (list, id) => {
-        var result = -1;
-        list.forEach((item, index) => {
-            if (item === id) {
-                result = index;
-            }
-        })
-        return result;
     }
 
     renderStatus = () => {
@@ -162,7 +98,6 @@ class EditStory extends Component {
                     author_id: this.author_idRef.current.value,
                     status: this.statusRef.current.value,
                     description: this.descriptionRef.current.value,
-                    // path_image: this.path_imageRef.current.value,
                     path_image: this.state.path_image,
                 }
                 this.props.editStory(story);
@@ -204,10 +139,9 @@ class EditStory extends Component {
     backClick = (e) => {
         e.preventDefault();
         var { history } = this.props;
-        history.goBack();
+        if (history) { history.goBack(); }
     }
     render() {
-        console.log(this.state);
         return (
             <div className="content-wrapper">
                 <div className="main-content">
@@ -216,19 +150,6 @@ class EditStory extends Component {
 
                     <label htmlFor="name">Tên truyện</label>
                     <input ref={this.nameRef} type="text" name="name" id="name" defaultValue={this.state.name} />
-
-                    <label htmlFor="category">Chuyên mục</label>
-                    <div className="multiselect">
-                        <div className="selectBox">
-                            <select>
-                                <option>--- Chọn chuyên mục ---</option>
-                            </select>
-                            <div className="overSelect"></div>
-                        </div>
-                        <div id="checkboxes">
-                            {this.renderCategories()}
-                        </div>
-                    </div>
 
                     <label htmlFor="author">Tác giả</label>
                     <select ref={this.author_idRef} name="author" id="author">
@@ -243,7 +164,7 @@ class EditStory extends Component {
 
                     <div>
                         <label htmlFor="file">Ảnh đại diện</label>
-                        <img className="avatar" src={(this.state.path_image === "") ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYCD0gAC06agTM-YuJIA7oQ2i40I60ieaMrA&usqp=CAU" : this.state.path_image} />
+                        <img className="avatar" src={(this.state.path_image === "") ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYCD0gAC06agTM-YuJIA7oQ2i40I60ieaMrA&usqp=CAU" : this.state.path_image} alt=""/>
                         <br />
                         <input type="file" name="file" id="file" onChange={(e) => { this.uploadImage(e) }} />
                     </div>
@@ -258,9 +179,7 @@ class EditStory extends Component {
 const mapStateToProps = (state) => {
     return {
         storyEditing: state.storyEditing,
-        categories: state.categories,
         authors: state.authors,
-        storyCategories: state.storyCategories,
     }
 }
 
@@ -269,9 +188,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchAllAuthors: () => {
             dispatch(actFetchAuthorsRequest())
         },
-        fetchCategories: () => {
-            dispatch(actFetchCategoriesRequest())
-        },
+        
         getStory: (id) => {
             dispatch(actGetStoryRequest(id))
         },
@@ -280,18 +197,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchStories: () => {
             dispatch(actFetchStoriesRequest())
-        },
-        fetchStoryCategories: (id) => {
-            dispatch(actFetchStoryCategoriesRequest(id))
-        },
-        addStoryCategory: (storyCategory) => {
-            dispatch(actAddStoryCategoryRequest(storyCategory))
-        },
-        // deleteStoryCategories: (id) => {
-        //     dispatch(actDeleteStoryCategoriesRequest(id))
-        // },
-        deleteStoryCategory: (storyCategory) => {
-            dispatch(actDeleteStoryCategoryRequest(storyCategory))
         },
     }
 }

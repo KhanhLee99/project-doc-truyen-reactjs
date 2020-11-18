@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-    BrowserRouter as Route,
-    Link,
-} from "react-router-dom";
 import { actFetchUsersRequest, actSearchhUsersRequest } from '../../actions/users';
 
 class Search extends Component {
@@ -33,7 +29,7 @@ class Search extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         fetchUsers: (users) => {
             dispatch(actFetchUsersRequest(users))

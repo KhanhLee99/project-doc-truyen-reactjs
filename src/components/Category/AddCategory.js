@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actAddCategoryRequest } from '../../actions/category';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import showAlert from '../../utils/showAlert';
 
 

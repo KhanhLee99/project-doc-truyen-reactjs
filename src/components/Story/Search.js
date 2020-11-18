@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    BrowserRouter as Route,
     Link,
 } from "react-router-dom";
 import { actFetchStoriesRequest, actSearchStoriesRequest } from '../../actions/story';
@@ -33,13 +32,13 @@ class Search extends Component {
         );
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         stories: state.stories
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         fetchStories: () => {
             dispatch(actFetchStoriesRequest())

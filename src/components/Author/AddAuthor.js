@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { actAddAuthorRequest } from '../../actions/author';
 import showAlert from '../../utils/showAlert';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class AddAuthor extends Component {

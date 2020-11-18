@@ -17,6 +17,7 @@ import EditChapter from '../components/Chapter/EditChapter';
 import UserCurrent from '../components/Admin/UserCurrent';
 import Login from '../components/Login/Login';
 import Dashboard from '../components/Dasboard/Dashboard';
+import EditCategories from '../components/Story/EditCategories';
 
 
 const routes = [
@@ -79,6 +80,11 @@ const routes = [
         path: '/chapter/edit/:id',
         exact: false,
         main: ({ match, history }) => <EditChapter match={match} history={history} />
+    },
+    {
+        path: '/edit-category/story/:id',
+        exact: false,
+        main: ({ match, history }) => <EditCategories match={match} history={history} />
     },
     {
         path: '/categories',

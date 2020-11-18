@@ -4,7 +4,7 @@ import { actFetchAuthorsRequest } from '../../actions/author';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import { actAddStoryCategoryRequest } from '../../actions/story_categories';
 import { actAddStoryRequest, actFetchStoriesRequest } from '../../actions/story';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import showAlert from '../../utils/showAlert';
 
 class AddStory extends Component {
@@ -19,7 +19,6 @@ class AddStory extends Component {
         this.author_idRef = React.createRef();
         this.statusRef = React.createRef();
         this.descriptionRef = React.createRef();
-        // this.path_imageRef = React.createRef();
     }
 
     componentDidMount() {
@@ -132,7 +131,7 @@ class AddStory extends Component {
 
                     <div>
                         <label htmlFor="file">Ảnh đại diện</label>
-                        <img className="avatar" src={(this.state.baseImage === "") ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYCD0gAC06agTM-YuJIA7oQ2i40I60ieaMrA&usqp=CAU" : this.state.baseImage} />
+                        <img className="avatar" src={(this.state.baseImage === "") ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYCD0gAC06agTM-YuJIA7oQ2i40I60ieaMrA&usqp=CAU" : this.state.baseImage} alt=""/>
                         <br />
                         <input type="file" name="file" id="file" onChange={(e) => { this.uploadImage(e) }} />
                     </div>
