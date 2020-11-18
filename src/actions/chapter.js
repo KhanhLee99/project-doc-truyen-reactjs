@@ -1,11 +1,13 @@
 import callApi from './../utils/apiCaller';
+import showAlert from '../utils/showAlert';
+
 
 export const actAddChapterRequest = (chapter) => {
     return dispatch => {
         return callApi('chapter/add', 'POST', chapter).then(res => {
             dispatch(actAddChapter(res.data));
             dispatch(actGetNewChapter(res.data));
-
+            showAlert("Đã thêm chương mới thành công", "success");
         });
     };
 }
@@ -67,7 +69,7 @@ export const actEditChapterRequest = (chapter) => {
     return dispatch => {
         return callApi(`chapter/${chapter.id}`, 'PUT', chapter).then(res => {
             dispatch(actEditChapter(chapter));
-
+            showAlert("Đã sửa thành công", "success");
         });
     };
 }
@@ -83,6 +85,7 @@ export const actDeleteChapterRequest = (id) => {
     return dispatch => {
         return callApi(`chapter/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteChapter(id));
+            showAlert("Đã xóa thành công", "success")
         });
     };
 }

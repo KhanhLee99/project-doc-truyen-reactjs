@@ -1,4 +1,5 @@
 import callApi from './../utils/apiCaller';
+import showAlert from '../utils/showAlert';
 
 
 // get list story
@@ -6,6 +7,8 @@ export const actFetchStoriesRequest = () => {
     return dispatch => {
         return callApi('stories', 'GET', null).then(res => {
             dispatch(actFetchStories(res.data));
+        }).catch(error => {
+            showAlert(error, 'danger');
         });
     };
 }
@@ -22,6 +25,8 @@ export const actSearchStoriesRequest = (name) => {
     return dispatch => {
         return callApi(`story/search/${name}`, 'GET', null).then(res => {
             dispatch(actSearchStories(res.data));
+        }).catch(error => {
+            showAlert(error, 'danger');
         });
     };
 }
@@ -38,6 +43,9 @@ export const actDeleteStoryRequest = (id) => {
     return dispatch => {
         return callApi(`story/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteStory(id));
+            showAlert("Đã xóa truyện thành công", "success")
+        }).catch(error => {
+            showAlert(error, 'danger');
         });
     };
 }
@@ -53,16 +61,20 @@ export const actAddStoryRequest = (story) => {
     return dispatch => {
         return callApi('story/add', 'POST', story).then(res => {
             dispatch(actGetNewStory(res.data));
+            // dispatch(actAddStory(res.data));
+            showAlert("Đã thêm truyện thành công", "success")
+        }).catch(error => {
+            showAlert(error, 'danger');
         });
     };
 }
 
-// export const actAddStory = (story) => {
-//     return {
-//         type : 'ADD_STORY',
-//         story
-//     }
-// }
+export const actAddStory = (story) => {
+    return {
+        type : 'ADD_STORY',
+        story
+    }
+}
 
 // GET_NEW_STORY
 export const actGetNewStory = (story) => {
@@ -76,6 +88,8 @@ export const actGetStoryRequest = (id) => {
     return dispatch => {
         return callApi(`story/${id}`, 'GET', null).then(res => {
             dispatch(actGetStory(res.data));
+        }).catch(error => {
+            showAlert(error, 'danger');
         });
     };
 }
@@ -91,6 +105,9 @@ export const actEditStoryRequest = (story) => {
     return dispatch => {
         return callApi(`story/${story.id}`, 'PUT', story).then(res => {
             // dispatch(actEditStory(story));
+            showAlert('Đã sửa thành công', 'success');
+        }).catch(error => {
+            showAlert(error, 'danger');
         });
     };
 }
@@ -106,6 +123,8 @@ export const actGetStoryByChapterIdRequest = (id) => {
     return dispatch => {
         return callApi(`story/chapter/${id}`, 'GET', null).then(res => {
             dispatch(actGetStoryByChapterId(res.data));
+        }).catch(error => {
+            showAlert(error, 'danger');
         });
     };
 }

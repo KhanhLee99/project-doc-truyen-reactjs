@@ -4,7 +4,8 @@ import { actFetchAuthorsRequest } from '../../actions/author';
 import { actFetchCategoriesRequest } from '../../actions/category';
 import { actAddStoryCategoryRequest } from '../../actions/story_categories';
 import { actAddStoryRequest, actFetchStoriesRequest } from '../../actions/story';
-
+import { Link, Redirect } from 'react-router-dom';
+import showAlert from '../../utils/showAlert';
 
 class AddStory extends Component {
 
@@ -55,18 +56,23 @@ class AddStory extends Component {
     }
 
     addClick = (e) => {
-        e.preventDefault();
-        let story = {
-            name: this.nameRef.current.value,
-            author_id: this.author_idRef.current.value,
-            status: this.statusRef.current.value,
-            description: this.descriptionRef.current.value,
-            // path_image: this.path_imageRef.current.value,
-            path_image: this.state.baseImage,
+        if (this.nameRef.current.value === "") {
+            showAlert("Không được để trống tên truyện", "warning")
         }
-        this.props.addStory(story);
-        this.props.fetchStories();
-        alert('Đã thêm thành công');
+        else {
+            if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                var { history } = this.props;
+                let newStory = {
+                    name: this.nameRef.current.value,
+                    description: this.descriptionRef.current.value
+                }
+                this.props.addStory(newStory);
+                setTimeout(() => {
+                    history.push("/stories");
+                    this.props.fetchStories();
+                }, 2000);
+            }
+        }
     }
 
     uploadImage = async (e) => {
@@ -95,12 +101,16 @@ class AddStory extends Component {
 
         });
     };
-
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
     render() {
         return (
             <div className="content-wrapper">
                 <div className="main-content">
-                    <h2>THÊM MỚI TRUYỆN</h2>
+                    <h2><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>THÊM MỚI TRUYỆN</h2>
                     <div className="hr1" />
 
                     <label htmlFor="name">Tên truyện</label>
@@ -119,9 +129,6 @@ class AddStory extends Component {
 
                     <label htmlFor="description">Mô tả ngắn</label>
                     <textarea ref={this.descriptionRef} name="description" id="description" />
-
-                    {/* <label htmlFor="path_image">Đường dẫn ảnh đại diện</label>
-                    <input ref={this.path_imageRef} type="text" name="path_image" id="path_image" /> */}
 
                     <div>
                         <label htmlFor="file">Ảnh đại diện</label>

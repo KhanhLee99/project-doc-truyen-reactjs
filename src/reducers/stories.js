@@ -24,9 +24,9 @@ const stories = (state = InitialState, action) => {
             state.splice(index, 1);
             return [...state]
 
-        // case 'ADD_STORY':
-        //     state.unshift(action.story);
-        //     return [...state]
+        case 'ADD_STORY':
+            state.unshift(action.story);
+            return [...state]
 
         // case 'EDIT_STORY':
         //     index = findIndex(state, action.story.id);

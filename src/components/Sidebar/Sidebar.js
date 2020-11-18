@@ -10,26 +10,19 @@ import { isLoginFalse } from '../../actions/login';
 class Sidebar extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isLogin: true
-        }
+        // this.state = {
+        //     isLogin: true
+        // }
     }
 
     logoutClick = (e) => {
         localStorage.clear();
         this.props.setLoginFalse();
-        this.setState({
-            isLogin: null
-        })
+        // this.setState({
+        //     isLogin: null
+        // })
     }
     render() {
-        // const login = localStorage.getItem("isLoggedIn");
-        // if (this.props.isLogin === null) {
-        //     return <Redirect to="/login" push={true} />;
-        // }
-        // else {
-        //     return <Redirect to="/login" />;
-        // }
         var sidebar = (this.props.isLogin) ? (
             <aside className="main-sidebar">
                 <section className="sidebar">

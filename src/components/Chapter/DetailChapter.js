@@ -9,6 +9,8 @@ class DetailChapter extends Component {
 
     componentDidMount() {
         var { match } = this.props;
+        var { history } = this.props;
+        console.log(history)
         if (match) {
             var id = match.params.id;
             this.props.getStoryByChapterId(id);

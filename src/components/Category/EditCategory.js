@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { actEditCategoryRequest, actGetCategoryRequest } from '../../actions/category';
+import showAlert from '../../utils/showAlert';
 
 class EditCategory extends Component {
     constructor(props) {
@@ -34,22 +36,34 @@ class EditCategory extends Component {
     }
     editClick = (e) => {
         e.preventDefault();
-        let { history } = this.props;
-        let category = {
-            id: this.state.id,
-            name: this.nameRef.current.value,
-            description: this.descriptionRef.current.value
+        if (this.nameRef.current.value === "") {
+            showAlert("Không được để trống tên chuyên mục", "warning");
         }
-        this.props.editCategory(category);
-        alert('Đã sửa thành công');
+        else {
+            if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                let { history } = this.props;
+                let categoryEdit = {
+                    id: this.state.id,
+                    name: this.nameRef.current.value,
+                    description: this.descriptionRef.current.value
+                }
+                this.props.editCategory(categoryEdit);
+                setTimeout(() => {
+                    history.push("/categories");
+                }, 2000);
+            }
+        }
+    }
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
         history.goBack();
-
     }
     render() {
         return (
             <div className="content-wrapper">
                 <div className="main-content">
-                    <h2>THÊM MỚI CHUYÊN MỤC</h2>
+                    <h2><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>CHỈNH SỬA THÔNG TIN CHUYÊN MỤC</h2>
                     <div className="hr1" />
                     <label htmlFor="name">Tên chuyên mục</label>
                     <input type="text" name="name" id="name" ref={this.nameRef} defaultValue={this.state.name} />

@@ -4,6 +4,7 @@ import {
     BrowserRouter as Route,
     Link,
 } from "react-router-dom";
+import { isLoginFalse } from '../../actions/login';
 
 class Header extends Component {
     constructor(props) {
@@ -16,6 +17,14 @@ class Header extends Component {
     click = (e) => {
         e.preventDefault();
     }
+
+    logoutClick = (e) => {
+        localStorage.clear();
+        this.props.setLoginFalse();
+        this.setState({
+            isLogin: null
+        })
+    }
     componentDidMount() {
         this.setState({
             userCurrent: this.props.userCurrent
@@ -23,8 +32,12 @@ class Header extends Component {
     }
 
     render() {
-        console.log(this.props.userCurrent);
-        // var email = (this.props.userCurrent.email) ? this.props.userCurrent.email.split('@')[0] : 'Admin';
+        // console.log(this.props.userCurrent);
+        // var email = (this.props.userCurrent !== null) ? this.props.userCurrent.email.split('@')[0] : 'Admin';
+        var userData = localStorage.getItem("userData");
+        var user = JSON.parse(userData);
+        var email = (user !== null) ? user.email.split('@')[0] : 'Admin';
+        
         var header = (this.props.isLogin) ? (
             <header className="main-header">
                 <Link to="dashboard.html" className="logo"> <span className="logo-lg">ADMIN</span> </Link>
@@ -33,17 +46,17 @@ class Header extends Component {
                     <div className="navbar-custom-menu">
                         <ul className="nav navbar-nav">
                             <li className="dropdown user user-menu"> <Link onClick={(e) => this.click(e)} to="http://www.google.com" className="dropdown-toggle" data-toggle="dropdown">
-                                <img src="dist\img\ava.jpg" className="user-image" /> <span className="hidden-xs">levietkhanh99</span> </Link>
+                                <img src="dist\img\ava.jpg" className="user-image" /> <span className="hidden-xs">{email}</span> </Link>
                             </li>
                         </ul>
                     </div>
                     <div className="dropdown-menu">
                         <ul>
                             <li className="user-footer">
-                                <Link to="admin-info.html">Thông tin cá nhân</Link>
+                                <Link to="/admin/edit">Thông tin cá nhân</Link>
                             </li>
                             <li className="user-footer">
-                                <Link to="login.html">Thoát</Link>
+                                <Link to="/" onClick={(e) => this.logoutClick(e)}>Thoát</Link>
                             </li>
                         </ul>
                     </div>
@@ -63,4 +76,12 @@ const mapStateToProps = (state) => {
         isLogin: state.isLogin,
     }
 }
-export default connect(mapStateToProps, null)(Header)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setLoginFalse: (isLogin) => {
+            dispatch(isLoginFalse(isLogin))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

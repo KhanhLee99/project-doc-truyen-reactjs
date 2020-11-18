@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { actAddAuthorRequest } from '../../actions/author';
 import showAlert from '../../utils/showAlert';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class AddAuthor extends Component {
@@ -23,17 +24,22 @@ class AddAuthor extends Component {
                     description: this.descriptionRef.current.value
                 }
                 this.props.addAuthor(newAuthor);
-                showAlert("Đã thêm tác giả thành công", "success")
-                history.push("/authors");
+                setTimeout(() => {
+                    history.push("/authors");
+                }, 2000);
             }
         }
     }
-
+    backClick = (e) => {
+        e.preventDefault();
+        var { history } = this.props;
+        history.goBack();
+    }
     render() {
         return (
             <div className="content-wrapper">
                 <div className="main-content">
-                    <h2>THÊM MỚI TÁC GIẢ</h2>
+                    <h2><Link to={``} title="Quay lại" className="edit" onClick={(e) => this.backClick(e)}><i className="fa fa-chevron-left icon-back" /></Link>THÊM MỚI TÁC GIẢ</h2>
                     <div className="hr1" />
                     <label htmlFor="name">Tên tác giả</label>
                     <input ref={this.nameRef} type="text" name="name" id="name" />

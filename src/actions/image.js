@@ -32,3 +32,14 @@ export const actEditImage = (image) => {
         image
     }
 }
+// delete images by chapter id
+export const actDeleteImagesRequest = (chapter_id) => {
+    return dispatch => {
+        return callApi(`images/chapter/${chapter_id}`, 'DELETE', null).then(res => {
+            // dispatch(actEditImage(image));
+        });
+    };
+}
+
+
+

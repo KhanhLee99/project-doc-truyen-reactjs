@@ -1,3 +1,4 @@
+import showAlert from '../utils/showAlert';
 import callApi from './../utils/apiCaller';
 
 export const actFetchCategoriesRequest = () => {
@@ -10,10 +11,12 @@ export const actFetchCategoriesRequest = () => {
 
 export const actFetchCategories = (categories) => {
     return {
-        type : 'FETCH_CATEGORIES',
+        type: 'FETCH_CATEGORIES',
         categories
     }
 }
+
+
 export const actSearchCategoriesRequest = (name) => {
     return dispatch => {
         return callApi(`category/search/${name}`, 'GET', null).then(res => {
@@ -24,7 +27,7 @@ export const actSearchCategoriesRequest = (name) => {
 
 export const actSearchCategories = (categories) => {
     return {
-        type : 'SEARCH_CATEGORIES',
+        type: 'SEARCH_CATEGORIES',
         categories
     }
 }
@@ -33,13 +36,14 @@ export const actAddCategoryRequest = (category) => {
     return dispatch => {
         return callApi(`category/add`, 'POST', category).then(res => {
             dispatch(actAddCategory(res.data));
+            showAlert("Đã thêm chuyên mục thành công", "success")
         });
     };
 }
 
 export const actAddCategory = (category) => {
     return {
-        type : 'ADD_CATEGORY',
+        type: 'ADD_CATEGORY',
         category
     }
 }
@@ -47,13 +51,14 @@ export const actDeleteCategoryRequest = (id) => {
     return dispatch => {
         return callApi(`category/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteCategory(id));
+            showAlert("Đã xóa thành công", "success")
         });
     };
 }
 
 export const actDeleteCategory = (id) => {
     return {
-        type : 'DELETE_CATEGORY',
+        type: 'DELETE_CATEGORY',
         id
     }
 }
@@ -68,7 +73,7 @@ export const actGetCategoryRequest = (id) => {
 
 export const actGetCategory = (category) => {
     return {
-        type : 'GET_CATEGORY',
+        type: 'GET_CATEGORY',
         category
     }
 }
@@ -77,13 +82,14 @@ export const actEditCategoryRequest = (category) => {
     return dispatch => {
         return callApi(`category/${category.id}`, 'PUT', category).then(res => {
             dispatch(actEditCategory(category));
+            showAlert("Đã sửa thông tin chuyên mục thành công", "success");
         });
     };
 }
 
 export const actEditCategory = (category) => {
     return {
-        type : 'EDIT_CATEGORY',
+        type: 'EDIT_CATEGORY',
         category
     }
 }

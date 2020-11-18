@@ -1,4 +1,6 @@
 import callApi from './../utils/apiCaller';
+import showAlert from '../utils/showAlert';
+
 
 export const actFetchAuthorsRequest = () => {
     return dispatch => {
@@ -26,6 +28,7 @@ export const actAddAuthorRequest = (author) => {
     return dispatch => {
         return callApi('author/add', 'POST', author).then(res => {
             dispatch(actAddAuthor(res.data));
+            showAlert("Đã thêm tác giả thành công", "success")
         });
     };
 }
@@ -41,6 +44,7 @@ export const actDeleteAuthorRequest = (id) => {
     return dispatch => {
         return callApi(`author/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteAuthor(id));
+            showAlert("Đã xóa tác giả thành công", "success")
         });
     };
 }
@@ -86,6 +90,7 @@ export const actEditAuthorRequest = (author) => {
     return dispatch => {
         return callApi(`author/${author.id}`, 'PUT', author).then(res => {
             dispatch(actEditAuthor(author));
+            showAlert("Đã sửa thông tin tác giả thành công", "success");
         });
     };
 }

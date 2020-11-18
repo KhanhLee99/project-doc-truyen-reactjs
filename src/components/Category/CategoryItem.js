@@ -7,7 +7,7 @@ class CategoryItem extends Component {
 
     deleteClick = (e, id) => {
         e.preventDefault();
-        if (window.confirm('Ban co chac muon xoa?')) {
+        if (window.confirm('Bạn có chắc muốn xóa ?')) {
             this.props.deleteCategory(id);
         }
     }

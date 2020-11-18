@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactNotification from 'react-notifications-component'
 import { store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-import 'animate.css/animate.compat.css'
+//import 'animate.css/animate.compat.css'
 
 export default class Example extends Component {
     handleClickDefault = () => {
