@@ -1,0 +1,10 @@
+.text-danger {
+    color: red;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .text-success {
+    color: green;
+    margin-bottom: 10px;
+    display: block;
+  }

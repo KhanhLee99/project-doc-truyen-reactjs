@@ -19,7 +19,7 @@ class AddAuthor extends Component {
         else {
             if (window.confirm('Bạn có chắc muốn thêm ?')) {
                 var { history } = this.props;
-                let newAuthor = {
+                 let newAuthor = {
                     name: this.nameRef.current.value,
                     description: this.descriptionRef.current.value
                 }

@@ -18,6 +18,7 @@ import UserCurrent from '../components/Admin/UserCurrent';
 import Login from '../components/Login/Login';
 import Dashboard from '../components/Dasboard/Dashboard';
 import EditCategories from '../components/Story/EditCategories';
+import ChangePassword from '../components/Admin/ChangePassword';
 
 
 const routes = [
@@ -105,6 +106,11 @@ const routes = [
         path: '/admin/edit',
         exact: false,
         main: ({ match, history }) => <UserCurrent match={match} history={history} />
+    },
+    {
+        path: '/change-password/:email',
+        exact: false,
+        main: ({ match, history }) => <ChangePassword match={match} history={history} />
     },
     {
         path: '/',

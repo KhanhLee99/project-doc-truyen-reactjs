@@ -30,17 +30,6 @@ class AddChapter extends Component {
         }
     }
 
-    // changePath = (e) => {
-    //     let name = e.target.name;
-    //     let value = e.target.value;
-    //     var path = {
-    //         stt: name,
-    //         path_image: value
-    //     }
-    //     this.state.page = this.state.page.filter(x => (x.stt !== path.stt))
-    //     this.state.page.push(path);
-    // }
-
     addClickChapter = (e) => {
         e.preventDefault();
         // if (this.nameRef.current.value === '' || this.state.pages < 1 || this.state.page.length < 1) {

@@ -38,7 +38,7 @@ a {
 .main-header>.navbar {
 	background-color: rgb(119, 45, 45);
 	margin-bottom: 0;
-	margin-left: 270px;
+	margin-left: 0px;
 	border: none;
 	min-height: 50px;
 	border-radius: 0
@@ -93,7 +93,7 @@ a {
 	/* left: 0px; */
 	padding-top: 50px;
 	min-height: 100%;
-	width: 270px;
+	width: 245px;
 	/* z-index: 810; */
 }
 
@@ -176,11 +176,11 @@ a {
 }
 
 .content-wrapper{
-	width: 75%;
+	width: 77%;
 	/* background-color: white; */
 	position: relative;
 	top: 64px;
-	left: 284px;
+	left: 260px;
 	border-radius: 4px;
 	padding: 17px 20px;
 	/* box-shadow: 5px 10px 18px #888888; */
@@ -385,9 +385,9 @@ option {
 	margin: 0 2px;
 }
 
-/* .paging {
-	margin-right: 15px;
-} */
+.paging {
+	margin-bottom: 30px;
+}
 
 .paging .paging-active{
 	background-color: #388FCB;

@@ -12,6 +12,8 @@ class Sidebar extends Component {
         this.props.setLoginFalse();
     }
     render() {
+        var userData = localStorage.getItem("userData");
+        var user = JSON.parse(userData);
         var sidebar = (this.props.isLogin) ? (
             <aside className="main-sidebar">
                 <section className="sidebar">
@@ -47,7 +49,7 @@ class Sidebar extends Component {
                             <Link to="/admin/edit" className="treeview-name"> <i className="fa fa-info-circle" /> <span>Thông tin tài khoản</span> </Link>
                         </li>
                         <li className="treeview">
-                            <Link to="/" className="treeview-name"><i className="fa fa-unlock-alt" /> <span>Đổi mật khẩu</span></Link>
+                            <Link to={`/change-password/${user.email}`} className="treeview-name"><i className="fa fa-unlock-alt" /> <span>Đổi mật khẩu</span></Link>
                         </li>
                         <li className="treeview">
                             <Link to="/" onClick={(e) => this.logoutClick(e)}><i className="fa fa-sign-out" /> <span>Đăng xuất</span></Link>
@@ -66,7 +68,8 @@ class Sidebar extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        isLogin: state.isLogin
+        isLogin: state.isLogin,
+        isLogin: state.isLogin,
     }
 }
 const mapDispatchToProps = (dispatch) => {

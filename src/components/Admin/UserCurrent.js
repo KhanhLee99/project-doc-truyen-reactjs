@@ -41,7 +41,8 @@ class UserCurrent extends Component {
                 let user = {
                     id: this.props.userCurrent.id,
                     name: this.nameRef.current.value,
-                    email: this.props.userCurrent.email
+                    email: this.props.userCurrent.email,
+                    role: this.props.userCurrent.role
                 }
                 this.props.editUser(user);
                 localStorage.setItem("userData", JSON.stringify(user));

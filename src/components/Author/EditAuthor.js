@@ -80,7 +80,7 @@ class EditAuthor extends Component {
         )
     }
 }
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         authorEditing: state.authorEditing,
     }
