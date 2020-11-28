@@ -31,8 +31,6 @@ class Header extends Component {
     }
 
     render() {
-        // console.log(this.props.userCurrent);
-        // var email = (this.props.userCurrent !== null) ? this.props.userCurrent.email.split('@')[0] : 'Admin';
         var userData = localStorage.getItem("userData");
         var user = JSON.parse(userData);
         var email = (user !== null) ? user.email.split('@')[0] : 'Admin';

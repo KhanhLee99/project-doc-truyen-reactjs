@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import showAlert from '../../utils/showAlert';
 import Loading from '../Loading'
 
+import imgLG from '../../imgLogin.jpg'
 
 
 class Login extends Component {
@@ -70,29 +71,35 @@ class Login extends Component {
     }
     render() {
         if (this.state.redirect) {
-            return <Redirect to="/stories" />;
+            return <Redirect to="/dashboard" />;
         }
         if (this.props.isLogin) {
-            return <Redirect to="/stories" />;
+            return <Redirect to="/dashboard" />;
         }
         const { loading } = this.state;
         var html = (loading) ? <Loading /> : (
             <div className="block-login">
                 <div className="welcome-login">
-                    <h1 className="title-login">Welcome to logdy</h1>
-                    <p className="content-login">Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br /> Lorem
-      Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-      galley of type and scrambled it to make a type</p>
+                    <h1 className="title-login">Welcome to TRUYENBOX</h1>
+                    <img src={imgLG} alt='imgBG' />
                 </div>
                 <div className="form-login">
                     <h3 className="logo-login">ADMIN LOGIN</h3>
                     <div className="form-group-login">
-                        <input className="form-control-login" type="text" name="email" placeholder="Email" ref={this.emailRef} />
+                        <input onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                                this.loginClick();
+                            }
+                        }} className="form-control-login" type="text" name="email" placeholder="Email" ref={this.emailRef} />
                         <i className="fa fa-user icon-login" />
                         <span className="text-danger">{this.state.errMsgEmail}</span>
                     </div>
                     <div className="form-group-login">
-                        <input className="form-control-login" type="password" name="password" placeholder="Password" ref={this.passwordRef} />
+                        <input onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                                this.loginClick();
+                            }
+                        }} className="form-control-login" type="password" name="password" placeholder="Password" ref={this.passwordRef} />
                         <i className="fa fa-unlock-alt icon-login" />
                         <span className="text-danger">{this.state.errMsgPwd}</span>
                     </div>
@@ -112,40 +119,8 @@ class Login extends Component {
         )
         return (
             <>
-                { html}
+                { html }
             </>
-            //         <div className="block-login">
-            //             <div className="welcome-login">
-            //                 <h1 className="title-login">Welcome to logdy</h1>
-            //                 <p className="content-login">Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br /> Lorem
-            //   Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-            //   galley of type and scrambled it to make a type</p>
-            //             </div>
-            //             <div className="form-login">
-            //                 <h3 className="logo-login">ADMIN LOGIN</h3>
-            //                 <div className="form-group-login">
-            //                     <input className="form-control-login" type="text" name="email" placeholder="Email" ref={this.emailRef} />
-            //                     <i className="fa fa-user icon-login" />
-            //                     <span className="text-danger">{this.state.errMsgEmail}</span>
-            //                 </div>
-            //                 <div className="form-group-login">
-            //                     <input className="form-control-login" type="password" name="password" placeholder="Password" ref={this.passwordRef} />
-            //                     <i className="fa fa-unlock-alt icon-login" />
-            //                     <span className="text-danger">{this.state.errMsgPwd}</span>
-            //                 </div>
-            //                 <div className="checkbox-login">
-            //                     <div className="form-check-login">
-            //                         <input className="remember-me-login" type="checkbox" name="remember_me" id="remember_me" />
-            //                         <label htmlFor="remember_me" className="label-login">Ghi nhớ đăng nhập</label>
-            //                     </div>
-            //                 </div>
-            //                 <div className="form-group-login">
-            //                     <button className="form-submit-login" onClick={() => this.loginClick()} >Login</button>
-            //                 </div>
-            //                 <p className="text-danger">{this.state.errMsg}</p>
-            //                 <span className="text-success">{this.state.msg}</span>
-            //             </div>
-            //         </div>
         )
     }
 }

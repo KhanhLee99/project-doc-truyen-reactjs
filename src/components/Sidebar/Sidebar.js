@@ -19,7 +19,7 @@ class Sidebar extends Component {
                 <section className="sidebar">
                     <ul className="sidebar-menu">
                         <li className="treeview">
-                            <a href="/dashboard" className="treeview-name"> <i className="fa fa-home" /> <span>Dashboard</span> </a>
+                            <Link to="/dashboard" className="treeview-name"> <i className="fa fa-home" /> <span>Dashboard</span> </Link>
                         </li>
                         <li className="treeview">
                             <a href='/categories' className="treeview-name"><i className="fa fa-th-large" /> <span>Chuyên mục</span> <i className="fa fa-angle-left pull-right" />

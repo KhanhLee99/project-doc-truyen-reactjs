@@ -37,6 +37,7 @@ export const actDeleteUserRequest = (id) => {
     return dispatch => {
         return callApi(`user/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteUser(id));
+            showAlert('Đã xóa tài khoản thành công', 'success');
         }).catch(error => {
             showAlert(error, 'danger');
         });

@@ -1,0 +1,15 @@
+.home-control {
+    list-style: none;
+    margin-top: 30px;
+}
+
+.home-control .home-item{
+    float: left;
+    border: 3px solid black;
+    margin: 20px 10px;
+}
+
+.home-control .home-item span{
+    font-size: 185px;
+    padding: 25px;
+}

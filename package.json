@@ -10,6 +10,7 @@
     "axios": "^0.20.0",
     "moment": "^2.29.1",
     "react": "^16.14.0",
+    "react-animations": "^1.0.0",
     "react-bs-notifier": "^6.0.0",
     "react-dom": "^16.14.0",
     "react-notifications": "^1.7.2",

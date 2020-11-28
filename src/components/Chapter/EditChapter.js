@@ -40,7 +40,7 @@ class EditChapter extends Component {
                 images: images,
                 chapter: chapterGetting,
                 story: storyEditing,
-                pages: chapterGetting.pages
+                pages: chapterGetting.pages 
             })
         }
     }

@@ -4,12 +4,13 @@ import {
     Link,
 } from "react-router-dom";
 import { actDeleteUserRequest } from '../../actions/users';
+import showAlert from '../../utils/showAlert';
 
 class UserItem extends Component {
-    deleteClick = (e, id) => {
+    deleteClick = (e, id, userDataId) => {
         e.preventDefault();
         if (window.confirm('Bạn có chắc muốn xóa ?')) {
-            this.props.deleteUser(id);
+            (id === userDataId) ? showAlert('Bạn không thể tự xóa tài khoản của mình', 'danger') : this.props.deleteUser(id);
         }
     }
 
@@ -18,7 +19,7 @@ class UserItem extends Component {
             return (
                 <td>
                     <Link to title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
-                    <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, user.id)}><i className="fa fa-trash icon" /></Link>
+                    <Link to='/' title="Xóa" className="delete" onClick={(e) => this.deleteClick(e, user.id, userData.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
             )
         } else {
@@ -26,7 +27,7 @@ class UserItem extends Component {
                 return (
                     <td>
                         <Link to title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
-                        <Link to='/' title="Xóa" className="delete" onClick={(e, id) => this.deleteClick(e, user.id)}><i className="fa fa-trash icon" /></Link>
+                        <Link to='/' title="Xóa" className="delete" onClick={(e) => this.deleteClick(e, user.id, userData.id)}><i className="fa fa-trash icon" /></Link>
                     </td>
                 )
             }

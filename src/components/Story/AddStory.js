@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import showAlert from '../../utils/showAlert';
 
 class AddStory extends Component {
+
     constructor(props) {
         super(props);
         this.state = {

@@ -27,14 +27,19 @@
   background-color: #F0F1F3;
   color: black;
   text-align: center;
+  background-image: linear-gradient(to right bottom, rgba(235, 240, 243, 0.8), rgba(234, 234, 242, 0.8)), url("https://i.pinimg.com/originals/b0/4b/22/b04b2239b28e30aaed522c2d18069139.jpg");
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
 }
 
 .title-login {
   font-family: 'Open Sans', sans-serif;
   font-size: 61px;
   font-weight: 600;
-  padding-top: 25%;
+  padding-top: 2%;
   padding-bottom: 2%;
+  color: rgb(228, 91, 41);
 }
 
 .content-login {
@@ -128,5 +133,9 @@
   color: green;
   margin-top: 10px;
   display: block;
+}
+.welcome-login img{
+  width: 70%;
+  border: .2px solid dimgrey;
 }
 
