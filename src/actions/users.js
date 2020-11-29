@@ -68,6 +68,8 @@ export const actEditUser = (user) => {
         user
     }
 }
+
+
 //get admin 
 export const actGetUserRequest = (id) => {
     return dispatch => {
@@ -86,3 +88,21 @@ export const actGetUser = (user) => {
     }
 }
 
+//get user
+
+export const actGetUserEditRequest = (id) => {
+    return dispatch => {
+        return callApi(`user/${id}`, 'GET', null).then(res => {
+            dispatch(actGetUserEdit(res.data));
+        }).catch(error => {
+            showAlert(error, 'danger');
+        });
+    };
+}
+
+export const actGetUserEdit = (user) => {
+    return {
+        type : 'GET_USER_EDIT',
+        user
+    }
+}

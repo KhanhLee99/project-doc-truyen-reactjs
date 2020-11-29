@@ -25,7 +25,7 @@ class Search extends Component {
         return (
             <div className="form-search fl-right">
                 {(user.role === 'boss') ?
-                    (<Link to id="add-category" className="fl-left">Thêm Admin</Link>) : ''
+                    (<Link to="/add/admin" id="add-category" className="fl-left">Thêm Admin</Link>) : ''
                 }
                 <input type="submit" onClick={() => this.searchClick()} value="Tìm kiếm" />
                 <input type="text" ref={this.nameRef} onChange={() => this.isChage()} placeholder={'Nhập tên...'} />

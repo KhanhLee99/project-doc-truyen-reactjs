@@ -81,7 +81,6 @@ class EditStory extends Component {
                 </select>
             )
         }
-
     }
 
     editClick = (e) => {

@@ -19,6 +19,8 @@ import Login from '../components/Login/Login';
 import Dashboard from '../components/Dasboard/Dashboard';
 import EditCategories from '../components/Story/EditCategories';
 import ChangePassword from '../components/Admin/ChangePassword';
+import EditUser from '../components/User/EditUser';
+import AddUser from '../components/User/AddUser';
 
 
 const routes = [
@@ -46,6 +48,16 @@ const routes = [
         path: '/users',
         exact: false,
         main: ({ history }) => <ListUser history={history} />
+    },
+    {
+        path: '/add/admin',
+        exact: false,
+        main: ({ history }) => <AddUser history={history} />
+    },
+    {
+        path: '/user/edit/:id',
+        exact: false,
+        main: ({ match, history }) => <EditUser match={match} history={history} />
     },
     {
         path: '/stories',

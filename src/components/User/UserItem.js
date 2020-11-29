@@ -15,18 +15,18 @@ class UserItem extends Component {
     }
 
     renderTr = (user, userData) => {
-        if (userData.role == 'boss' && (user.role == "user" || user.role == "admin" || user.id == userData.id)) {
+        if (userData.role === 'boss' && (user.role === "user" || user.role === "admin" || user.id === userData.id)) {
             return (
                 <td>
-                    <Link to title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
+                    <Link to={`/user/edit/${user.id}`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
                     <Link to='/' title="Xóa" className="delete" onClick={(e) => this.deleteClick(e, user.id, userData.id)}><i className="fa fa-trash icon" /></Link>
                 </td>
             )
         } else {
-            if (userData.role == 'admin' && (user.role == "user" || user.id == userData.id)) {
+            if (userData.role === 'admin' && (user.role === "user" || user.id === userData.id)) {
                 return (
                     <td>
-                        <Link to title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
+                        <Link to={`/user/edit/${user.id}`} title="Sửa" className="edit"><i className="fa fa-pencil icon" /></Link>
                         <Link to='/' title="Xóa" className="delete" onClick={(e) => this.deleteClick(e, user.id, userData.id)}><i className="fa fa-trash icon" /></Link>
                     </td>
                 )
@@ -43,6 +43,16 @@ class UserItem extends Component {
     }
     render() {
         let { user } = this.props;
+        var role = "";
+        if(user.role === "user") {
+            role = "Thành viên"
+        }
+        else if(user.role === "admin"){
+            role = "Admin"
+        }
+        else if(user.role === "boss"){
+            role = "Quản lý"
+        }
         var userData = localStorage.getItem("userData");
         userData = JSON.parse(userData);
         return (
@@ -50,7 +60,7 @@ class UserItem extends Component {
                 <td>{this.props.stt}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.role}</td>
+                <td>{role}</td>
                 {this.renderTr(user, userData)}
             </tr>
         );

@@ -13,6 +13,7 @@ import images from './images';
 import storyCategories from './storyCategories';
 import isLogin from './isLogin';
 import userCurrent from './userCurrent';
+import userGetting from './userGetting';
 
 const appReducers = combineReducers({
     authors,
@@ -29,6 +30,7 @@ const appReducers = combineReducers({
     storyCategories,
     isLogin,
     userCurrent,
+    userGetting
 });
 
 export default appReducers;

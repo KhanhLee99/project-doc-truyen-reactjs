@@ -7,24 +7,24 @@ export default class Dashboard extends Component {
         return (
             <div className="content-wrapper">
                 <div className="main-list">
-                    <h1>WELCOME TRUYENBOX ADMIN</h1>
+                    <h1 style={{textAlign: 'center', fontSize: '38px', color: '#388FCB' ,padding: '15px 25px', backgroundColor: '#F5F5F5'}}>Welcome to TRUYENBOX's Admin</h1>
                     <ul className="home-control">
-                        <Link to="/categories">
+                        <Link to="/categories" title="Chuyên mục">
                             <li className="home-item">
                                 <span className="fa fa-th-large"></span>
                             </li>
                         </Link>
-                        <Link to="/authors">
+                        <Link to="/authors" title="Tác giả">
                             <li className="home-item">
                                 <span className="fa fa-pencil-square-o"></span>
                             </li>
                         </Link>
-                        <Link to="/stories">
+                        <Link to="/stories" title="Truyện">
                             <li className="home-item">
                                 <span className="fa fa-book"></span>
                             </li>
                         </Link>
-                        <Link to="/users">
+                        <Link to="/users" title="Thành viên">
                             <li className="home-item">
                                 <span className="fa fa-users"> </span>
                             </li>

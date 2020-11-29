@@ -91,7 +91,7 @@ class Login extends Component {
                                 this.loginClick();
                             }
                         }} className="form-control-login" type="text" name="email" placeholder="Email" ref={this.emailRef} />
-                        <i className="fa fa-user icon-login" />
+                        <i className="fa fa-envelope icon-login" />
                         <span className="text-danger">{this.state.errMsgEmail}</span>
                     </div>
                     <div className="form-group-login">
@@ -103,12 +103,12 @@ class Login extends Component {
                         <i className="fa fa-unlock-alt icon-login" />
                         <span className="text-danger">{this.state.errMsgPwd}</span>
                     </div>
-                    <div className="checkbox-login">
+                    {/* <div className="checkbox-login">
                         <div className="form-check-login">
                             <input className="remember-me-login" type="checkbox" name="remember_me" id="remember_me" />
                             <label htmlFor="remember_me" className="label-login">Ghi nhớ đăng nhập</label>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="form-group-login">
                         <button className="form-submit-login" onClick={() => this.loginClick()} >Login</button>
                     </div>

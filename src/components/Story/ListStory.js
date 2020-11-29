@@ -62,7 +62,9 @@ class ListStory extends Component {
     backClick = (e) => {
         e.preventDefault();
         var { history } = this.props;
-        history.goBack();
+        if(history){
+            history.goBack();
+        }
     }
     render() {
         if (this.props.isLogin === null) {

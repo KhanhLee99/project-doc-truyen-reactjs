@@ -259,6 +259,16 @@ a {
 	margin-bottom: 20px;
 	font-size: 14px;
 }
+
+.content-wrapper .main-content input[type="password"] {
+	display: block;
+	padding: 10px 10px;
+	width: 65%;
+	border: 1px solid #ddd;
+	margin-bottom: 20px;
+	font-size: 14px;
+}
+
 .content-wrapper .main-content input[type="file"] {
 	font-family: inherit;
     font-size: inherit;
