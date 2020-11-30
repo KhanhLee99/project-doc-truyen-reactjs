@@ -21,7 +21,8 @@ export default class ChangePassword extends Component {
     }
 
 
-    saveClick = () => {
+    saveClick = (e) => {
+        e.preventDefault();
         var { match } = this.props;
         var password_current = this.password_currentRef.current.value;
         var password = this.passwordRef.current.value;
@@ -29,13 +30,11 @@ export default class ChangePassword extends Component {
         var email = match.params.email;
 
         if (email !== null) {
-            Axios
-                .post("http://localhost:8000/api/change-password/" + email, {
+            Axios.post("http://localhost:8000/api/change-password/" + email, {
                     password_current,
                     password,
                     password_confirm
                 }).then((response) => {
-                    // console.log(response);
                     if (response.data.status === 200) {
                         this.setState({
                             msgPassCurrent: "",
@@ -43,9 +42,8 @@ export default class ChangePassword extends Component {
                             msgPassConfirm: "",
                             msgErr: "",
                             msgSuccess: response.data.message,
-
                         });
-                        // showAlert('Đã đăng nhập thành công', 'success');
+
                     }
                     else {
                         if (response.data.status === "failed") {
@@ -72,6 +70,7 @@ export default class ChangePassword extends Component {
                 }).catch((error) => {
                     console.log(error);
                 });
+            e.target.reset();
         }
 
     }
@@ -84,7 +83,8 @@ export default class ChangePassword extends Component {
                     <div className="info-title">
                         <b>Đổi mật khẩu</b>
                     </div>
-                    <div className="form-change-password">
+                    <form onSubmit={(e) => this.saveClick(e)}>
+                        <div className="form-change-password">
                             <label htmlFor="current-password">Mật khẩu hiện tại</label>
                             <input type="password" ref={this.password_currentRef} name="current-password" id="current-password" defaultValue={this.state.password_current} />
                             <span className="text-danger">{this.state.msgPassCurrent}</span>
@@ -100,8 +100,10 @@ export default class ChangePassword extends Component {
                             <span className="text-danger">{this.state.msgErr}</span>
                             <span className="text-success">{this.state.msgSuccess}</span>
 
-                            <button type="reset" className="save-change" onClick={() => this.saveClick()}>Lưu mật khẩu</button>
-                    </div>
+                            <button type="submit" className="save-change">Lưu mật khẩu</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         )
