@@ -21,6 +21,7 @@ import EditCategories from '../components/Story/EditCategories';
 import ChangePassword from '../components/Admin/ChangePassword';
 import EditUser from '../components/User/EditUser';
 import AddUser from '../components/User/AddUser';
+import ListFeedback from '../components/Feedback/ListFeedback';
 
 
 const routes = [
@@ -123,6 +124,11 @@ const routes = [
         path: '/change-password/:email',
         exact: false,
         main: ({ match, history }) => <ChangePassword match={match} history={history} />
+    },
+    {
+        path: '/feedbacks',
+        exact: false,
+        main: ({ match, history }) => <ListFeedback match={match} history={history} />
     },
     {
         path: '/',

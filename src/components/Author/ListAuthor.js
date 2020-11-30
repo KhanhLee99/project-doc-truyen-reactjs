@@ -13,7 +13,9 @@ class ListAuthor extends Component {
     backClick = (e) => {
         e.preventDefault();
         var { history } = this.props;
-        history.goBack();
+        if(history){
+            history.goBack();
+        }
     }
 
     render() {

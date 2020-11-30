@@ -14,6 +14,7 @@ import storyCategories from './storyCategories';
 import isLogin from './isLogin';
 import userCurrent from './userCurrent';
 import userGetting from './userGetting';
+import feedbacks from './feedbacks';
 
 const appReducers = combineReducers({
     authors,
@@ -30,7 +31,8 @@ const appReducers = combineReducers({
     storyCategories,
     isLogin,
     userCurrent,
-    userGetting
+    userGetting,
+    feedbacks
 });
 
 export default appReducers;

@@ -44,6 +44,8 @@ class Sidebar extends Component {
                                 <li><Link to="/stories">Danh sách truyện</Link></li>
                             </ul>
                         </li>
+                        <li className="treeview"> <Link to="/feedbacks" className=" treeview-name"><i className="fa fa-comment"> </i> <span>Phản hồi</span></Link></li>
+
                         <li className="treeview"> <Link to="/users" className=" treeview-name"><i className="fa fa-users"> </i> <span>Thành viên</span></Link></li>
                         <li className="treeview">
                             <Link to="/admin/edit" className="treeview-name"> <i className="fa fa-info-circle" /> <span>Thông tin tài khoản</span> </Link>
