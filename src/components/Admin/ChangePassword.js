@@ -1,6 +1,9 @@
 import Axios from 'axios';
 import React, { Component } from 'react'
 import './style.css';
+import * as Config from '../../constants/Config';
+import { showLoading } from '../../utils/helpers';
+
 
 export default class ChangePassword extends Component {
     constructor(props) {
@@ -22,6 +25,7 @@ export default class ChangePassword extends Component {
 
 
     saveClick = (e) => {
+        showLoading(true);
         e.preventDefault();
         var { match } = this.props;
         var password_current = this.password_currentRef.current.value;
@@ -30,11 +34,12 @@ export default class ChangePassword extends Component {
         var email = match.params.email;
 
         if (email !== null) {
-            Axios.post("http://localhost:8000/api/change-password/" + email, {
+            Axios.post(`${Config.API_URL}/api/change-password/` + email, {
                     password_current,
                     password,
                     password_confirm
                 }).then((response) => {
+                    showLoading(false);
                     if (response.data.status === 200) {
                         this.setState({
                             msgPassCurrent: "",

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { actGetStoryRequest } from '../../actions/story'
 import { actAddChapterRequest, actAddChapterImageRequest } from '../../actions/chapter'
 import { Link } from 'react-router-dom';
+import { showLoading } from '../../utils/helpers';
 
 class AddChapter extends Component {
     constructor(props) {
@@ -37,6 +38,7 @@ class AddChapter extends Component {
             alert('Lỗi chưa nhập tên hoặc chưa upload ảnh');
         }
         else {
+            showLoading(true);
             var chapter = {
                 name: this.nameRef.current.value,
                 pages: parseInt(this.state.pages),

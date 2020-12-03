@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actDeleteCategoryRequest } from '../../actions/category';
+import { showLoading } from '../../utils/helpers';
 
 class CategoryItem extends Component {
 
     deleteClick = (e, id) => {
         e.preventDefault();
         if (window.confirm('Bạn có chắc muốn xóa ?')) {
+            showLoading(true);
             this.props.deleteCategory(id);
         }
     }

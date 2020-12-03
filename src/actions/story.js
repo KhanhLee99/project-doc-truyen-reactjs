@@ -1,5 +1,6 @@
 import callApi from './../utils/apiCaller';
 import showAlert from '../utils/showAlert';
+import { showLoading } from '../utils/helpers';
 
 
 // get list story
@@ -43,6 +44,7 @@ export const actDeleteStoryRequest = (id) => {
     return dispatch => {
         return callApi(`story/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteStory(id));
+            showLoading(false);
             showAlert("Đã xóa truyện thành công", "success")
         }).catch(error => {
             showAlert(error, 'danger');
@@ -62,6 +64,7 @@ export const actAddStoryRequest = (story) => {
         return callApi('story/add', 'POST', story).then(res => {
             dispatch(actGetNewStory(res.data));
             // dispatch(actAddStory(res.data));
+            showLoading(false);
             showAlert("Đã thêm truyện thành công", "success")
         }).catch(error => {
             showAlert(error, 'danger');
@@ -105,6 +108,7 @@ export const actEditStoryRequest = (story) => {
     return dispatch => {
         return callApi(`story/${story.id}`, 'PUT', story).then(res => {
             // dispatch(actEditStory(story));
+            showLoading(false);
             showAlert('Đã sửa thành công', 'success');
         }).catch(error => {
             showAlert(error, 'danger');

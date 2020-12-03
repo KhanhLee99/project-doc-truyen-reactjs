@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actDeleteChapterRequest } from '../../actions/chapter';
+import { showLoading } from '../../utils/helpers';
 
 var moment = require('moment');
 
@@ -9,6 +10,7 @@ class ChapterItem extends Component {
     deleteClick = (e, id) => {
         e.preventDefault();
         if(window.confirm('Bạn có chắc muốn xóa ?')){
+            showLoading(true);
             this.props.deleteChapter(id);
         }
 

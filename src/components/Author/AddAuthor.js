@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { actAddAuthorRequest } from '../../actions/author';
 import showAlert from '../../utils/showAlert';
 import { Link } from 'react-router-dom';
+import { showLoading } from '../../utils/helpers';
 
 
 class AddAuthor extends Component {
@@ -18,6 +19,7 @@ class AddAuthor extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                showLoading(true);
                 var { history } = this.props;
                  let newAuthor = {
                     name: this.nameRef.current.value,

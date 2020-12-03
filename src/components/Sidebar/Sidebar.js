@@ -71,7 +71,6 @@ class Sidebar extends Component {
 const mapStateToProps = (state) => {
     return {
         isLogin: state.isLogin,
-        isLogin: state.isLogin,
     }
 }
 const mapDispatchToProps = (dispatch) => {

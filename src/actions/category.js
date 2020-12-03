@@ -1,3 +1,4 @@
+import { showLoading } from '../utils/helpers';
 import showAlert from '../utils/showAlert';
 import callApi from './../utils/apiCaller';
 
@@ -36,6 +37,7 @@ export const actAddCategoryRequest = (category) => {
     return dispatch => {
         return callApi(`category/add`, 'POST', category).then(res => {
             dispatch(actAddCategory(res.data));
+            showLoading(false);
             showAlert("Đã thêm chuyên mục thành công", "success")
         });
     };
@@ -51,6 +53,7 @@ export const actDeleteCategoryRequest = (id) => {
     return dispatch => {
         return callApi(`category/${id}`, 'DELETE', null).then(res => {
             dispatch(actDeleteCategory(id));
+            showLoading(false);
             showAlert("Đã xóa thành công", "success")
         });
     };
@@ -82,6 +85,7 @@ export const actEditCategoryRequest = (category) => {
     return dispatch => {
         return callApi(`category/${category.id}`, 'PUT', category).then(res => {
             dispatch(actEditCategory(category));
+            showLoading(false);
             showAlert("Đã sửa thông tin chuyên mục thành công", "success");
         });
     };

@@ -6,6 +6,7 @@ import { actAddStoryCategoryRequest } from '../../actions/story_categories';
 import { actAddStoryRequest, actFetchStoriesRequest } from '../../actions/story';
 import { Link } from 'react-router-dom';
 import showAlert from '../../utils/showAlert';
+import { showLoading } from '../../utils/helpers';
 
 class AddStory extends Component {
 
@@ -60,10 +61,14 @@ class AddStory extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                showLoading(true);
                 var { history } = this.props;
                 let newStory = {
                     name: this.nameRef.current.value,
-                    description: this.descriptionRef.current.value
+                    author_id: this.author_idRef.current.value,
+                    status: this.statusRef.current.value,
+                    description: this.descriptionRef.current.value,
+                    path_image: this.state.baseImage,
                 }
                 this.props.addStory(newStory);
                 setTimeout(() => {

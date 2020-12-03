@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { actAddChapterImageRequest, actEditChapterRequest, actGetChapterRequest } from '../../actions/chapter';
 import { actDeleteImagesRequest, actEditImageRequest, actFetchImagesRequest } from '../../actions/image';
 import { actGetStoryByChapterIdRequest } from '../../actions/story';
+import { showLoading } from '../../utils/helpers';
 
 class EditChapter extends Component {
     constructor(props) {
@@ -68,6 +69,7 @@ class EditChapter extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                showLoading(true);
                 if (this.state.changeImage) {
                     if (this.state.images.length > 0) {
                         for (var image of this.state.images) {

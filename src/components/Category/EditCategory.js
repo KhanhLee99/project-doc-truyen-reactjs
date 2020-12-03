@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actEditCategoryRequest, actGetCategoryRequest } from '../../actions/category';
+import { showLoading } from '../../utils/helpers';
 import showAlert from '../../utils/showAlert';
 
 class EditCategory extends Component {
@@ -41,6 +42,7 @@ class EditCategory extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                showLoading(true);
                 let { history } = this.props;
                 let categoryEdit = {
                     id: this.state.id,

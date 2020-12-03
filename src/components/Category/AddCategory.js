@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { actAddCategoryRequest } from '../../actions/category';
 import { Link } from 'react-router-dom';
 import showAlert from '../../utils/showAlert';
+import { showLoading } from '../../utils/helpers';
 
 
 
@@ -20,6 +21,7 @@ class AddCategory extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn thêm ?')) {
+                showLoading(true);
                 var { history } = this.props;
                 let newCategory = {
                     name: this.nameRef.current.value,

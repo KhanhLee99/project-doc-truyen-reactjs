@@ -5,9 +5,11 @@ import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import showAlert from '../../utils/showAlert';
-import Loading from '../Loading'
 
 import imgLG from '../../imgLogin.jpg'
+import * as Config from '../../constants/Config';
+import { showLoading } from '../../utils/helpers';
+
 
 
 class Login extends Component {
@@ -19,26 +21,23 @@ class Login extends Component {
             errMsgEmail: "",
             errMsgPwd: "",
             errMsg: "",
-            loading: false,
         };
         this.emailRef = React.createRef()
         this.passwordRef = React.createRef()
     }
 
     loginClick = () => {
-        this.setState({ loading: true })
+        showLoading(true);
         Axios
-            .post("http://localhost:8000/api/login", {
+            .post(`${Config.API_URL}/api/login`, {
                 email: this.emailRef.current.value,
                 password: this.passwordRef.current.value,
             }).then((response) => {
-                console.log(response);
                 if (response.data.status === 200) {
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("userData", JSON.stringify(response.data.data));
                     this.setState({
                         redirect: true,
-                        loading: true
                     });
                     showAlert('Đã đăng nhập thành công', 'success');
                     this.props.setLoginTrue();
@@ -51,7 +50,6 @@ class Login extends Component {
                                 errMsgPwd: response.data.validation_error.password,
                                 msg: "",
                                 errMsg: "",
-                                loading: false
                             });
                         }
                         else {
@@ -60,11 +58,11 @@ class Login extends Component {
                                 errMsgEmail: "",
                                 errMsgPwd: "",
                                 msg: "",
-                                loading: false
                             });
                         }
                     }
                 }
+                showLoading(false)
             }).catch((error) => {
                 console.log(error);
             });
@@ -76,8 +74,7 @@ class Login extends Component {
         if (this.props.isLogin) {
             return <Redirect to="/dashboard" />;
         }
-        const { loading } = this.state;
-        var html = (loading) ? <Loading /> : (
+        var html = (
             <div className="block-login">
                 <div className="welcome-login">
                     <h1 className="title-login">Welcome to TRUYENBOX</h1>
@@ -119,7 +116,7 @@ class Login extends Component {
         )
         return (
             <>
-                { html }
+                { html}
             </>
         )
     }

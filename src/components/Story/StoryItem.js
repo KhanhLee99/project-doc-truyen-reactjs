@@ -1,52 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { actFetchAuthorsRequest } from '../../actions/author';
 import { actDeleteStoryRequest } from '../../actions/story';
+import { showLoading } from '../../utils/helpers';
 var moment = require('moment')
 class StoryItem extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         authors: []
-    //     }
-    // }
 
     deleteClick = (e, id) => {
         e.preventDefault();
         if (window.confirm('Bạn có chắc muốn xóa ?')) {
+            showLoading(true);
             this.props.deleteStory(id);
         }
     }
-    // findIndex = (list, id) => {
-    //     var result = -1;
-    //     list.forEach((item, index) => {
-    //         if (item.id === id) {
-    //             result = index;
-    //         }
-    //     })
-    //     return result;
-    // }
-    // getNameAuthor = (list, id) => {
-    //     if (list.length > 0) {
-    //         let name = (id === null) ? 'Đang cập nhật' : list[this.findIndex(list, id)].name;
-    //         return name;
-    //     }
-    //     return 'Loading..';
-    // }
-
-    // componentDidMount() {
-    //     this.props.fetchAllAuthors();
-    // }
-
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps && nextProps.authors) {
-    //         var { authors } = nextProps;
-    //         this.setState({
-    //             authors: authors
-    //         });
-    //     }
-    // }
+   
 
     render() {
         // var array = [1, 4, 2, 3, 1, 4, 2, 5, 4, 5, 1, 3, 2, 4 , 1];

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actFetchAuthorsRequest } from '../../actions/author';
 import { actEditStoryRequest, actGetStoryRequest, actFetchStoriesRequest } from '../../actions/story';
+import { showLoading } from '../../utils/helpers';
 import showAlert from '../../utils/showAlert';
 
 
@@ -90,6 +91,7 @@ class EditStory extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                showLoading(true);
                 let { history } = this.props;
                 let story = {
                     id: this.state.id,

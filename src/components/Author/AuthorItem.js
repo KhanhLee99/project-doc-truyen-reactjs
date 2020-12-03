@@ -4,6 +4,7 @@ import {
     Link, 
 } from "react-router-dom";
 import { actDeleteAuthorRequest } from '../../actions/author';
+import { showLoading } from '../../utils/helpers';
 
 class AuthorItem extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class AuthorItem extends Component {
     deleteClick = (e, id) => {
         e.preventDefault();
         if (window.confirm('Bạn có chắc muốn xóa ?')) {
+            showLoading(true);
             this.props.deleteAuthor(id);
         }
     }

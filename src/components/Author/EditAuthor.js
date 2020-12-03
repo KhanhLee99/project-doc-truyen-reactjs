@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actEditAuthorRequest, actFetchAuthorsRequest, actGetAuthorRequest } from '../../actions/author';
+import { showLoading } from '../../utils/helpers';
 import showAlert from '../../utils/showAlert';
 
 class EditAuthor extends Component {
@@ -23,6 +24,7 @@ class EditAuthor extends Component {
         }
         else {
             if (window.confirm('Bạn có chắc muốn sửa ?')) {
+                showLoading(true);
                 let { history } = this.props;
                 let authorEdit = {
                     id: this.state.id,

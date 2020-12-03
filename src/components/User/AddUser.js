@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import showAlert from '../../utils/showAlert';
 import '../Admin/style.css'
 import { showLoading } from '../../utils/helpers';
+import * as Config from '../../constants/Config';
+
 
 
 export default class AddUser extends Component {
@@ -33,7 +35,7 @@ export default class AddUser extends Component {
         var { history } = this.props;
 
         Axios
-            .post("http://localhost:8000/api/admin/register", { name, email, password, password_confirm })
+            .post(`${Config.API_URL}/api/admin/register`, { name, email, password, password_confirm })
             .then((response) => {
                 setTimeout(() => {
                     showLoading(false)

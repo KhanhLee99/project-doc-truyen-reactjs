@@ -8,3 +8,17 @@
     margin-bottom: 10px;
     display: block;
   }
+
+  input {
+    border-color: #d5d5d5; 
+  }
+
+  .save-change {
+    cursor: pointer;
+    background-color: #0094FF;
+    border: none;
+  }
+
+  .save-change:hover{
+    background-color: #0488E6;
+  }
