@@ -68,7 +68,7 @@ class ListStory extends Component {
     }
     render() {
         if (this.props.isLogin === null) {
-            return <Redirect to="/"  />;
+            return <Redirect to="/login"  />;
         }
         const listStory = this.props.stories.map((item, index) => {
             return <StoryItem stt={index + 1} story={item} key={index} author_name={this.getNameAuthor(this.props.authors, item.author_id)} />

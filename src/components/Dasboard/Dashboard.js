@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom'
 import './dashboard.css'
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     render() {
+        if (this.props.isLogin === null) {
+            return <Redirect to="/login"  />;
+        }
         return (
             <div className="content-wrapper">
                 <div className="main-list">
@@ -35,3 +39,11 @@ export default class Dashboard extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        isLogin: state.isLogin,
+    }
+}
+
+export default connect(mapStateToProps, null)(Dashboard)

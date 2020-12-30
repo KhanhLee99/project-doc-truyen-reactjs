@@ -37,7 +37,7 @@ class Header extends Component {
         
         var header = (this.props.isLogin) ? (
             <header className="main-header">
-                <Link to="dashboard.html" className="logo"> <span className="logo-lg">ADMIN</span> </Link>
+                <Link to="/dashboard" className="logo"> <span className="logo-lg">ADMIN</span> </Link>
                 <nav className="navbar navbar-static-top" role="navigation">
                     <Link to="http://www.google.com" className="sidebar-toggle" data-toggle="offcanvas" role="button" />
                     <div className="navbar-custom-menu">

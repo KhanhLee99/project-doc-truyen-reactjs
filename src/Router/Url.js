@@ -133,6 +133,11 @@ const routes = [
     {
         path: '/',
         exact: true,
+        main: () => <Dashboard/>
+    },
+    {
+        path: '/login',
+        exact: false,
         main: () => <Login/>
     },
 ]

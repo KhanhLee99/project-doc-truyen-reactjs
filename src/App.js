@@ -11,6 +11,8 @@ import routes from './Router/Url';
 import { connect } from 'react-redux';
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import Login from './components/Login/Login';
+import Dashboard from './components/Dasboard/Dashboard';
 //import 'animate.css/animate.compat.css'
 
 class App extends Component {
@@ -18,10 +20,24 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Header />
-          <ReactNotification />
-          <Sidebar />
-          {this.showContentMenus(routes)}
+          {this.props.isLogin ?
+            <>
+              <Header />
+              <ReactNotification />
+              <Sidebar />
+              {this.showContentMenus(routes)}
+            </>
+            :
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+              <Route path="/login" component={Login} />
+              <Route path="/*" component={Dashboard} />
+            </Switch>
+          }
+          {/* // <Header />
+          // <ReactNotification />
+          // <Sidebar />
+          // {this.showContentMenus(routes)} */}
         </Router>
       </>
     )
